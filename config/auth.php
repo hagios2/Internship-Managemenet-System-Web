@@ -42,7 +42,7 @@ return [
         ],
 
         'main_cordinator' => [
-            'driver' => 'session',
+            'driver' => 'passport',
             'provider' => 'main_cordinators',
         ],
 
@@ -52,8 +52,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'passport',
+            'provider' => 'main_cordinators',
             'hash' => false,
         ],
     ],

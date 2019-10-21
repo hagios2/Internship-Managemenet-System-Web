@@ -13,7 +13,7 @@ class CompanyFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class CompanyFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            
+            'company_name'  => 'required|string',
+
+            'location' => 'required|integer',
+
+            'total_slots'    => 'required|integer',
         ];
     }
 }

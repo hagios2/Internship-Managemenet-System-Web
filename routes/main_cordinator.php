@@ -11,4 +11,4 @@ Route::get('/dashboard', function () {
 })->name('home');
 
 
-Route::resource('company', 'MainCordinator/Responsibility/CompanyController');
+Route::resource('company', 'MainCordinator\CompanyController');

@@ -2,13 +2,14 @@
 
 namespace App;
 
+use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
 use App\Notifications\StudentResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Student extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasMultiAuthApiTokens;
 
     /**
      * The attributes that are mass assignable.

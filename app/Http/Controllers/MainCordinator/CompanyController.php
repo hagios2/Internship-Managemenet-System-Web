@@ -5,9 +5,16 @@ namespace App\Http\Controllers\MainCordinator;
 use App\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CompanyFormRequest;
 
 class CompanyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('main_cordinator');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $company = Company::all();
+       return  $company = Company::all();
     }
 
     /**
@@ -25,7 +32,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        //return view
     }
 
     /**
@@ -39,7 +46,16 @@ class CompanyController extends Controller
 
         //persist in db
 
-        Company::addCompany(request('company_name'), request('location'), request('total_slots'));
+       $company =  Company::addCompany(request('company_name'), request('location'), request('total_slots'));
+
+       if ($company) {
+           
+            return ['success' => 'Company was created successfully'];
+       }else{
+
+            return ['error' => 'Something went wrong'];
+       }
+        
 
         return redirect('/company')->withSuccess('Company added');
     }
@@ -52,7 +68,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        $company['location'] = $company->region->region;
+
+        return ['company' => $company];
     }
 
     /**
@@ -61,9 +79,9 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(CompanyFormRequest $company)
     {
-        //
+       
     }
 
     /**
@@ -73,9 +91,26 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(CompanyFormRequest $request, Company $company)
     {
-        //
+        $company->update([
+
+            'company_name' => $request->company_name,
+
+            'region_id' => $request->location,
+
+            'total_slots' => $request->total_slots
+        ]);
+
+        if($company)
+        {
+            return ['success' => 'Company was updated successfully'];
+       }else{
+
+            return ['error' => 'Something went wrong'];
+       }
+        return back()->withSuccess('Updated '. $request->company_name . ' successfully');
+
     }
 
     /**
@@ -86,6 +121,10 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+
+        return ['deleted_company' => $company->company_name];
+
+        return redirect('/company')->withSuccess('Deleted '. $company->company_name . ' deleted successfully');
     }
 }
