@@ -39,7 +39,49 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapStudentRoutes();
+
+        $this->mapMainCordinatorRoutes();
+
         //
+    }
+
+    /**
+     * Define the "main_cordinator" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapMainCordinatorRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'main_cordinator', 'auth:main_cordinator'],
+            'prefix' => 'main-cordinator',
+            'as' => 'main-cordinator.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/main_cordinator.php');
+        });
+    }
+
+    /**
+     * Define the "student" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapStudentRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'student', 'auth:student'],
+            'prefix' => 'student',
+            'as' => 'student.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/student.php');
+        });
     }
 
     /**
