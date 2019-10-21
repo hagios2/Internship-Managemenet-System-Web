@@ -1,25 +1,19 @@
-@extends('main_cordinator.layout.auth')
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <i><a href="/main-cordinator/dashboard">Dashboard</a></i>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <p>Welcome to this beautiful admin panel.</p>
+@stop
 
-                <div class="panel-body">
-                    You are logged in as MainCordinator!
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
 
-
-                    <form method='post' action='/main-cordinator/logout'>
-                        @csrf
-
-                        <button type='submit'>logout</form> 
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
