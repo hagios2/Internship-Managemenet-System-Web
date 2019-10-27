@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\MainCordinator;
 
 use App\Company;
+use App\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
@@ -11,7 +12,7 @@ class CompanyController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('main_cordinator');
+        $this->middleware('auth:main_cordinator');
     }
 
 
@@ -22,7 +23,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-       return  $company = Company::all();
+      $company = Company::all();
+
+       $region = Region::all('id', 'region');
+
+       return view('main_cordinator.companies.company', compact('company', 'region'));
     }
 
     /**
@@ -32,7 +37,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //return view
+        $locations = Region::all();
+
+        return view('main_cordinator/companies/create_company', compact('locations'));
     }
 
     /**
@@ -48,16 +55,9 @@ class CompanyController extends Controller
 
        $company =  Company::addCompany(request('company_name'), request('location'), request('total_slots'));
 
-       if ($company) {
-           
-            return ['success' => 'Company was created successfully'];
-       }else{
 
-            return ['error' => 'Something went wrong'];
-       }
-        
-
-        return redirect('/company')->withSuccess('Company added');
+        return  redirect('/main-cordinator/company')->with('success','Company was created successfully');
+     
     }
 
     /**
@@ -68,9 +68,8 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        $company['location'] = $company->region->region;
 
-        return ['company' => $company];
+        return view('main_cordinator.companies.view_company', compact('company'));
     }
 
     /**
@@ -79,9 +78,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(CompanyFormRequest $company)
+    public function edit(Company $company)
     {
-       
+        $locations = Region::all();
+
+        return view('main_cordinator.companies.edit_company', compact('company', 'locations'));
     }
 
     /**
@@ -102,13 +103,6 @@ class CompanyController extends Controller
             'total_slots' => $request->total_slots
         ]);
 
-        if($company)
-        {
-            return ['success' => 'Company was updated successfully'];
-       }else{
-
-            return ['error' => 'Something went wrong'];
-       }
         return back()->withSuccess('Updated '. $request->company_name . ' successfully');
 
     }
@@ -123,8 +117,7 @@ class CompanyController extends Controller
     {
         $company->delete();
 
-        return ['deleted_company' => $company->company_name];
+        return redirect('/main-cordinator/company')->withSuccess($company->company_name. " has been deleted successfully");
 
-        return redirect('/company')->withSuccess('Deleted '. $company->company_name . ' deleted successfully');
     }
 }

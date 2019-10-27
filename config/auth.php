@@ -41,11 +41,21 @@ return [
             'provider' => 'students',
         ],
 
-        'main_cordinator' => [
+    /*     'student' => [
             'driver' => 'passport',
+            'provider' => 'students',
+        ], */
+
+        'main_cordinator' => [
+            'driver' => 'session',
             'provider' => 'main_cordinators',
         ],
 
+      /*   'main_cordinator' => [
+            'driver' => 'passport',
+            'provider' => 'main_cordinators',
+        ],
+ */
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -53,7 +63,7 @@ return [
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'main_cordinators',
+            'provider' => ['main_cordinators', 'students'],
             'hash' => false,
         ],
     ],

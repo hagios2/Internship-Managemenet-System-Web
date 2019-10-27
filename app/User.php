@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'index_no', 'program_id'
     ];
 
     /**
@@ -36,4 +36,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function applying_student()
+    {
+        return $this->hasOne('App\StudentsRegion', 'student_id');
+    }
+
+
+    public function registerStudent($attributes)
+    {
+        
+        $this->applying_student()->create([
+
+       /*      'student_id' => auth()->id(), */
+
+            'first_region' => $attributes['first_location'] ?? null,
+
+            'second_region' => $attributes['second_location'] ??null,
+
+            'proposed_company' => $attributes['proposed_company']  ?? null,
+
+            'company_location' => $attributes['company_location'] ??null
+        ]);
+    }
+   
 }

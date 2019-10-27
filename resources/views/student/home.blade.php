@@ -7,7 +7,26 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+   
+     <div class="panel" style="width:20%;">
+
+                <div class="text-center" style="margin:2rem;">
+
+                    <p class="title">
+
+                            Internship Registration
+
+                    </p><br>
+
+
+                    <a class="btn btn-primary" href="internshipapply">Apply</a>
+
+
+                </div>
+
+
+        </div>
+
 @stop
 
 @section('css')

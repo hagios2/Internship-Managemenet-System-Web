@@ -14,7 +14,7 @@
 
         <div class="register-box-body">
             <p class="login-box-msg">{{ trans('adminlte::adminlte.register_message') }}</p>
-            <form action="/student/register" method="post">
+            <form action="/main-cordinator/register" method="post">
                 {{ csrf_field() }}
 
                 <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">
@@ -63,7 +63,7 @@
             </form>
             <br>
             <p>
-                <a href="{{ url(config('adminlte.login_url', 'login')) }}" class="text-center">
+                <a href="{{ url(config('adminlte.login_url', '/main-cordinator/login')) }}" class="text-center">
                     {{ trans('adminlte::adminlte.i_already_have_a_membership') }}
                 </a>
             </p>

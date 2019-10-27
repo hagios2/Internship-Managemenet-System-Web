@@ -11,9 +11,21 @@
 |
 */
 
+//student routoe
+
+Auth::routes(['verify' => true]);
+
+Route::get('/dashboard', 'HomeController@index')->name('home');
+
+Route::get('internshipapply', 'Student\StudentController@create')->middleware('verified');
+
+Route::post('internshipapply', 'Student\StudentController@store');
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+//end student route 
 
 //Main cordinator
 Route::group(['prefix' => 'main-cordinator'], function () {
@@ -30,18 +42,3 @@ Route::group(['prefix' => 'main-cordinator'], function () {
   Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
 });
 
-
-#Students Route
-Route::group(['prefix' => 'student'], function () {
-  Route::get('/login', 'StudentAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'StudentAuth\LoginController@login');
-  Route::post('/logout', 'StudentAuth\LoginController@logout')->name('logout');
-
-  Route::get('/register', 'StudentAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'StudentAuth\RegisterController@register');
-
-  Route::post('/password/email', 'StudentAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'StudentAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'StudentAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'StudentAuth\ResetPasswordController@showResetForm');
-});

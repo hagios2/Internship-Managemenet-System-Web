@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    public $redirectTo = '/main-cordinator/home';
+    public $redirectTo = '/main-cordinator/dashboard';
 
     /**
      * Create a new controller instance.
@@ -48,7 +48,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('main_cordinator.auth.login');
+        return view('vendor.adminlte.login');
     }
 
     /**

@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/main-cordinator/home';
+    protected $redirectTo = '/main-cordinator/dashboard';
 
     /**
      * Create a new controller instance.
@@ -77,7 +77,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('main_cordinator.auth.register');
+        return view('vendor.adminlte.register');
     }
 
     /**

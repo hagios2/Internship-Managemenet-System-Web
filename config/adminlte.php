@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>INTERNS</b>APP',
+    'logo' => '<b>UENR</b>',
 
     'logo_mini' => '<b>A</b>LT',
 
@@ -106,15 +106,15 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
 
-    'logout_url' => 'logout',
+    'logout_url' => '/main-cordinator/logout',
 
-    'logout_method' => null,
+    'logout_method' => 'POST',
 
-    'login_url' => 'login',
+    'login_url' => '/main-cordinator/login',
 
-    'register_url' => 'register',
+    'register_url' => '/main-cordinator/register',
 
     /*
     |--------------------------------------------------------------------------
@@ -126,6 +126,10 @@ return [
     | Awesome. A string instead of an array represents a header in sidebar
     | layout. The 'can' is a filter on Laravel's built in Gate functionality.
     */
+/* 
+    if (auth()-user()->role() == 'Student') {
+        # code...
+    } */
 
     'menu' => [
         [
@@ -133,40 +137,59 @@ return [
             'search' => true,
         ],
         ['header' => 'main_navigation'],
-        [
+       /*  [
             'text' => 'blog',
-            'url'  => 'admin/blog',
+            'url'  => 'main-cordinator/blog',
             'can'  => 'manage-blog',
-        ],
+        ], */
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-file',
+            'text'        => 'Companies',
+            'url'         => '/main-cordinator/company',
+            'icon'        => 'fas fa-industry',
+            'icon_color'  => 'aqua'
+        ],
+
+        [
+            'text'        => 'department',
+            'url'         => '/main-cordinator/departments',
+            'icon'        => 'fas fa-building',
             'label'       => 4,
             'label_color' => 'success',
         ],
+        //companies
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'main-cordinator/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'url'  => 'main-cordinator/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
+          //departments
+        ['header' => 'departments'],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'departments',
+            'icon'    => 'fas fa-building',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Computer and Electical',
+                    'url'  => '/department/eleesa',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
+                    'text' => 'Mechanical and Agricultural',
+                    'url'  => '/department/messa',
+                ],
+                [
+                    'text' => 'Computer Science and IT',
+                    'url'  => '/department/citsa',
+                ],
+
+               /*  [
+                    'text'    => '',
+                    'url'     => '/department/messa',
                     'submenu' => [
                         [
                             'text' => 'level_two',
@@ -187,17 +210,19 @@ return [
                             ],
                         ],
                     ],
-                ],
+                ], */
                 [
                     'text' => 'level_one',
                     'url'  => '#',
                 ],
             ],
         ],
-        ['header' => 'labels'],
+      /*   ['header' => 'Our Companies'],
         [
-            'text'       => 'important',
+            'text'       => 'Company',
+            'url'        => '/company',
             'icon_color' => 'red',
+            'icon'       => 'fas fa-industry'
         ],
         [
             'text'       => 'warning',
@@ -206,7 +231,7 @@ return [
         [
             'text'       => 'information',
             'icon_color' => 'aqua',
-        ],
+        ], */
     ],
 
     /*

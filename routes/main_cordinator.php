@@ -11,4 +11,7 @@ Route::get('/dashboard', function () {
 })->name('home');
 
 
+
+//Route::get('/company', 'MainCordinator\CompanyController@index');
+
 Route::resource('company', 'MainCordinator\CompanyController');
