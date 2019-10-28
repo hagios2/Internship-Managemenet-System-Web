@@ -22,3 +22,4 @@ Route::group(['prefix' => 'main-cordinator'], function () {
     Route::apiResource('company', 'MainCordinator\CompanyController');
     
 });
+
