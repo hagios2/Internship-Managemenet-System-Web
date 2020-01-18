@@ -62,6 +62,20 @@ class StudentController extends Controller
 
     }
 
+    public function preferredCompany(Request $request)
+    {
+        if(StudentsRegion::where('student_id', auth()->id())->first())
+        {
+            return back()->with('error', 'You have already applied! You can edit your application instead.');
+        }
+
+    }
+
+    public function openApplication()
+    {
+        
+    }
+
     /**
      * Display the specified resource.
      *
@@ -93,7 +107,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $student->update($request->all());
     }
 
     /**

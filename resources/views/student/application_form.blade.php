@@ -12,54 +12,61 @@
 
             @include('includes.errors')
 
+            <div>
 
-            <form method="POST" action="/internshipapply">
+                <form method="POST" action="/internshipapply" enctype="multipart/form-data">
 
-                @csrf
+                    @csrf
+                    
+                    <div class="form-group">
+
+
+                    
+
+                    </div> 
+
+                    <div class="form-group">
+
+
+                        <select name="second_location" class="form-control">
+
+                            <option value="">Select a location</option>
+
+
+                            @foreach ($locations as $location)
+
+                                <option value="{{ $location->id }}" {{ old('second_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
+                            
+                            @endforeach
+
+                        </select>
+
+                        <div>
+
+                            <label for="">Attach resume</label>
+                            <input type="file" name="resume" id="">
+
+                        </div>
+
+                    </div> <br<br>
+
+                    <button class="btn btn-primary" type=submit>Apply</button>
                 
-                <div class="form-group">
+                </form>
 
+            </div><br>
 
-                    <select name="first_location" class="form-control">
+            {{-- Application with Proposed compnay --}}
 
-                        <option value="">Select a location</option>
+            <div>
 
+                <div class="alert alert-info text-center">
 
-                        @foreach ($locations as $location)
+                    <h5> <span class="glyphicon glyphicon-info-sign"></span>  <strong> You may only choose this option if you are certain about your application to the company </strong> </h5>
 
-                            <option value="{{ $location->id }}" {{ old('first_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
-                        
-                        @endforeach
+                </div>
 
-                    </select>
-
-                </div> 
-
-                <div class="form-group">
-
-
-                    <select name="second_location" class="form-control">
-
-                        <option value="">Select a location</option>
-
-
-                        @foreach ($locations as $location)
-
-                            <option value="{{ $location->id }}" {{ old('second_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
-                        
-                        @endforeach
-
-                    </select>
-
-                </div> 
-
-                {{--  use radio button to switch btwn registration  --}}
-
-                    <div class="alert alert-info text-center">
-
-                        <h5> <span class="glyphicon glyphicon-info-sign"></span>  <strong> You may only choose this option if you are certain about your application to the company </strong> </h5>
-
-                    </div>
+                <form action="" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
 
@@ -67,11 +74,18 @@
 
                 </div><br>
 
+
+                <div>
+                    
+                    <input class="form-control" name="proposed_company_location" placeholder="Enter location">
+                    
+                </div><br>
+
                 <div class="form-group">
 
                     <select name="company_location" class="form-control">
 
-                        <option value="">Select a location</option>
+                        <option value="">Select City</option>
 
 
                         @foreach ($locations as $location)
@@ -84,17 +98,14 @@
 
                 </div> 
 
-                {{--  or may enter proposer company and the region --}}
-
                 <div>
 
-                    
+                    <label for="">Attach resume</label>
+                    <input type="file" name="resume" id="">
 
                 </div>
 
-
                 <button class="btn btn-primary" type=submit>Apply</button>
-
 
             </form>
 
@@ -111,14 +122,14 @@
                     
                     <div class="form-group">
 
-                        <input class="form-control" name="student_name" placeholder="Enter name">
+                        <input class="form-control" name="student_name" placeholder="Enter name" type="text">
     
                     </div><br>
 
                        
                     <div class="form-group">
 
-                        <input class="form-control" name="student_name" placeholder="Enter name">
+                        <input type="tel" class="form-control" name="phone" placeholder="Enter phone number">
     
                     </div><br>
 
@@ -138,6 +149,9 @@
                         </select>
     
                     </div> 
+
+                    <button class="btn btn-primary" type=submit>Apply</button>
+
                 </form>
 
             </div>
