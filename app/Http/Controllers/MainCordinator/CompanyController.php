@@ -23,7 +23,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-      $company = Company::all();
+       $company = Company::all();
 
        $region = Region::all('id', 'region');
 

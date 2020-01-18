@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'cordinator' => [
+            'driver' => 'session',
+            'provider' => 'cordinators',
+        ],
+
         'student' => [
             'driver' => 'session',
             'provider' => 'students',
@@ -86,6 +91,11 @@ return [
     */
 
     'providers' => [
+        'cordinators' => [
+            'driver' => 'eloquent',
+            'model' => App\Cordinator::class,
+        ],
+
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Student::class,
@@ -123,6 +133,12 @@ return [
     */
 
     'passwords' => [
+        'cordinators' => [
+            'provider' => 'cordinators',
+            'table' => 'cordinator_password_resets',
+            'expire' => 60,
+        ],
+
         'students' => [
             'provider' => 'students',
             'table' => 'student_password_resets',

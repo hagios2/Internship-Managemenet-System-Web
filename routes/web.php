@@ -42,3 +42,17 @@ Route::group(['prefix' => 'main-cordinator'], function () {
   Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
 });
 
+
+Route::group(['prefix' => 'cordinator'], function () {
+  Route::get('/login', 'CordinatorAuth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'CordinatorAuth\LoginController@login');
+  Route::post('/logout', 'CordinatorAuth\LoginController@logout')->name('logout');
+
+  Route::get('/register', 'CordinatorAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'CordinatorAuth\RegisterController@register');
+
+  Route::post('/password/email', 'CordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'CordinatorAuth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
+});

@@ -6,7 +6,7 @@
 
     <div class="container">
 
-        <a href="/home">Dashboard</a> / <a href="/internshipapply">Internship Application form</a><br> <br>
+        <a href="/dashboard">Dashboard</a> | <a href="/internshipapply">Internship Application form</a><br> <br>
 
         <div class="" style="width:60%;">
 
@@ -97,6 +97,51 @@
 
 
             </form>
+
+        </div>
+
+        
+        <div>
+
+            <div class="alert alert-info text-center">
+
+                <h5><span class="glyphicon glyphicon-info-sign"></span><strong>Request an open letter</strong></h5>
+
+                <form action="" method="post">
+                    
+                    <div class="form-group">
+
+                        <input class="form-control" name="student_name" placeholder="Enter name">
+    
+                    </div><br>
+
+                       
+                    <div class="form-group">
+
+                        <input class="form-control" name="student_name" placeholder="Enter name">
+    
+                    </div><br>
+
+
+                    <div class="form-group">
+
+                        <select name="level" class="form-control">
+    
+                            <option value="" {{ old('level') == "100"}}>Select your city</option>
+    
+                            @foreach ($locations as $location)
+    
+                                <option value="{{ $location->id }}" {{ old('company_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
+                            
+                            @endforeach
+    
+                        </select>
+    
+                    </div> 
+                </form>
+
+            </div>
+
 
         </div>
 

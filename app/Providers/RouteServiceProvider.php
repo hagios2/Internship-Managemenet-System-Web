@@ -39,6 +39,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapCordinatorRoutes();
+
         $this->mapMainCordinatorRoutes();
 
         //
@@ -63,6 +65,25 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
+
+    /**
+     * Define the "cordinator" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapCordinatorRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'cordinator', 'auth:cordinator'],
+            'prefix' => 'cordinator',
+            'as' => 'cordinator.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/cordinator.php');
+        });
+    }
 
     /**
      * Define the "web" routes for the application.
