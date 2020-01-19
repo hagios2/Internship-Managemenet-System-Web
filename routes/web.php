@@ -40,6 +40,8 @@ Route::group(['prefix' => 'main-cordinator'], function () {
   Route::post('/password/reset', 'MainCordinatorAuth\ResetPasswordController@reset')->name('password.email');
   Route::get('/password/reset', 'MainCordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
+
+  Route::post('/toggle{toggleapp}', 'ToggleAppController@toggle');
 });
 
 

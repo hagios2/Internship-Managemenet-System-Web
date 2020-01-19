@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionsTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
         $this->call(ProgramsTableSeeder::class);
+        $this->call(ToggleAppSeeder::class);
     }
 }

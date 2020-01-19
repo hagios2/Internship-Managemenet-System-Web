@@ -69,7 +69,7 @@
             </div>
 
 
-            <button class="btn btn-primary"{{--  style=" border-radius: 15px 50px 30px; padding: 10px;width: 100px;height: 50px;"  --}}type="submit">edit</button>
+            <button class="btn btn-primary"{{--  style=" border-radius: 15px 50px 30px; padding: 10px;width: 100px;height: 50px;"  --}}type="submit">Edit</button>
 
         </form>
 
