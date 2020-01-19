@@ -39,25 +39,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function applying_student()
     {
-        return $this->hasOne('App\StudentsRegion', 'student_id');
+        return $this->hasOne('App\InternshipApplication', 'student_id');
     }
 
 
     public function registerStudent($attributes)
     {
         
-        $this->applying_student()->create([
-
-       /*      'student_id' => auth()->id(), */
-
-            'first_region' => $attributes['first_location'] ?? null,
-
-            'second_region' => $attributes['second_location'] ??null,
-
-            'proposed_company' => $attributes['proposed_company']  ?? null,
-
-            'company_location' => $attributes['company_location'] ??null
-        ]);
+        $this->applying_student()->create($attributes);
     }
    
 }

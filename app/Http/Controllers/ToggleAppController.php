@@ -34,7 +34,7 @@ class ToggleAppController extends Controller
 
         $switch = $toggleapp->toggle ? 'ON' : 'OFF';
 
-        return back()->withSuccess('Toggled ' .$switch);
+        return back()->with('info', 'Toggled ' .$switch);
     }
 
 }

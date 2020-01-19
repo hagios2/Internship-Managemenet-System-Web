@@ -52,7 +52,7 @@ class StudentController extends Controller
      */
     public function store(InternshipFormRequest $request)
     {
-        if(Internship::where('student_id', auth()->id())->first())
+        if(InternshipApplication::where('student_id', auth()->id())->first())
         {
             return back()->with('error', 'You have already applied! You can edit your application instead.');
         }

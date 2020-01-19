@@ -16,11 +16,14 @@ class CreateInternshipApplicationsTable extends Migration
         Schema::create('internship_applications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('student_id')->unsigned()->unique();
-            $table->integer('application_type_id')->unsigned();
             $table->integer('company_id')->nullable();
             $table->string('preferred_company_name')->nullable();
             $table->string('preferred_company_location')->nullable();
             $table->string('preferred_company_city')->nullable();
+            $table->string('phone')->nullable();
+            $table->boolean('default_application')->nullable();
+            $table->boolean('preferred_company')->nullable();
+            $table->boolean('open_letter')->nullable();
             $table->string('resume')->nullable();
             $table->timestamps();
         });
