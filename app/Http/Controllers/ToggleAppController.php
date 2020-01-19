@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ToggleApp;
+use App\MainCordinator;
 use Illuminate\Http\Request;
 
 class ToggleAppController extends Controller
@@ -10,7 +11,7 @@ class ToggleAppController extends Controller
      
     public function index()
     {
-        $this->middleware('auth:main-cordinator');
+        $this->middleware('auth:main_cordinator');
     }
 
 
@@ -21,13 +22,17 @@ class ToggleAppController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ToggleApp $toggleapp)
+    public function toggle(Request $request)
     {
-        abort_if((auth()->id() !== MainCordinator::first()->id), 403);
+        abort_if((auth()->guard('main_cordinator')->id() != MainCordinator::first()->id), 403);
 
-        $request->toggle ? $toggleapp->update(['toggle', true]) : $toggleapp->update(['toggle', false]);
+        $toggleapp = ToggleApp::find(1);
 
-        $switch = $request->toggle ? 'on' : 'off';
+       // return $toggleapp;
+
+        $request->has('toggle') && $toggleapp->toggle == false ? $toggleapp->update(['toggle' => true]) : $toggleapp->update(['toggle' => false]);
+
+        $switch = $toggleapp->toggle ? 'ON' : 'OFF';
 
         return back()->withSuccess('Toggled ' .$switch);
     }

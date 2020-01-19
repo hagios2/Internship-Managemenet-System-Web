@@ -15,7 +15,7 @@ class CreateToggleAppsTable extends Migration
     {
         Schema::create('toggle_apps', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean(toggle);
+            $table->boolean('toggle');
             $table->timestamps();
         });
     }
