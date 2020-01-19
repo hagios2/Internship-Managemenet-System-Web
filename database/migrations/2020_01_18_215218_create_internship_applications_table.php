@@ -21,6 +21,7 @@ class CreateInternshipApplicationsTable extends Migration
             $table->string('preferred_company_name')->nullable();
             $table->string('preferred_company_location')->nullable();
             $table->string('preferred_company_city')->nullable();
+            $table->string('resume')->nullable();
             $table->timestamps();
         });
     }

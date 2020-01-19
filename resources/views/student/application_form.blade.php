@@ -17,27 +17,24 @@
                 <form method="POST" action="/internshipapply" enctype="multipart/form-data">
 
                     @csrf
-                    
-                    <div class="form-group">
-
-
-                    
-
-                    </div> 
 
                     <div class="form-group">
 
 
-                        <select name="second_location" class="form-control">
+                        <select name="company_id" class="form-control">
 
-                            <option value="">Select a location</option>
+                            <option value="">Select Company</option>
 
 
-                            @foreach ($locations as $location)
+                            @forelse ($companies as $company)
 
-                                <option value="{{ $location->id }}" {{ old('second_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
+                                <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }} >{{ $company->company_name}} </option>
+
+                            @empty
+
+                                <h3 class="title">Currently Not Available</h3>
                             
-                            @endforeach
+                            @endforelse
 
                         </select>
 

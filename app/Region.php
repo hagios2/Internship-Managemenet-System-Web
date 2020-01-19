@@ -9,7 +9,7 @@ class Region extends Model
     
     public function company()
     {
-        return $this->hasMany('App\Company');
+        return $this->hasMany('App\Company', 'city');
         
     }
 

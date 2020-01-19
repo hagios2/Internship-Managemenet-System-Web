@@ -27,7 +27,9 @@ class CompanyFormRequest extends FormRequest
             
             'company_name'  => 'required|string',
 
-            'location' => 'required|integer',
+            'location' => 'required|string',
+
+            'city' => 'required|integer',
 
             'total_slots'    => 'required|integer',
         ];

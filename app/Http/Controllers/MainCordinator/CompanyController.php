@@ -37,9 +37,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $locations = Region::all();
+        $cities = Region::all();
 
-        return view('main_cordinator/companies/create_company', compact('locations'));
+        return view('main_cordinator/companies/create_company', compact('cities'));
     }
 
     /**
@@ -53,8 +53,7 @@ class CompanyController extends Controller
 
         //persist in db
 
-       $company =  Company::addCompany(request('company_name'), request('location'), request('total_slots'));
-
+        $company =  Company::create($request->all());
 
         return  redirect('/main-cordinator/company')->with('success','Company was created successfully');
      
@@ -80,9 +79,9 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        $locations = Region::all();
+        $cities = Region::all();
 
-        return view('main_cordinator.companies.edit_company', compact('company', 'locations'));
+        return view('main_cordinator.companies.edit_company', compact('company', 'cities'));
     }
 
     /**
@@ -94,14 +93,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyFormRequest $request, Company $company)
     {
-        $company->update([
-
-            'company_name' => $request->company_name,
-
-            'region_id' => $request->location,
-
-            'total_slots' => $request->total_slots
-        ]);
+        $company->update($request->all());
 
         return back()->withSuccess('Updated '. $request->company_name . ' successfully');
 

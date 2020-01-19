@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Student;
 
 use App\Region;
-use App\StudentsRegion;
+use App\Company;
+use App\InternshipApplication;
 use Illuminate\Http\Request;
 use App\Http\Requests\InternshipFormRequest;
 use App\Http\Controllers\Controller;
@@ -38,7 +39,9 @@ class StudentController extends Controller
     {
         $locations = Region::all();
 
-        return view('student.application_form', compact('locations'));
+        $companies = Company::all();
+
+        return view('student.application_form', \compact('locations', 'companies'));
     }
 
     /**
@@ -49,7 +52,7 @@ class StudentController extends Controller
      */
     public function store(InternshipFormRequest $request)
     {
-        if(StudentsRegion::where('student_id', auth()->id())->first())
+        if(Internship::where('student_id', auth()->id())->first())
         {
             return back()->with('error', 'You have already applied! You can edit your application instead.');
         }
@@ -73,7 +76,7 @@ class StudentController extends Controller
 
     public function openApplication()
     {
-        
+
     }
 
     /**

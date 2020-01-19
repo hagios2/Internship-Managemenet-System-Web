@@ -23,7 +23,13 @@
 
             <div class="form-group">
 
-                <input type="text" class="form-control" placeholder="Company" name="company_name" value="{{ old('company') }}">
+                <input type="text" class="form-control" placeholder="Company" name="company_name" value="{{ old('company_name') }}">
+
+            </div>
+
+            <div class="form-group">
+
+                <input type="text" class="form-control" placeholder="location" name="location" value="{{ old('location') }}">
 
             </div>
 
@@ -31,14 +37,14 @@
               <div class="form-group">
 
 
-                <select name="location" required class="form-control">
+                <select name="city" required class="form-control">
 
-                    <option>Select a location</option>
+                    <option>Select a City</option>
 
 
-                    @foreach ($locations as $location)
+                    @foreach ($cities as $city)
 
-                        <option value="{{ $location->id }}" {{ old('location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
+                        <option value="{{ $city->id }}" {{ old('city') == $city->id ? 'selected' : '' }} >{{ $city->region}} </option>
                     
                     @endforeach
 
