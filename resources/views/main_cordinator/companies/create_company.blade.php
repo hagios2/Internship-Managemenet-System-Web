@@ -42,9 +42,9 @@
                     <option>Select a City</option>
 
 
-                    @foreach ($cities as $city)
+                    @foreach ($regions as $region)
 
-                        <option value="{{ $city->id }}" {{ old('city') == $city->id ? 'selected' : '' }} >{{ $city->region}} </option>
+                        <option value="{{ $region->id }}" {{ old('city') == $region->id ? 'selected' : '' }} >{{ $region->region}} </option>
                     
                     @endforeach
 

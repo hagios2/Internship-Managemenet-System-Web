@@ -34,19 +34,19 @@
 
             </tr>
 
-            @if ($company)
+            @if ($companies)
 
-                @forelse ($region as $regions)
+                @forelse ($regions as $region)
 
                         <tr>
 
-                            @if ($regions->company)
+                            @if ($region->company)
 
-                                <td>{{ $regions->region}}</td>
+                                <td>{{ $region->region}}</td>
 
                                 <td>
                                 
-                                    @foreach ($regions->company as $companies)
+                                    @foreach ($region->company as $companies)
                     
                                         <a href="company/{{$companies->id}}">{{ $companies->company_name }} </a> <br><br>
                                     
@@ -56,7 +56,7 @@
 
                                 <td>
                                 
-                                    @foreach ($regions->company as $companies)
+                                    @foreach ($region->company as $companies)
                     
                                         {{ $companies->total_slots }}<br><br>
                                     

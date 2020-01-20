@@ -23,11 +23,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-       $company = Company::all();
-
-       $region = Region::all('id', 'region');
-
-       return view('main_cordinator.companies.company', compact('company', 'region'));
+       return view('main_cordinator.companies.company');
     }
 
     /**
@@ -37,9 +33,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $cities = Region::all();
 
-        return view('main_cordinator/companies/create_company', compact('cities'));
+        return view('main_cordinator/companies/create_company');
     }
 
     /**
@@ -67,7 +62,6 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-
         return view('main_cordinator.companies.view_company', compact('company'));
     }
 
@@ -79,9 +73,8 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        $cities = Region::all();
 
-        return view('main_cordinator.companies.edit_company', compact('company', 'cities'));
+        return view('main_cordinator.companies.edit_company', compact('company'));
     }
 
     /**
@@ -95,7 +88,7 @@ class CompanyController extends Controller
     {
         $company->update($request->all());
 
-        return back()->withSuccess('Updated '. $request->company_name . ' successfully');
+        return redirect('/main-cordinator/company')->withSuccess('Updated '. $request->company_name . ' successfully');
 
     }
 

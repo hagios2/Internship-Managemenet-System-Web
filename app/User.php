@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'index_no', 'program_id'
+        'name', 'email', 'password', 'index_no', 'program_id', 'level_id'
     ];
 
     /**
@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function level()
     {
-        return $this->hasOne('App\Level');
+        return $this->belongsTo('App\Level');
     }
    
 }

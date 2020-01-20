@@ -29,6 +29,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with('programs', \App\Program::all());
         });
 
+        view()->composer('auth.register', function($view){
+
+            $view->with('levels', \App\Level::all());
+        });
+
+
         view()->composer(['main_cordinator.home', 'student.application_form', 'student.edit_application'], function($view){
 
             $view->with('toggleapp', \App\ToggleApp::find(1));

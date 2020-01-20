@@ -79,6 +79,37 @@
                             </div>
                         </div>
 
+                        {{-- end program select tag --}}
+
+                            <!-- select a level -->
+                            <div class="form-group row">
+                                <label for="Program" class="col-md-4 col-form-label text-md-right">{{ __('Level') }}</label>
+    
+                                <div class="col-md-6">
+    
+                                <select name="level" required id="" class="form-control" @error('level') is-invalid @enderror>
+    
+                                    <option value="">Select Level</option>
+    
+                                    @foreach($levels as $level)
+    
+                                        <option {{ old('level') == $level->id ? 'selected' : '' }} value="{{ $level->id }}">{{ $level->level }}</option>
+    
+                                    @endforeach
+                                
+                                </select>
+    
+                                    @error('level')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+    
+    
+
+
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

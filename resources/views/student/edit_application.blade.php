@@ -11,20 +11,21 @@
                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit Application form</li>
                 </ol>
-            </nav><br><br> <br>
+            </nav><br>
 
         <div class="" style="width:60%;">
 
             @include('includes.errors')
 
 
-            $@if ($application->default_application))
+            @if ($application->default_application)
 
                 <div>
 
-                    <form method="POST" action="/internshipapply" enctype="multipart/form-data">
+                    <form method="POST" action="/internshipapply/{{$application->id}}" enctype="multipart/form-data">
 
                         @csrf
+                        @method('PATCH')
 
                         <div class="form-group">
                             <input type="hidden" name="default_application" value="1">
@@ -93,22 +94,92 @@
 
                             </div>
 
-                        </div> <br<br>
+                        </div> <br><br>
 
                         <button class="btn btn-primary" type=submit>Apply</button>
                     
                     </form>
 
-
                 </div>
 
-            @elseif($application->preferred_program))
+            @elseif($application->preferred_company)
 
-                proposed company
+                {{-- closed  application --}}
+
+                <div>
+
+                    <form action="/internshipapply/{{$application->id}}" method="post">
+
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="form-group">
+                            <input type="hidden" name="preferred_company" value="1">
+                        </div>
+
+                        <div class="form-group">
+
+                            <input class="form-control" value="{{ $application->preferred_company_name}}" name="preferred_company_name" placeholder="Proposed Company">
+
+                        </div><br>
+
+
+                        <div>
+                            
+                            <input class="form-control" value="{{ $application->preferred_company_location}}" name="preferred_company_location" placeholder="Enter location">
+                            
+                        </div><br>
+
+                        <div class="form-group">
+
+                            <select name="preferred_company_city" class="form-control">
+
+                                <option value="{{ $application->preferred_company_city}}">{{ $application->city->region}}</option>
+                                <option value="">Select City</option>
+
+
+                                @foreach ($regions as $location)
+
+                                    <option value="{{ $location->id }}" {{ old('company_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
+                                
+                                @endforeach
+
+                            </select>
+
+                        </div> 
+                
+                    <button class="btn btn-primary" type=submit>Submit</button>
+
+                </form>
+                
+            </div>
+        
 
             @else
+                
+                                
+                <form action="/internshipapply/{{ $application->id }}" method="post">
 
-                open letter
+                    @method('PATCH')
+                    @csrf
+                   
+
+                    <div class="form-group">
+                        <input type="hidden" name="open_letter" value="1">
+                    </div>
+                    
+                    <div class="form-group">
+
+                        <label for="">Phone</label>
+
+                    <input type="tel" class="form-control" name="phone" value="{{$application->phone}}" placeholder="Enter phone number">
+    
+                    </div><br>
+
+                    <button class="btn btn-primary" type=submit>Submit</button>
+
+                </form>
+            
             @endif
 
         </div>

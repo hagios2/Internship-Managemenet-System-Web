@@ -25,9 +25,7 @@ class CompanyFormRequest extends FormRequest
     {
         return [
             
-            'company_id'  => 'required|integer',
-
-            'application_type_id' => 'required|integer',
+            'company_name'  => 'required|string',
 
             'location' => 'required|string',
 

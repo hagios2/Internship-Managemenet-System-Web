@@ -36,9 +36,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $locations = Region::all();
 
-        return view('student.application_form', \compact('locations'));
+        return view('student.application_form');
     }
 
     /**
@@ -60,6 +59,8 @@ class StudentController extends Controller
 
         return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
 
+        
+
     }
 
     /**
@@ -79,24 +80,16 @@ class StudentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
+     * @param  \App\Student  $student \compact('locations')
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, InternshipApplication $application)
     {
         abort_if((auth()->user() != $application->student), 403);
 
-        $student->update($request->all());
+        $application->update($request->all());
+
+        return redirect('/dashboard')->withSuccess('Updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Student $student)
-    {
-        //
-    }
 }

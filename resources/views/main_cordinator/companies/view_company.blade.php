@@ -4,7 +4,6 @@
 
 @section('content_header')
 
-
    @if ($company)
 
         <a href="dashboard">Dashboard</a> / <a href="company">Company</a> / <a href="company/{{ $company->id }}">{{ $company->company_name }}</a>

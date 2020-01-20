@@ -154,18 +154,18 @@
 
                                         <div>
                                             
-                                            <input class="form-control" name="preferred_company_location" placeholder="Enter location">
+                                        <input class="form-control" value="{{ old('preferred_company_location')}}" name="preferred_company_location" placeholder="Enter location">
                                             
                                         </div><br>
 
                                         <div class="form-group">
 
-                                            <select name="preferred_company_city" class="form-control">
+                                            <select name="preferred_company_city" value="{{ old('preferred_company_city')}} class="form-control">
 
                                                 <option value="">Select City</option>
 
 
-                                                @foreach ($locations as $location)
+                                                @foreach ($regions as $location)
 
                                                     <option value="{{ $location->id }}" {{ old('company_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
                                                 
@@ -175,13 +175,6 @@
 
                                         </div> 
 
-                                      {{--   <div>
-
-                                            <label for="">Attach resume</label>
-                                            <input type="file" name="resume" id="">
-
-                                        </div>
- --}}
                                         <button class="btn btn-primary" type=submit>Apply</button>
 
                                     </form>
@@ -189,58 +182,61 @@
                                 </div>
 
                             </div>
-                        </div>
-                        </div>
-                        <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Request open letter
-                            </button>
-                            </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
 
-                                <div>
-
-                                    <div class="alert alert-info text-center">
-                        
-                                        <h5><span class="glyphicon glyphicon-info-sign"></span><strong>Request an open letter</strong></h5>
-
-                                    </div>
-                        
-                                        <form action="/internshipapply" method="post">
-
-                                            @csrf
-
-                                            <div class="form-group">
-                                                <input type="hidden" name="open_letter" value="1">
-                                            </div>
-                                            
-                                            <div class="form-group">
-                        
-                                                <input type="tel" class="form-control" name="phone" placeholder="Enter phone number">
-                            
-                                            </div><br>
-                        
-                                            <button class="btn btn-primary" type=submit>Apply</button>
-                        
-                                        </form>
-                        
-                                    </div>
-                        
-                        
-                                </div>
-                        
-                            </div>
-                        
-                            
-                            </div>
                         </div>
-                        </div>
-            
+                        
                     </div>
+
+                    <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Request open letter
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+
+                            <div>
+
+                                <div class="alert alert-info text-center">
+                    
+                                    <h5><span class="glyphicon glyphicon-info-sign"></span><strong>Request an open letter</strong></h5>
+
+                                </div>
+                    
+                                    <form action="/internshipapply" method="post">
+
+                                        @csrf
+
+                                        <div class="form-group">
+                                            <input type="hidden" name="open_letter" value="1">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                    
+                                            <input type="tel" class="form-control" name="phone" placeholder="Enter phone number">
+                        
+                                        </div><br>
+                    
+                                        <button class="btn btn-primary" type=submit>Apply</button>
+                    
+                                    </form>
+                    
+                                </div>
+                    
+                    
+                            </div>
+                    
+                        </div>
+                    
+                        
+                        </div>
+                    </div>
+                    </div>
+        
+                </div>
 
         @else
 

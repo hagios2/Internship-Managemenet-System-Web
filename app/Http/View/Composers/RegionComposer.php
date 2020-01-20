@@ -6,7 +6,7 @@ use Illuminate\View\View;
 use App\Repositories\UserRepository;
 use App\Region;
 
-class CompanyComposer
+class RegionComposer
 {
     /**
      * The user repository implementation.

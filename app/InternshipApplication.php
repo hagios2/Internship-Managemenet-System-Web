@@ -12,4 +12,9 @@ class InternshipApplication extends Model
     {
         return $this->belongsTo('App\User', 'student_id');
     }
+
+    public function city()
+    {
+        return $this->belongsTo('App\Region', 'preferred_company_city');
+    }
 }

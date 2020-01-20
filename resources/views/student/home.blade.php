@@ -1,10 +1,5 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
-@section('title', 'Dashboard')
-
-@section('content_header')
-    <h1>Dashboard</h1>
-@stop
 
 @section('content')
    
@@ -12,7 +7,11 @@
 
         @if (auth()->user()->applying_student)
 
-            <a class="btn btn-primary" href="/internshipapply/{{ auth()->user()->applying_student->id }}">Edit</a>
+            <div>
+
+                <a class="btn btn-primary" href="/internshipapply/{{ auth()->user()->applying_student->id }}/edit">Edit</a>
+
+            </div>
 
         @else
 
@@ -20,13 +19,12 @@
 
                 <p class="title">
 
-                        Internship Registration
+                    Internship Registration
 
                 </p><br>
 
 
                 <a class="btn btn-primary" href="internshipapply">Apply</a>
-
 
             </div>
 
@@ -34,12 +32,4 @@
 
     </div>
 
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
+@endsection
