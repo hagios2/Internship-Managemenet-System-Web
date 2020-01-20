@@ -17,4 +17,11 @@ class InternshipApplication extends Model
     {
         return $this->belongsTo('App\Region', 'preferred_company_city');
     }
+
+    public function company()
+    {
+        
+        return $this->belongsTo('App\Company');
+        
+    }
 }

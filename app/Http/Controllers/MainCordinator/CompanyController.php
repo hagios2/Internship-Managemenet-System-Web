@@ -62,7 +62,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        return view('main_cordinator.companies.view_company', compact('company'));
+        $company_applications = $company->application;
+
+        return view('main_cordinator.companies.view_company', \compact('company', 'company_applications'));
     }
 
     /**

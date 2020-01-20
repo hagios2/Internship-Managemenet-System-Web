@@ -6,7 +6,7 @@
 
    @if ($company)
 
-        <a href="dashboard">Dashboard</a> / <a href="company">Company</a> / <a href="company/{{ $company->id }}">{{ $company->company_name }}</a>
+        <a href="/main-cordinator/dashboard">Dashboard</a> / <a href="/main-cordinator/company">Company</a> / <a href="/main-cordinator/company/{{ $company->id }}">{{ $company->company_name }}</a>
 
    @endif
 
@@ -14,77 +14,88 @@
 
 @section('content')
 
-    <div class="container">
+    <div style="width:80%;"> 
 
-        @if ($company)
+        <div class="container">
 
-            <div>
+            @if ($company)
 
-                <h3 class="text-center">{{$company->company_name}}</h3>
+                <div>
 
-                <div class="row">
+                    <h3 class="text-center">{{$company->company_name}}</h3>
 
-                    <span><strong> Region: {{ $company->region->region}} | Total Slot: {{ $company->total_slots}}</strong>
+                    <div class="row">
 
-                    <a style="margin-left:60%;" class="btn btn-info" href="{{ $company->id }}/edit">Edit</a>
+                        <span><strong> Region: {{ $company->region->region}} | Total Slot: {{ $company->total_slots}}</strong>
+
+                        <a style="margin-left:60%;" class="btn btn-info" href="{{ $company->id }}/edit">Edit</a>
+                    
+                    </div>
                 
                 </div>
-            
-            </div>
 
-        @endif
-
-    </div>
-
-    <div class="panel panel-default">
-
-        <div class="panel-heading"></div>
-
-        <div >
-
-            <table class="table table-striped">
-
-                <tr>
-
-                    <th>
-                        Student Name
-                    </th>
-
-                    <th>
-                        Department
-                    </th>
-
-                </tr>
-{{--
-                @forelse ($students as $student)
-
-                    <tr>
-
-                        <td>{{ $student->name }}</td>
-
-                        <td>{{ $student->department }}</td>
-
-                    </tr>
-
-                @empty
-
-                    <h4 class="alert alert-info"> No student added</h4>
-
-                @endforelse --}}
-
-
-            </table>
+            @endif
 
         </div>
 
-    </div>
+        <div class="panel panel-default">
+
+            <div class="panel-heading"></div>
+
+            <div>
+             
+                @if ($company_applications)
+
+                <table class="table table-striped">
+
+                    <thead>
+
+                        <th>
+                            Student Name
+                        </th>
+
+                        <th>
+                            Index No.
+                        </th>
+
+                        <th>
+                            Program
+                        </th>
+
+                        <th>
+                            Level
+                        </th>
+
+                    </thead>
+
+                    @forelse ($company_applications as $application)
+
+                        <tr>
+
+                            <td>{{ $application->student->name }}</td>
+
+                            <td>{{ $application->student->index_no }}</td>
+
+                            <td>{{ $application->student->program->program }}</td>
+
+                            <td>{{ $application->student->level->level }}</td>
+
+                        </tr>
+
+                    @endforelse
 
 
-    <p>
+                </table>
+            @else
 
-        show student allocated for this company here 
+                <h4 class="alert alert-info"> No student added</h4>
 
-    </p>
+            @endif
+
+            
+            </div>
+
+        </div>
 
     </div>
 
