@@ -23,16 +23,43 @@ class InternshipFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+
+        if(request()->has('default_application'))
+        {
+
+            return [
+
+                'company_id' => 'required|integer',
+
+                'default_application' => 'boolean',
+
+                'resume' => 'nullable|string'
+
+            ];
+
+        }elseif(request()->has('preferred_company')){
             
-            'first_location' => 'nullable|integer',
+            return [
 
-            'second_location' => 'nullable|integer',
+                'preferred_company_name' => 'required|string',
+    
+                'preferred_company_location' => 'required|string',
+    
+                'preferred_company_city' => 'required|string',
+                
+                'preferred_company' => 'boolean',
 
-            'proposed_company' => 'nullable|string',
+            ];
+    
+        }elseif(request()->has('open_letter')){
+            
+            return [
 
-            'company_location' => 'nullable|integer'
+                'phone' => 'required|string|min:10|max:15',
 
-        ];
+                'open_letter' => 'boolean'
+            ];
+        }
+
     }
 }

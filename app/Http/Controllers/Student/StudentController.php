@@ -16,8 +16,7 @@ class StudentController extends Controller
     public function __contruct()
     {
         $this->middleware('auth');
-        $this->middleware('verified');
-
+       // $this->middleware('verified');
     }
 
     /**
@@ -39,9 +38,7 @@ class StudentController extends Controller
     {
         $locations = Region::all();
 
-        $companies = Company::all();
-
-        return view('student.application_form', \compact('locations', 'companies'));
+        return view('student.application_form', \compact('locations'));
     }
 
     /**
@@ -54,40 +51,15 @@ class StudentController extends Controller
     {
         if(InternshipApplication::where('student_id', auth()->id())->first())
         {
-            return back()->with('error', 'You have already applied! You can edit your application instead.');
+            return back()->with('error', 'You have already applied! Consider editing your application instead.');
         }
 
         auth()->user()->registerStudent($request->all());
 
        SendInternshipRegistrationNotification::dispatch(auth()->user());
 
-        return back()->with('success', 'Application received! You can modify your application before the deadline.');
+        return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
 
-    }
-
-    public function preferredCompany(Request $request)
-    {
-        if(StudentsRegion::where('student_id', auth()->id())->first())
-        {
-            return back()->with('error', 'You have already applied! You can edit your application instead.');
-        }
-
-    }
-
-    public function openApplication()
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Student $student)
-    {
-        //
     }
 
     /**
@@ -96,8 +68,10 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentsRegion $application)
+    public function edit(InternshipApplication $application)
     {
+        abort_if((auth()->user() != $application->student), 403);
+
         return view('student.edit_application', compact('application'));
     }
 
@@ -110,6 +84,8 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        abort_if((auth()->user() != $application->student), 403);
+
         $student->update($request->all());
     }
 

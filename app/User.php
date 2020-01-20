@@ -48,5 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail
         
         $this->applying_student()->create($attributes);
     }
+
+    public function level()
+    {
+        return $this->hasOne('App\Level');
+    }
    
 }

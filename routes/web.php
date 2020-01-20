@@ -15,13 +15,23 @@
 
 Auth::routes(['verify' => true]);
 
+Route::group(['middleware' => ['verified']], function () {
+  
+  Route::get('internshipapply', 'Student\StudentController@create');
+
+  Route::post('internshipapply', 'Student\StudentController@store');
+
+  Route::get('internshipapply/{application}/edit', 'Student\StudentController@edit');
+
+  Route::patch('internshipapply/{application}', 'Student\StudentController@update');
+
+});
+
 Route::get('/dashboard', 'HomeController@index')->name('home');
 
-Route::get('internshipapply', 'Student\StudentController@create')->middleware('verified');
-
-Route::post('internshipapply', 'Student\StudentController@store');
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 

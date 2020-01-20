@@ -13,6 +13,6 @@ class ToggleAppSeeder extends Seeder
      */
     public function run()
     {
-        ToggleApp::create(['toggle'=> true]);
+        ToggleApp::create(['toggle'=> false]);
     }
 }

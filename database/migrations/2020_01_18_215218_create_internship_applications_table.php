@@ -20,7 +20,7 @@ class CreateInternshipApplicationsTable extends Migration
             $table->string('preferred_company_name')->nullable();
             $table->string('preferred_company_location')->nullable();
             $table->string('preferred_company_city')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone')->unique()->nullable();
             $table->boolean('default_application')->nullable();
             $table->boolean('preferred_company')->nullable();
             $table->boolean('open_letter')->nullable();

@@ -8,24 +8,31 @@
 
 @section('content')
    
-     <div class="panel" style="width:20%;">
+    <div class="panel" style="width:20%;">
 
-                <div class="text-center" style="margin:2rem;">
+        @if (auth()->user()->applying_student)
 
-                    <p class="title">
+            <a class="btn btn-primary" href="/internshipapply/{{ auth()->user()->applying_student->id }}">Edit</a>
 
-                            Internship Registration
+        @else
 
-                    </p><br>
+            <div class="text-center" style="margin:2rem;">
+
+                <p class="title">
+
+                        Internship Registration
+
+                </p><br>
 
 
-                    <a class="btn btn-primary" href="internshipapply">Apply</a>
+                <a class="btn btn-primary" href="internshipapply">Apply</a>
 
 
-                </div>
+            </div>
 
+        @endif
 
-        </div>
+    </div>
 
 @stop
 
