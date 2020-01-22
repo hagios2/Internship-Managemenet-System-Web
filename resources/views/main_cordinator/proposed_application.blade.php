@@ -13,20 +13,18 @@
 
     <div class="container">
 
-            <div id="studapp">
+        <div>
+            <a id="open_request" class="btn btn-primary">Open Letter Requests</a>
+        </div>
 
-                <table class="table">
+        <div class="panel">
 
-                    <thead>
-                        <th>Student Name</th>
-                        <th>Proposed Company</th>
-                        <th>Location</th>
-                        <th>Region</th>
-                    </thead>
+            <div class="panel-heading">Closed Internship Application</div>
+        </div>
+            <div id="studapp"></div>
 
-                </table>
 
-            </div>
+
 
 
     </div>
@@ -72,17 +70,29 @@
                 
                 }).done(function(data){
 
-                    $('#studapp').html('<table class="table"><thead><th>Student name</th><th>Proposed Company</th><th>City</th></thead><tbody>');
+                    $('#studapp').html('<table class="table table-striped"><thead><th>Student Name</th><th>Proposed Company</th><th>Location</th><th>Region</th></thead><tbody class="app"></tbody></table>');
 
-                    $.map(data, function(data, i){
+                    $.map(data, function(data, u){
 
-                        $('#studapp').append('<tr><td>' + data[0].student_id + '</td><td>' + data[0].preferred_company_name + '</td><td>' + data[0].preferred_company_location + '</td></tr>');
+                        $.each(data, function(i, application){
 
-                    });
+                            $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td></tr>');
+                        });
+                    });                
 
-                 //   $('#studapp').append('</tbody></table>');
+                });
 
-            });
+                /* for open letter application */
+
+                $('a#open_request').click(function(){
+
+                    $('div#studapp').hide();
+
+                    $.ajax({
+                        
+                        url: '/main-cordinator/request'
+                    })
+                })
 
             /*
             $('#ki').click(function(){

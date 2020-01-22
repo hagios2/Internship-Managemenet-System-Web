@@ -59,7 +59,7 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::get('/proposed-applications', 'MainCordinator\InternshipProcessingController@proposed_application');
 
-  Route::get('/open-letter-requests', 'MainCordinator\InternshipProcessingController@request_open_letter');
+  Route::get('/requests-for-open-letter', 'MainCordinator\InternshipProcessingController@request_open_letter');
 
   Route::get('/other-applications', 'MainCordinator\InternshipProcessingController@other_application');
 

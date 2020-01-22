@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MainCordinator;
 use App\InternshipApplication;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProposedApplicationResource;
 
 class InternshipProcessingController extends Controller
 {
@@ -22,7 +23,7 @@ class InternshipProcessingController extends Controller
     {
         $application = InternshipApplication::where('preferred_company', true)->get();
 
-        return ['data' => $application ];
+        return ProposedApplicationResource::collection($application);
 
     }
 
