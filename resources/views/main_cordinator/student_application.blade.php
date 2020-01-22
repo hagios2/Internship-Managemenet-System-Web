@@ -39,7 +39,7 @@
     
               <p class="title">
     
-                      Proposed Application
+                      Other Applications
     
                   </p><br>
     
@@ -50,7 +50,7 @@
     
           </div>
     
-            <div class="panel" style="width:20%;">
+         {{--    <div class="panel" style="width:20%;">
     
                     <div class="text-center" style="margin:2rem;">
     
@@ -67,7 +67,7 @@
                     </div>
     
     
-            </div>
+            </div> --}}
 
     </div>
 

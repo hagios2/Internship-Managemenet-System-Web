@@ -6,6 +6,7 @@ use App\InternshipApplication;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProposedApplicationResource;
+use App\Http\Resources\RequestOpenLetterResource;
 
 class InternshipProcessingController extends Controller
 {
@@ -27,9 +28,17 @@ class InternshipProcessingController extends Controller
 
     }
 
+    public function request_open_letter()
+    {
+        $application = InternshipApplication::where('open_letter', true)->get();
+
+        return RequestOpenLetterResource::collection($application);
+
+    }
+
     public function other_application()
     {
-        return view('main_cordinator.proposed_application');
+        return view('main_cordinator.other_application');
     }
 
     /**
