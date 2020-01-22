@@ -52,6 +52,18 @@ Route::group(['prefix' => 'main-cordinator'], function () {
   Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
 
   Route::patch('/toggle', 'ToggleAppController@toggle');
+
+  Route::get('/student-applications', 'MainCordinator\InternshipProcessingController@index');
+
+  Route::get('/default-applications', 'MainCordinator\InternshipProcessingController@default_application');
+
+  Route::get('/proposed-applications', 'MainCordinator\InternshipProcessingController@proposed_application');
+
+  Route::get('/open-letter-requests', 'MainCordinator\InternshipProcessingController@request_open_letter');
+
+  Route::get('/other-applications', 'MainCordinator\InternshipProcessingController@other_application');
+
+
 });
 
 

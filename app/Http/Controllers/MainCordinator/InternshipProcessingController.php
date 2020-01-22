@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\MainCordinator;
 
-use App\ToggleApp;
+use App\InternshipApplication;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +15,20 @@ class InternshipProcessingController extends Controller
      */
     public function index()
     {
-        //
+        return view('main_cordinator.student_application');
+    }
+
+    public function proposed_application()
+    {
+        $application = InternshipApplication::where('preferred_company', true)->get();
+
+        return ['data' => $application ];
+
+    }
+
+    public function other_application()
+    {
+        return view('main_cordinator.proposed_application');
     }
 
     /**
@@ -23,14 +36,14 @@ class InternshipProcessingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function default_application()
     {
-        //
+        return redirect('/main-cordinator/company')->with('info', ' Click on a company to view student who applied for that company');
     }
 
     public function processApplication()
     {
-
+        
     }
 
   

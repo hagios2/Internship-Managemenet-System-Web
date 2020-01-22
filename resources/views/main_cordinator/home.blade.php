@@ -113,13 +113,31 @@ input:checked + .slider:before {
 
                 </p><br>
 
-                <a class="btn btn-primary" href="department">View Company</a>
+                <a class="btn btn-primary" href="/main-cordinatordepartment">View</a>
 
 
             </div>
 
-
         </div>
+
+
+        <div class="panel" style="width:20%;">
+
+          <div class="text-center" style="margin:3rem;">
+
+
+          <p class="title">
+
+                  Student Application
+
+              </p><br>
+
+              <a class="btn btn-primary" href="/main-cordinator/student-applications">View</a>
+
+
+          </div>
+
+      </div>
 
         <div class="panel" style="width:20%;">
 
@@ -132,7 +150,7 @@ input:checked + .slider:before {
                     </p><br>
 
 
-                    <a class="btn btn-primary" href="company">View Company</a>
+                    <a class="btn btn-primary" href="/main-cordinator/company">View Company</a>
 
 
                 </div>
