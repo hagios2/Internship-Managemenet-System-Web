@@ -20,4 +20,11 @@ class Company extends Model
         return $this->hasMany('App\InternshipApplication');
     }
 
+    public function approved_application()
+    {
+        return $this->hasOne('App\ApprovedApplication');
+    }
+
+    
+
 }

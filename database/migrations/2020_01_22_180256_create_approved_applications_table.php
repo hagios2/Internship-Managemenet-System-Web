@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompaniesTable extends Migration
+class CreateApprovedApplicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('approved_applications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('company_name')->unique();
-            $table->string('email')->unique();
-            $table->string('location');
-            $table->integer('city')->unsigned();
-            $table->integer('total_slots')->unsigned();
-            
+            $table->integer('company_id')->unique();
+            $table->boolean('approved')->default(false);
+            $table->string('approved_letter')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('approved_applications');
     }
 }

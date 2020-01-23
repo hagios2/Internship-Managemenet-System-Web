@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\MainCordinator;
 
+use App\Company;
 use App\InternshipApplication;
+use App\Http\Jobs\SendIntroductionLetter;
+use App\ApprovedApplication;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProposedApplicationResource;
@@ -10,6 +13,10 @@ use App\Http\Resources\RequestOpenLetterResource;
 
 class InternshipProcessingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:main-cordinator');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -51,9 +58,31 @@ class InternshipProcessingController extends Controller
         return redirect('/main-cordinator/company')->with('info', ' Click on a company to view student who applied for that company');
     }
 
-    public function processApplication()
+    public function processApplication(ApprovedApplication $application)
     {
-        
+        if(!$application->approved)
+        {
+            return back()->with('info', 'Please ensure application to this company has been approved');
+        }
+
+
+        $request->validate([
+
+            'letter' => 'required|file|mimes:pdf|max:1999',
+
+        ]);
+
+        $fileName = $request->file('letter')->getClientOriginalName();
+
+        request()->file('letter')->storeAs('public/Letters/'.$application->id, $fileName);
+
+        $application->approved_letter = '/storage/Introductory Letters/'.$application->id.'/'.$fileName;
+
+        $application->save();
+
+        SendIntroductionLetter::dispatch($application);
+
+        return back()->withSuccess('Introductory letter Sent'); 
     }
 
   
@@ -64,53 +93,29 @@ class InternshipProcessingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function deny_application(InternshipApplication $application)
     {
-        //
+        $application->delete();
+
+        return back()->withSuccess($application->student->name . ' removed from applicants list');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\StudentsRegion  $studentsRegion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(StudentsRegion $studentsRegion)
+    public function approve_application(Company $company)
     {
-        //
+       if($company->approved_application)
+       {
+           return back()->with('info', 'Application has already been approved');
+       }   
+
+     ApprovedApplication::create([
+
+            'company_id' => $company->id,
+
+            'approved' => true
+       ]);
+    
+
+       return back()->withSuccess('Application Approved. You may Send introductory letter now');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\StudentsRegion  $studentsRegion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(StudentsRegion $studentsRegion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\StudentsRegion  $studentsRegion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, StudentsRegion $studentsRegion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\StudentsRegion  $studentsRegion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(StudentsRegion $studentsRegion)
-    {
-        //
-    }
 }

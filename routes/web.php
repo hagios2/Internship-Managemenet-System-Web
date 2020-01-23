@@ -63,6 +63,9 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::get('/other-applications', 'MainCordinator\InternshipProcessingController@other_application');
 
+  Route::get('/{application}/deny', 'MainCordinator\InternshipProcessingController@deny_application');
+
+  Route::post('/application/{company}/approve', 'MainCordinator\InternshipProcessingController@approve_application');
 
 });
 
