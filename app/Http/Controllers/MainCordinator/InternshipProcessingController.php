@@ -101,19 +101,26 @@ class InternshipProcessingController extends Controller
 
     public function approve_application(Company $company)
     {
+
+        if($company->application->count() > 0)
+        {
         
-       if($company->approved_application)
-       {
-           return back()->with('info', 'Application has already aubeen approved');
-       }   
+            if($company->approved_application)
+            {
+                return back()->with('info', 'Application has already aubeen approved');
+            }   
 
-        ApprovedApplication::create([
+            ApprovedApplication::create([
 
-            'company_id' => $company->id,
+                'company_id' => $company->id,
 
-            'approved' => true
-        ]);
-    
+                'approved' => true
+            ]);
+        
+        }else{
+
+            return back()->with('error', 'Failed! '.$company->company_name .' has no application(s)');
+        }
 
         return back()->withSuccess('Application Approved. You may Send introductory letter now');
     }
