@@ -35,6 +35,7 @@ class SendIntroductoryLetter implements ShouldQueue
     public function handle()
     {
         Mail::to($application->company->email)
+            ->from(auth()->guard('main_cordinator')->user()->name)
             ->attach($application->approved_letter)
             ->queue(new SendIntroductoryLetterMail($application));
             

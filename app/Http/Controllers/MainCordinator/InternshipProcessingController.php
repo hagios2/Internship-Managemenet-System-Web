@@ -4,8 +4,9 @@ namespace App\Http\Controllers\MainCordinator;
 
 use App\Company;
 use App\InternshipApplication;
-use App\Http\Jobs\SendIntroductionLetter;
+use App\Jobs\SendIntroductoryLetter;
 use App\ApprovedApplication;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProposedApplicationResource;
@@ -15,7 +16,7 @@ class InternshipProcessingController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:main-cordinator');
+        $this->middleware('auth:main_cordinator');
     }
     /**
      * Display a listing of the resource.
@@ -58,13 +59,13 @@ class InternshipProcessingController extends Controller
         return redirect('/main-cordinator/company')->with('info', ' Click on a company to view student who applied for that company');
     }
 
-    public function processApplication(ApprovedApplication $application)
+    public function sendIntroductoryLetter(ApprovedApplication $application, Request $request)
     {
+
         if(!$application->approved)
         {
             return back()->with('info', 'Please ensure application to this company has been approved');
         }
-
 
         $request->validate([
 
@@ -76,16 +77,14 @@ class InternshipProcessingController extends Controller
 
         request()->file('letter')->storeAs('public/Letters/'.$application->id, $fileName);
 
-        $application->approved_letter = '/storage/Introductory Letters/'.$application->id.'/'.$fileName;
+        $application->approved_letter = 'storage/Letters/'.$application->id.'/'.$fileName;
 
         $application->save();
 
-        SendIntroductionLetter::dispatch($application);
+        SendIntroductoryLetter::dispatch($application);
 
         return back()->withSuccess('Introductory letter Sent'); 
     }
-
-  
 
     /**
      * Store a newly created resource in storage.
@@ -102,20 +101,40 @@ class InternshipProcessingController extends Controller
 
     public function approve_application(Company $company)
     {
+        
        if($company->approved_application)
        {
-           return back()->with('info', 'Application has already been approved');
+           return back()->with('info', 'Application has already aubeen approved');
        }   
 
-     ApprovedApplication::create([
+        ApprovedApplication::create([
 
             'company_id' => $company->id,
 
             'approved' => true
-       ]);
+        ]);
     
 
-       return back()->withSuccess('Application Approved. You may Send introductory letter now');
+        return back()->withSuccess('Application Approved. You may Send introductory letter now');
+    }
+
+
+    public function previewFile(ApprovedApplication $application)
+    {
+
+        return response()->file($application->approved_letter);
+    }
+
+    public function removeFile(ApprovedApplication $application)
+    {
+        Storage::disk('public')->deleteDirectory('Letters/'.$application->id. '/');
+
+        $application->approved_letter = null;
+
+        $application->save();
+
+       return back()->withSuccess('Attachment removed.');
+
     }
 
 }

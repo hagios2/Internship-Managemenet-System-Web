@@ -10,7 +10,7 @@ Button Text
 @endcomponent --}}
 
 Thanks,<br>
-{{ auth()->guard('main-cordinator')->user()->name }}
+{{ auth()->guard('main_cordinator')->user()->name }}
 Internship Coordinator.
 {{ config('app.name') }}
 @endcomponent

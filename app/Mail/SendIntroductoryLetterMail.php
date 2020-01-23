@@ -29,8 +29,6 @@ class SendIntroductoryLetterMail extends Mailable
      */
     public function build()
     {
-        return $this->from(auth()->guard('main-cordinator')->user()->name)
-
-           ->markdown('mail.SendIntroductoryLetter');
+        return $this->markdown('mail.SendIntroductoryLetter');
     }
 }

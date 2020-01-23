@@ -67,6 +67,12 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::post('/application/{company}/approve', 'MainCordinator\InternshipProcessingController@approve_application');
 
+  Route::get('/letter/{application}/preview', 'MainCordinator\InternshipProcessingController@previewFile');
+
+  Route::delete('/letter/{application}/delete', 'MainCordinator\InternshipProcessingController@removeFile');
+
+  Route::post('/introductory-letter/{application}/send', 'MainCordinator\InternshipProcessingController@sendIntroductoryLetter');
+
 });
 
 

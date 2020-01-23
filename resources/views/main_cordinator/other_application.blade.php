@@ -37,7 +37,7 @@
             <div>
                 <span style="margin-right:40%;" class="myspan2"></span>
 
-                <a class="btn btn-default" href="/main-cordinator/student-applications"> << Student Application Page </a>
+                <a class="btn btn-default" href="/main-cordinator/student-applications"> << Student Application Page</a>
                 <a id="proposed_request" class="btn btn-primary">View Proposed Applications</a>
             </div><br>
     

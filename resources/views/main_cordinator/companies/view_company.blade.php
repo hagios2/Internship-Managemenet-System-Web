@@ -31,13 +31,13 @@
 
                         <span><strong> Region: {{ $company->region->region}} | Total Slot: {{ $company->total_slots}}</strong>
 
-                        <a style="margin-left:35" class="btn btn-info" href="{{$company->id}}/edit">Edit</a>
+                        <a style="margin-left:45%" class="btn btn-info" href="{{$company->id}}/edit">Edit Company Details</a>
 
-                        <span style="float:right;">
-                            <form action="/main-cordinator/application/{{ $company->id }}/approve" method="post">
+                        <button id="btn_approve" {{$company->approved_application ? 'disabled' : ''}} class="btn btn-success">Approve Application</button>
+
+                            <form id="subform" action="/main-cordinator/application/{{ $company->id }}/approve" method="post">
                                 @csrf
-    
-                            <button {{$company->approved_application ? 'disabled' : ''}} class="btn btn-success" type="submit">Approve Application</button>
+
                             </form>
                         </span>
             
@@ -83,6 +83,83 @@
             @endif
 
         </div>
+
+        @if ($company->approved_application)
+
+            @if ($company->approved_application->approved_letter == null)
+
+                <div>
+
+                    <form action="/main-cordinator/introductory-letter/{{$company->approved_application->id}}/send" enctype="multipart/form-data" method="post">
+                        @csrf
+                        
+                        <div class="form-group">
+
+                            <label for="IntroLetter">Introductory Letter</label>
+
+                            <input type="file" class="form-control-file" name="letter" id=""> 
+
+                        </div>
+                
+                        <button type="submit" class="btn btn-primary">Send</button>
+                
+                    </form>
+
+                </div>
+                
+            @else    
+
+                <div style="font-size:18px">
+
+                    <h4 class="title">Introductory Letter</h4>
+
+                    <div>
+
+                        <span class="glyphicon glyphicon-file"></span>
+
+                        <a href="/main-cordinator/letter/{{ $company->approved_application->id }}/preview" class="btn btn-default">Preview</a>
+    
+                        <a id="rmv" class="btn btn-danger">Delete</a>
+
+
+                        <form id="rmv_form" action="/main-cordinator/letter/{{ $company->approved_application->id }}/delete" method="post">
+                        
+                            @csrf
+                            @method('DELETE')
+                        </form>
+
+                    </div>
+
+                </div>
+                
+            @endif
+            
+        @endif
+
     </div>
 
 @stop
+
+@section('js')
+
+    <script>
+
+        $(document).ready(function(){
+
+            $('#btn_approve').click(function(){
+
+                $('form#subform').submit(); 
+        
+            });
+
+            $('a#rmv').click(function(){
+
+                $('form#rmv_form').submit(); 
+
+            });
+
+        });
+
+    </script>
+    
+@endsection
