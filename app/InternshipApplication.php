@@ -24,4 +24,9 @@ class InternshipApplication extends Model
         return $this->belongsTo('App\Company');
         
     }
+
+    public function approvedProposedApplicaton()
+    {
+        return $this->hasOne('App\OtherApplicationApproved', 'application_id');
+    }
 }

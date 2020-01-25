@@ -18,6 +18,8 @@ class ProposedApplicationResource extends JsonResource
         $applications = InternshipApplication::findorFail($this->id);
         
         return [
+        
+            'id' => $applications->id,
 
             'student_name' => $applications->student->name,
 

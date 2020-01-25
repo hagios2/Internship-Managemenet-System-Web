@@ -53,13 +53,20 @@ class StudentController extends Controller
             return back()->with('error', 'You have already applied! Consider editing your application instead.');
         }
 
-        auth()->user()->registerStudent($request->all());
+        $company = Company::findOrFail($request->company_id);
 
-       SendInternshipRegistrationNotification::dispatch(auth()->user());
+        if($company->application->count() < $company->total_slots)
+        {
+            auth()->user()->registerStudent($request->all());
 
-        return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
-
+            SendInternshipRegistrationNotification::dispatch(auth()->user());
+     
+            return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
         
+        }else{
+
+            return back()->with('info', 'Denied! maximum application to ' .$company->company_name .' reached.');
+        }
 
     }
 

@@ -73,7 +73,17 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::post('/introductory-letter/{application}/send', 'MainCordinator\InternshipProcessingController@sendIntroductoryLetter');
 
+  Route::post('/approve/{application}/proposed-application', 'MainCordinator\InternshipProcessingController@approveProposedApplication');
+
+  Route::post('/approve-all/proposed-application', 'MainCordinator\InternshipProcessingController@approveAll');
+
+  Route::post('/revert/{application}/approval', 'MainCordinator\InternshipProcessingController@revertProposedApplication');
+
+  Route::get('/getStudent', 'MainCordinator\InternshipProcessingController@getStudent');
+
 });
+
+
 
 
 Route::group(['prefix' => 'cordinator'], function () {

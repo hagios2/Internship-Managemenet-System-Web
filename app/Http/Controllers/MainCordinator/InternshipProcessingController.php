@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\MainCordinator;
 
+use App\User;
 use App\Company;
 use App\InternshipApplication;
+use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
 use App\ApprovedApplication;
 use Illuminate\Support\Facades\Storage;
@@ -47,6 +49,16 @@ class InternshipProcessingController extends Controller
     public function other_application()
     {
         return view('main_cordinator.other_application');
+    }
+
+
+
+    public function getStudent()
+    {
+        return User::where('name', 'like', request()->search)->get('id', 'name');
+
+
+        return request()->search;
     }
 
     /**
@@ -141,6 +153,62 @@ class InternshipProcessingController extends Controller
         $application->save();
 
        return back()->withSuccess('Attachment removed.');
+
+    }
+
+    public function approveAll()
+    {
+        $applications = InternshipApplication::where(['preferred_company', true])->get();
+
+        $count = 0;
+
+        foreach($applcations as $application)
+        {
+            if(!$application->proposedApplication){
+                
+                $this->proposalApproval($application);
+
+                $count++;
+            }
+        }
+
+        return back()->withSuccess('{$count} Application(s) approved');
+
+    }
+
+
+    public function approveProposedApplication(InternshipApplication $application)
+    {
+        if($application->approvedProposedApplicaton)
+        {
+            return back()->with('info', 'Application has already been approved');
+        }
+         
+        $this->proposalApproval($application);
+
+        return back()->withSuccess('Application approved');
+    }
+
+    public function revertProposedApplication(OtherApplicationApproved $application)
+    {
+        if(!$application){
+
+            return back()->with('error', 'Request Application not found!');
+        }
+
+        $application->delete();
+
+        return back()->withSuccess('Reverted Approval');
+    }
+
+    public function proposalApproval(InternshipApplication $application)
+    {
+        OtherApplicationApproved::create([
+
+            'application_id' => $application->id,
+            
+            'approved' => true,
+        ]) ;
 
     }
 

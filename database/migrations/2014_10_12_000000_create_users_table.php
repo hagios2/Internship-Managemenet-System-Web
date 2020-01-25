@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('avatar')->default('/storage/images/noimage.jpg');
             $table->string('index_no')->unique();
             $table->unsignedInteger('level_id');
             $table->unsignedInteger('program_id');

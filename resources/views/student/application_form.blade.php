@@ -15,7 +15,6 @@
                 </ol>
             </nav><br>
 
-
             <div class="" style="width:60%;">
 
                 @include('includes.errors')
@@ -45,59 +44,55 @@
 
                                     <div class="form-group">
 
-                                            <table class="table ">
+                                        <table class="table ">
 
-                                                <thead>
-                                                    <tr>
-                                                        <th></th> 
-                                                        <th>Company</th>
-                                                        <th>Region</th>
-                                                        <th>Location</th>
-                                                    </tr>
-                                                </thead>
+                                            <thead>
+                                                <tr>
+                                                    <th></th> 
+                                                    <th>Company</th>
+                                                    <th>Region</th>
+                                                    <th>Location</th>
+                                                </tr>
+                                            </thead>
 
-                                                <tbody>
-                        
-                                                    @forelse ($companies as $company)
+                                            <tbody>
+                    
+                                                @forelse ($companies as $company)
 
-                                                    <tr>
+                                                    @if ($company->application->count() < $company->total_slots)
 
-                                                        <td>
-                                                            <div class="form-group form-check">
-                                                                <input type="radio" name="company_id" value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }} class="form-check-input" id="exampleCheck1">
-                                                            </div>
-                                                        </td>
+                                                        <tr>
+
+                                                            <td>
+                                                                <div class="form-group form-check">
+                                                                    <input type="radio" name="company_id" value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }} class="form-check-input" id="exampleCheck1">
+                                                                </div>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <div class="form-group ">
+                                                            
+                                                                    <label class="form-check-label" for="exampleCheck1">{{ $company->company_name }}</label>
+                                                                </div>
+                                                            </td>
+    
+                                                            <td>{{ $company->region->region }}</td>
+    
+                                                            <td>{{ $company->location }}</td>
                                                         
-                                                        <td>
-                                                            <div class="form-group ">
+                                                        </tr>
                                                         
-                                                                <label class="form-check-label" for="exampleCheck1">{{ $company->company_name }}</label>
-                                                        </div>
-                                                        </td>
+                                                    @endif
 
-                                                        <td>
+                                                @empty
 
-                                                            {{ $company->region->region }}
+                                                    <h3 class="title">Currently Not Available</h3>
+                                                
+                                                @endforelse
 
-                                                        </td>
+                                            </tbody>
 
-                                                        <td>
-
-                                                            {{ $company->location }}
-
-                                                        </td>
-
-                                                    @empty
-
-                                                        <h3 class="title">Currently Not Available</h3>
-                                                    
-                                                    @endforelse
-                                                        
-                                                    </tr>
-
-                                                </tbody>
-
-                                            </table>
+                                        </table>
 
                                         <div class="form-group">
 
@@ -247,7 +242,7 @@
 
                 <div class="jumbotron" style="text-align:center;">
 
-                    <h2>Sorry! The is currently unavailable </h2>
+                    <h2>Sorry! The page is currently unavailable </h2>
 
                     <p class="title">Come back latter</p>
 

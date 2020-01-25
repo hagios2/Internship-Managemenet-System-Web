@@ -13,6 +13,8 @@
 
     <div class="container">
 
+        @include('includes.errors')
+
         <div id="main_studapp">
 
             <div>
@@ -94,7 +96,9 @@
 
                             $.each(data, function(i, application){
 
-                                $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td></tr>');
+                                $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td><td>' +
+                                '  <span><form style="display:inline;" action="/main-cordinator/approve/' + application.id + '/proposed-application" method="post">@csrf <button class="btn btn-success">Approve</button></form></span><span>' +
+                                '  <form style="display:inline;" action="/main-cordinator/deny/' + application.id + '/other-application" method="post">@csrf @method("DELETE")  <button class="btn btn-danger">Deny</button></form></span></div></td></tr>');
                             
                             });
                         });   

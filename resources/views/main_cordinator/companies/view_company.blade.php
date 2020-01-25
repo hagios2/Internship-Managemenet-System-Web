@@ -138,6 +138,21 @@
                         @endif
 
                     @endif
+
+                    <div style="margin-left:50%">
+
+                        <a class="btn btn-primary" id="addid">Add Student</a>
+
+                        <div id="add_div" style="display:none;">
+
+                            <form id="search_form">
+
+                                <input type="text" name="" id="search_student" placeholder="Enter Stud">
+                            </form>
+
+                        </div>
+
+                    </div>
                                 
                 </div><br><br>
 
@@ -178,6 +193,33 @@
                 $('form#rmv_form').submit(); 
 
             });
+
+            $('a#addid').click(function(){
+
+               $('div#add_div').toggle(); 
+            });
+
+            $('#search_student').keyup(function(e){
+
+                $.ajax({
+
+                    url: '/main-cordinator/getStudent?search='+e.currentTarget.value,
+                    dataType: 'json',
+                
+                }).done(function(data){
+
+                    $.map(data, function(data, i){
+
+                        console.log(data);
+                    });
+
+                });
+                
+                
+
+               // console.log(e.currentTarget.value)
+            });
+
 
         });
 
