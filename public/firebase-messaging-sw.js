@@ -1,5 +1,5 @@
-importScripts("https://www.gstatic.com/firebasejs/3.5.0/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/3.5.0/firebase-messaging.js"); 
+importScripts('https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.7.0/firebase-messaging.js');
 
 const firebaseConfig = {
     apiKey: "AIzaSyArb8lXWTJuu0liL4qbPQehfUbHj53Ug2c",
@@ -9,35 +9,23 @@ const firebaseConfig = {
     storageBucket: "internship-app-865a9.appspot.com",
     messagingSenderId: "634564601633",
     appId: "1:634564601633:web:b6ee8fd3ef0e03d735c060",
-    measurementId: "G-8XNLKGLLJC"
-  };
+     measurementId: "G-8XNLKGLLJC" 
+  }; 
   
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig); 
 
-  var messaging = firebase.messaging();
+const messaging = firebase.messaging();
 
-   messaging.setBackgroundMessageHandler(function(payload){
+messaging.setBackgroundMessageHandler(function(payload){
 
     console.log('[firebase-messaging-sw.js] Received background message',  payload);
 
     var notifacationTitle = 'Background Message Title';
     var notifacationOptions = {
         body: 'Background Message body',
-        icon: ''
+        icon: '/firebase-logo.png'
     };
 
     return self.registration.showNotification(notificationTitle, notificationOptions)
   }); 
 
-  /* messaging.requestPermission()
-  .then(function(){
-      console.log('Notification permission granted');
-
-      return messaging.getToken();
-  
-  }).then(function(token){
-      $('#device_token').val(token);
-      console.log(token);
-  }); */
-
-  

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MainCordinator;
 
 use App\User;
 use App\Company;
+use App\Notification;
 use App\InternshipApplication;
 use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
@@ -52,7 +53,6 @@ class InternshipProcessingController extends Controller
     }
 
 
-
     public function getStudent()
     {
         return User::where('name', 'like', request()->search)->get('id', 'name');
@@ -93,7 +93,11 @@ class InternshipProcessingController extends Controller
 
         $application->save();
 
-        SendIntroductoryLetter::dispatch($application);
+        $token = 'fkrG_0OWD-A:APA91bHUcbg08Mu7yZ6yw8kDuVTr4YI9L82_H6yZAbvc5iwSoJHBkX_gSyYNa2vgDBqOZ8rxFuUy0gFY8O6lWjL9csxLYly9PeYqr8AUw17lpFIwxkR3VYN1CJXDz4u7NLZnW31lUrgp';
+        
+        Notification::toSingleDevice($token, 'Trial title', 'trial body', null, null);
+
+        //SendIntroductoryLetter::dispatch($application);
 
         return back()->withSuccess('Introductory letter Sent'); 
     }
