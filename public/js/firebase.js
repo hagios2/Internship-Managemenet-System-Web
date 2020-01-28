@@ -11,7 +11,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-var messaging = firebase.messaging();
+const messaging = firebase.messaging();
 
 messaging.requestPermission()
          .then(function(){
