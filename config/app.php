@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
-        
+        FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
     ],
 
     /*
@@ -229,6 +229,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'FCM'      => LaravelFCM\Facades\FCM::class,
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,   
+        'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
+        
 
     ],
 
