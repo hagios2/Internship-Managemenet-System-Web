@@ -99,4 +99,10 @@ class StudentController extends Controller
         return redirect('/dashboard')->withSuccess('Updated successfully');
     }
 
+
+    public function StartInternship()
+    {
+        
+    }
+
 }

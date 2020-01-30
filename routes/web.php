@@ -99,3 +99,10 @@ Route::group(['prefix' => 'cordinator'], function () {
   Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
 });
+
+
+/* 
+use multi file uploads for cordinator
+check file by index no to attach file in mail to send to the student with that index no
+check for status of open letter request to filter the issuing of the letters 
+ */

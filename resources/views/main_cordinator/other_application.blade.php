@@ -12,7 +12,7 @@
 @section('content')
 
     <div class="container">
-
+        
         @include('includes.errors')
 
         <div id="main_studapp">
