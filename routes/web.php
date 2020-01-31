@@ -32,7 +32,19 @@ Route::get('/dashboard', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
 
-    return view('welcome');
+    $config = array();
+    $config['center'] = 'New York, USA';
+    $config['zoom'] = '14';
+    $config['map_height'] = '500px';
+    $config['scrollwheel'] = false;
+    GMaps::initialize($config);
+    $map = GMaps::create_map();
+
+ /*    echo $map['js'];
+    echo $map['html']; */
+
+
+    return view('welcome')->with('map', $map);
 });
 
 //end student route 
