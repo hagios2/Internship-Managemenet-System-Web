@@ -11,7 +11,7 @@ class CreateGMapsGeoCacheTable extends Migration
      *
      * @return void
      */
-    public function up()
+   /*  public function up()
     {
         Schema::create('gmaps_geocache', function (Blueprint $table) {
             $table->increments('id');
@@ -21,7 +21,7 @@ class CreateGMapsGeoCacheTable extends Migration
             $table->timestamps();
         });
     }
-
+ */
     /**
      * Reverse the migrations.
      *

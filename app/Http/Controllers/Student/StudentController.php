@@ -105,4 +105,24 @@ class StudentController extends Controller
         
     }
 
+
+    public function approveAppointment(Appointment $appointment)
+    {
+
+        $appointment->appointmentNoted();
+
+        return back()->withSuccess('You approved appointment');
+
+    }
+
+    public function interns()
+    {
+
+        $application = auth()->user()->application;
+
+        abort_if((!$application->approvedProposedApplicaton && !$application->company->approved_application), 403);
+
+        return view('student.intern');
+    }
+
 }

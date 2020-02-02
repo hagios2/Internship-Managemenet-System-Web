@@ -23,6 +23,8 @@
                                     
                                     <button class="btn btn-primary" disabled="disabled"> Edit</button>
 
+                                    <a href="/interns" class="btn btn-primary">Intern's page</a>
+
                                @else
 
                                     <a class="btn btn-primary" disabled href="/internshipapply/{{ auth()->user()->applying_student->id }}/edit">Edit</a>

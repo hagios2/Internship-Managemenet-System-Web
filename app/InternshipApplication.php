@@ -29,4 +29,9 @@ class InternshipApplication extends Model
     {
         return $this->hasOne('App\OtherApplicationApproved', 'application_id');
     }
+
+    public function appointment()
+    {
+        return $this->hasMany('App\Appointment', 'application_id');
+    }
 }

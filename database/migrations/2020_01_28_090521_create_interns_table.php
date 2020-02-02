@@ -11,7 +11,7 @@ class CreateInternsTable extends Migration
      *
      * @return void
      */
-    public function up()
+/*     public function up()
     {
         Schema::create('interns', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -22,7 +22,7 @@ class CreateInternsTable extends Migration
             $table->timestamps();
         });
     }
-
+ */
     /**
      * Reverse the migrations.
      *

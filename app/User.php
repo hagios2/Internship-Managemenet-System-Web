@@ -58,4 +58,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo('App\Program');
     }
+
+    public function approveSchedule()
+    {
+        
+    }
+
+    public function application()
+    {
+        return $this->hasOne('App\InternshipApplication', 'student_id');
+    }
 }
