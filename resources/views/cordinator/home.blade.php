@@ -1,17 +1,54 @@
-@extends('cordinator.layout.auth')
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('css')
+
+
+@endsection
+
+@section('content_header')
+
+    <h4><a href="/main-cordinator/dashboard">Dashboard</a></h4>
+
+     <div style="margin-left:50%;">
+
+    
+    </div>          
+@stop
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body">
-                    You are logged in as Cordinator!
-                </div>
-            </div>
+    @include('includes.errors')
+
+
+    <div class="panel" style="width:20%;">
+
+        <div class="text-center" style="margin:3rem;">
+
+
+        <p class="title">
+
+                
+
+            </p><br>
+
+            <a class="btn btn-primary" href="/main-cordinatordepartment">View</a>
+
+
         </div>
+
     </div>
-</div>
-@endsection
+    
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> /* console.log('Hi!'); */
+
+       
+     </script>
+@stop

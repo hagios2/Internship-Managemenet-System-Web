@@ -77,7 +77,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('cordinator.auth.register');
+        return view('vendor.adminlte.cordinator_register');
     }
 
     /**

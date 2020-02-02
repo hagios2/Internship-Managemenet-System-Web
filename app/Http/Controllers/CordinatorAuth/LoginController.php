@@ -48,7 +48,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('cordinator.auth.login');
+        return view('vendor.adminlte.cordinator_login');
     }
 
     /**
