@@ -132,7 +132,7 @@
 
                         $.each(data, function(i, application){
 
-                            $('tbody.app1').append('<tr> }); <td>' + application.student_name + '</td><td>'+ application.phone + '</td><td>' + application.program + '</td><td>' + application.level + '</td></tr>');
+                            $('tbody.app1').append('<tr> <td>' + application.student_name + '</td><td>'+ application.phone + '</td><td>' + application.program + '</td><td>' + application.level + '</td></tr>');
                         });
 
                     }); 

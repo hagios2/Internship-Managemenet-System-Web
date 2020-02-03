@@ -1,4 +1,4 @@
-const firebaseConfig = {
+/* const firebaseConfig = {
     apiKey: "AIzaSyArb8lXWTJuu0liL4qbPQehfUbHj53Ug2c",
     authDomain: "internship-app-865a9.firebaseapp.com",
     databaseURL: "https://internship-app-865a9.firebaseio.com",
@@ -35,3 +35,4 @@ messaging.onMessage((payload) => {
     console.log(payload);
 
 });
+ */

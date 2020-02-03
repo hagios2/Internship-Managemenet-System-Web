@@ -36,19 +36,19 @@ Route::post('/appointment/{appointment}', 'Student\StudentController@approveAppo
 
 Route::get('/', function () {
 
-/*     $config = array();
-    $config['center'] = 'New York, USA';
-    $config['zoom'] = '14';
+    $config = array();
+    $config['center'] = 'Accra, Ghana';
+    $config['zoom'] = '13';
     $config['map_height'] = '500px';
     $config['scrollwheel'] = false;
     GMaps::initialize($config);
-    $map = GMaps::create_map(); */
+    $map = GMaps::create_map(); 
 
- /*    echo $map['js'];
-    echo $map['html']; */
+    echo $map['js'];
+    echo $map['html']; 
 
 
-    return view('welcome');//->with('map', $map);
+    return view('welcome')->with('map', $map);
 });
 
 //end student route 
@@ -113,6 +113,9 @@ Route::group(['prefix' => 'cordinator'], function () {
   Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
 });
+
+
+Route::get('/department/{department}', 'Cordinator\CordinatorsController@getDepartmentProgram');
 
 
 /* 

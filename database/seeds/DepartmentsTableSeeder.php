@@ -31,5 +31,10 @@ class DepartmentsTableSeeder extends Seeder
 
             'department' => 'Computer Science and I.T'
         ]);
+
+        Department::create([
+
+            'department' => 'Petroleum Engineering'
+        ]);
     }
 }

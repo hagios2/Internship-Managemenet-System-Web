@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Region;
 use App\Company;
+use App\Department;
 use App\InternshipApplication;
 use Illuminate\Http\Request;
 use App\Http\Requests\InternshipFormRequest;
