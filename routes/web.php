@@ -36,7 +36,7 @@ Route::post('/appointment/{appointment}', 'Student\StudentController@approveAppo
 
 Route::get('/', function () {
 
-    $config = array();
+  /*   $config = array();
     $config['center'] = 'Accra, Ghana';
     $config['zoom'] = '13';
     $config['map_height'] = '500px';
@@ -45,10 +45,10 @@ Route::get('/', function () {
     $map = GMaps::create_map(); 
 
     echo $map['js'];
-    echo $map['html']; 
+    echo $map['html'];  */
 
 
-    return view('welcome')->with('map', $map);
+    return view('welcome');//->with('map', $map);
 });
 
 //end student route 
@@ -112,10 +112,16 @@ Route::group(['prefix' => 'cordinator'], function () {
   Route::post('/password/reset', 'CordinatorAuth\ResetPasswordController@reset')->name('password.email');
   Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
+
+  Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
 });
 
+Route::get('/department/{department}/programs', 'Cordinator\CordinatorsController@getDepartmentProgram');
 
-Route::get('/department/{department}', 'Cordinator\CordinatorsController@getDepartmentProgram');
+Route::get('/students-for/{program}/program', 'Cordinator\CordinatorsController@getProgramsStudent');
+
+
+
 
 
 /* 

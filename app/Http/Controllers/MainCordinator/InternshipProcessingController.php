@@ -55,7 +55,7 @@ class InternshipProcessingController extends Controller
 
     public function getStudent()
     {
-        return User::where('name', 'like', request()->search)->get('id', 'name');
+        return User::where('name', 'like', request()->search, '%')->get('id', 'name');
 
 
         return request()->search;
