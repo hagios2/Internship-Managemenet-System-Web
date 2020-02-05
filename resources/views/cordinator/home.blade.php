@@ -2,20 +2,20 @@
 
 @section('title', 'Dashboard')
 
-@section('content_header')  
-
-<ol class="breadcrumb">
-    {{-- <li><a href="/cordinator/">Home</a></li>
-    <li><a href="#">Library</a></li> --}}
-    <li class="active">Dashboard</li>
-
-</ol>  
+@section('content_header')   
   
 @stop
 
 @section('content')
 
     <div class="container">
+
+        <ol class="breadcrumb" style="width:85%;">
+            {{-- <li><a href="/cordinator/">Home</a></li>
+            <li><a href="#">Library</a></li> --}}
+            <li class="active">Dashboard</li>
+        
+        </ol> <br><br>
 
         @include('includes.errors')
 
@@ -96,8 +96,6 @@
 
         </div>
 
-        <img src="'+ student.avatar+'" style="width:5rem; height:4rem;" alt="">
-
         </div>
 
          <br>
@@ -107,10 +105,12 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop
 
 @section('js')
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script> /* console.log('Hi!'); */
 
         $(document).ready(function(){
@@ -138,29 +138,17 @@
                             $('div#student_div').html('<h2 class="title">No student for this Program has registered</h2><p> You may check other Programs</p>');
 
                        }else{
-
                           
-                             $('div#student_div').attr('class', '');
+                            $('div#student_div').attr('class', '');
                             $('div#student_div').html('<div class="panel-group" id="accordion"></div>'); 
 
                             $.each(data, function(i, student){
 
-                                /* $('#std_list').append('<li class="list-group-item"> <a id="student_id" href="/cordinator/student-application'+ student.id +'"><img src="'+ student.avatar +'" style="width:3rem;" alt=""> &emsp;<span>' +  student.name + '</span></a></li>'); */
-
-                                $('div#accordion').append('<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapse'+ i +'">'+ student.name + '</a></h4></div><div id="collapse'+ i+'" class="panel-collapse collapse in"><div class="panel-body">Display student staff here</div></div></div>');
-                          
-                               /*  $('ul#ul_list').append('<li class="list-group-item"> Index no.'  + student.id + '</li>'); */
+                                $('div#accordion').append('<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapse'+ i +'">'+ student.name + '</a></h4></div><div id="collapse'+ i+'" class="panel-collapse collapse in"><div class="panel-body"><div><span><strong>Company:' + student.company + '</strong></span><span class="pull-right"><strong>Location:' + student.location + '&nbsp;|&nbsp; Region:' + student.region + '</strong></span></div><br><br><canvas id="myChart" width="200" height="200"></canvas> <br><br> <img src="'+ student.avatar+'" style="width:10rem; height:8rem;" alt=""></div></div></div>');
                                 
                             }); 
 
-                            $('a#student_id').click(function(e){
-                                e.preventDefault();
-
-                                var studentId = $(this).attr('href');
-
-                                getStudentApplication(studentId);
-
-                            });
+                            @include('cordinator.chart')
                        }
                       
                     }); 
@@ -171,22 +159,6 @@
                 }
 
             });
-
-            function getStudentApplication(id)
-            {
-                $.ajax({
-
-                    url: '/cordinator/student-application/' + id,
-                    method: 'GET',
-                    dataType: 'json',
-
-                    }).done(function(data){
-
-                        console.log(data);
-
-                    });
-                }
-
 
             $('#selected_department').change(function(){
 
@@ -220,6 +192,8 @@
             });
 
         });
+
+    
        
      </script>
 @stop

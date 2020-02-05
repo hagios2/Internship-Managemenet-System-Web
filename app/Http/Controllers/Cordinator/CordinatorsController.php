@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cordinator;
 use Illuminate\Http\Request;
 use App\Department;
 use App\OtherApplicationApproved;
+use App\Http\Resources\StudentDataAndApplication;
 use App\Program;
 use App\Appointment;
 use App\InternshipApplication;
@@ -46,7 +47,8 @@ class CordinatorsController extends Controller
     public function getProgramsStudent(Program $program)
     {
 
-        return response()->json($program->student, 200);
+        return StudentDataAndApplication::collection($program->student);
+        //return response()->json($program->student, 200);
     }
 
     public function studentApplication(InternshipApplication $application)
