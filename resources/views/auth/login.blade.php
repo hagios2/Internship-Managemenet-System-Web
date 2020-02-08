@@ -25,6 +25,8 @@
                             </div>
                         </div>
 
+                        <input type="hidden" name="device_token" id="device_token">
+
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

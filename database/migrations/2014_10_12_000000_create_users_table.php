@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('program_id');
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('device_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

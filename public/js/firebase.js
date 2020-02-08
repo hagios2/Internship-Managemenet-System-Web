@@ -1,4 +1,5 @@
-/* const firebaseConfig = {
+/*  */
+ const firebaseConfig = {
     apiKey: "AIzaSyArb8lXWTJuu0liL4qbPQehfUbHj53Ug2c",
     authDomain: "internship-app-865a9.firebaseapp.com",
     databaseURL: "https://internship-app-865a9.firebaseio.com",
@@ -21,8 +22,10 @@ messaging.requestPermission()
             return messaging.getToken()
                 
         }).then(function(token){
-               // $('#device_token').val(token);
-            console.log(token);
+
+               $('#device_token').val(token);
+            
+               console.log(token);
             
         }).catch(function(err){
 
@@ -35,4 +38,4 @@ messaging.onMessage((payload) => {
     console.log(payload);
 
 });
- */
+ 

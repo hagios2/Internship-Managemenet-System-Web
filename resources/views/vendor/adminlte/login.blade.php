@@ -45,6 +45,8 @@
                             <label for="remember">{{ trans('adminlte::adminlte.remember_me') }}</label>
                         </div>
                     </div>
+
+                    <input type="hidden" name="device_token" id="device_token">
                     <!-- /.col -->
                     <div class="col-xs-4">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">

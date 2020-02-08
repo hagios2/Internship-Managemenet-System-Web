@@ -96,5 +96,10 @@ class Notification extends Model
         $downstreamResponse->tokensWithError();
 
     }
+
+    public static function numberAlert()
+    {
+        
+    } 
 }
     
