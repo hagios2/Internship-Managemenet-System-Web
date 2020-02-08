@@ -93,7 +93,7 @@ class InternshipProcessingController extends Controller
 
         $application->save();
 
-        $token = 'fkrG_0OWD-A:APA91bHUcbg08Mu7yZ6yw8kDuVTr4YI9L82_H6yZAbvc5iwSoJHBkX_gSyYNa2vgDBqOZ8rxFuUy0gFY8O6lWjL9csxLYly9PeYqr8AUw17lpFIwxkR3VYN1CJXDz4u7NLZnW31lUrgp';
+        $token = auth()->guard('main_cordinator')-user()->device_token;
         
         Notification::toSingleDevice($token, 'Trial title', 'trial body', null, null);
 

@@ -63,7 +63,7 @@
             </form>
             <br>
             <p>
-                <a href="{{ url(config('adminlte.login_url', '/cordinator/login')) }}" class="text-center">
+                <a href="/cordinator/login" class="text-center">
                     {{ trans('adminlte::adminlte.i_already_have_a_membership') }}
                 </a>
             </p>

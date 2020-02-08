@@ -69,7 +69,7 @@
                                 >
                                     <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
                                 </a>
-                                <form id="logout-form" action="{{ url(config('adminlte.logout_url', 'auth/logout')) }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="/main-cordinator/logout" method="POST" style="display: none;">
                                     @if(config('adminlte.logout_method'))
                                         {{ method_field(config('adminlte.logout_method')) }}
                                     @endif
@@ -156,9 +156,6 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script src="{{ asset('js/firebase.js')}}"></script>
-        <link href="manifest.json" rel="manifest">
     @stack('js')
     @yield('js')
 @stop

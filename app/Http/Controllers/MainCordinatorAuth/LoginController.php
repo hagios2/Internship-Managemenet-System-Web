@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -59,5 +60,23 @@ class LoginController extends Controller
     protected function guard()
     {
         return Auth::guard('main_cordinator');
+    }
+
+    public function login(Request $request)
+    {
+        if (Auth::guard('main_cordinator')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            // Authentication passed...
+
+            auth()->guard('main_cordinator')->user()->update(['device_token' => $request->device_token]);
+
+            return redirect()->intended('/main-cordinator/dashboard');
+        }
+    }
+
+
+
+    public function logoutToPath()
+    {   
+        return '/main-cordinator/login';
     }
 }

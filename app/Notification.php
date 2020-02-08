@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
@@ -10,7 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
-    //protected $quarded = ['id'];
+    use SoftDeletes;
+    
+    protected $quarded = ['id'];
+
+    protected $dates = ['deleted_at'];
     
     public static function toSingleDevice($token=null, $title=null, $body=null, $icon, $click_action)
     {
@@ -53,8 +58,7 @@ class Notification extends Model
         $downstreamResponse->tokensWithError(); 
     } 
 
-
-    public static function toMultipleDevice($model, $token=null, $title=null, $body=null, $icon, $click_action)
+    public static function toMultipleDevice($model, $title=null, $body=null, $icon, $click_action)
     {
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
