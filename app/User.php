@@ -37,10 +37,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function applying_student()
+/*     public function applying_student()
     {
         return $this->hasOne('App\InternshipApplication', 'student_id');
-    }
+    } */
 
 
     public function registerStudent($attributes)
@@ -67,5 +67,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function application()
     {
         return $this->hasOne('App\InternshipApplication', 'student_id');
+    }
+
+    public function intern()
+    {
+        return $this->hasMany(Intern::class);
     }
 }

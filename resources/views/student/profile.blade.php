@@ -4,9 +4,9 @@
     <div class="card">
         <div class="card-header">Profile</div>
 
-        <div style="justify-content:center">
+        <div style="justify-content:center; margin:auto;">
 
-            <img src="{{ auth()->user()->avatar }}" style="width:10rem; margin:auto;" class="card-img-top rounded-circle" alt="">
+            <img src="{{ auth()->user()->avatar }}" style="width:10rem;" class="card-img-top rounded-circle" alt="">
 
             <div class="card-body">
                 <h4 class="card-title">{{ auth()->user()->name }}</h4>

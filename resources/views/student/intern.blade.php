@@ -34,8 +34,8 @@
 
                                 @if (auth()->user()->application->appointment)
 
-                                    <form action="/appointment/{{ auth()->user()->application->appointment->id}}" method="post">
-
+                                   {{--  <form action="/appointment/{{ auth()->user()->application->appointment->id}}" method="post">
+ --}}
                                         <button type="submit">Approve Appointment</button>
 
 

@@ -64,8 +64,6 @@ class StudentController extends Controller
         {
             auth()->user()->registerStudent($request->all());
 
-
-
             SendInternshipRegistrationNotification::dispatch(auth()->user());
      
             return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
@@ -107,9 +105,11 @@ class StudentController extends Controller
     }
 
 
-    public function viewApprovedApp(InternshipApplication $application)
+    public function startInternship(InternshipApplication $application)
     {
-        
+        $application->update(['started_at' => now()]);
+
+        return redirect('/interns');
     }
 
 

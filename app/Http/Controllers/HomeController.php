@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\InternshipApplication;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        /* if(auth()->user()->application()->has('started_at'))
+        {
+            return auth()->user()->application->started_at;
+        }
+ */
         return view('student.home');
     }
 }

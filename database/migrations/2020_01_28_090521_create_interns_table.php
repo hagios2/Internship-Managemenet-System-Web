@@ -11,18 +11,18 @@ class CreateInternsTable extends Migration
      *
      * @return void
      */
-/*     public function up()
+     public function up()
     {
         Schema::create('interns', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned()->unique(); //for only students with approved internship applicatiojnn
             $table->string('request_code')->nullable();
             $table->boolean('check_in')->nullable();
-            $table->boolean('')->default(false);
+        /*     $table->boolean('')->default(false); */
             $table->timestamps();
         });
     }
- */
+ 
     /**
      * Reverse the migrations.
      *

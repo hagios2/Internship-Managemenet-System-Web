@@ -55,8 +55,31 @@
                                 </li>
                             @endif
                         @else
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link" href="/messages" >
+
+                                <h4><i class="fas fa-comments"></i> {{--  <span class="badge badge-primary"><span>  --}}</h4>
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item dropdown ">
+
+                            <a class="nav-link " href="/confirm/connections" >
+
+                                <i class="fas fa-bell"></i> 1{{--  {!! $connectionRequests->count() > 0 ? '<span class="badge badge-primary">'. $connectionRequests->count(). '</span>' :'' !!} --}}
+
+                            </a>
+
+                        </li>
+
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src="{{auth()->user()->avatar }}" style="width:2rem" class="rounded-circle" alt="">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 

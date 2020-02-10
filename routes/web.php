@@ -27,6 +27,8 @@ Route::group(['middleware' => ['verified']], function () {
 
 });
 
+Route::patch('/start-internship/{application}', 'Student\StudentController@startInternship');
+
 Route::get('/dashboard', 'HomeController@index')->name('home');
 
 Route::get('/interns', 'Student\StudentController@interns');

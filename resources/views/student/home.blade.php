@@ -16,21 +16,34 @@
 
                 <div class="card-body center">
 
-                    @if (auth()->user()->applying_student)
+                    @if (auth()->user()->application)
 
                         <div>
-                               @if (auth()->user()->applying_student->company->approved_application)
+                               
+                            @if (auth()->user()->application->company->approved_application || auth()->user()           ->application->approvedProposedApplicaton)
                                     
-                                    <button class="btn btn-primary" disabled="disabled"> Edit</button>
+                                @if (auth()->user()->application->started_at !== null)
 
                                     <a href="/interns" class="btn btn-primary">Intern's page</a>
+                                    
+                                @else
 
-                               @else
+                                    <form action="/start-internship/{{auth()->user()->application->id}}" method="post">
+                                        @csrf
+                                        @method('PATCH')
 
-                                    <a class="btn btn-primary" disabled href="/internshipapply/{{ auth()->user()->applying_student->id }}/edit">Edit</a>
-                                   
-                               @endif
-                          
+                                        <button class="btn btn-primary" {{ auth()->user()->application->started_at ? 'disabled' : ''}} type="submit">Start Internship</button>
+                                    
+                                    </form>
+                                    
+                                @endif
+
+                            @else
+
+                                <a class="btn btn-primary" href="/internshipapply/{{ auth()->user()->application->id }}/edit">Edit</a>
+                                
+                            @endif
+                        
 
                         </div>
 
