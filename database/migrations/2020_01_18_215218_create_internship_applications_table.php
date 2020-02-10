@@ -25,6 +25,7 @@ class CreateInternshipApplicationsTable extends Migration
             $table->boolean('preferred_company')->nullable();
             $table->boolean('open_letter')->nullable();
             $table->string('resume')->nullable();
+            $table->date('started_at')->nullable();
             $table->timestamps();
         });
     }

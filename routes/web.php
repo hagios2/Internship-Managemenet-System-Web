@@ -33,6 +33,8 @@ Route::get('/interns', 'Student\StudentController@interns');
 
 Route::post('/appointment/{appointment}', 'Student\StudentController@approveAppointment');
 
+Route::get('/view-approved/{application}', 'Student\StudentController@viewApprovedApp')->name('approved.application');
+
 
 Route::get('/', function () {
 
@@ -43,7 +45,7 @@ Route::get('/', function () {
     $config['scrollwheel'] = false;
     GMaps::initialize($config);
     $map = GMaps::create_map(); 
-
+$pipe->HSET('ApprovedApplication:'.$application->id, $application->id);
     echo $map['js'];
     echo $map['html'];  */
 

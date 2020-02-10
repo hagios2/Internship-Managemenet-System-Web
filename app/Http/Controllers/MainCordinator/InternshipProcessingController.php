@@ -9,6 +9,7 @@ use App\InternshipApplication;
 use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
 use App\ApprovedApplication;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,9 +18,13 @@ use App\Http\Resources\RequestOpenLetterResource;
 
 class InternshipProcessingController extends Controller
 {
+    public  $redisConnection;
+
     public function __construct()
     {
         $this->middleware('auth:main_cordinator');
+
+        $redisConnection = Redis::connection();
     }
     /**
      * Display a listing of the resource.
@@ -56,7 +61,6 @@ class InternshipProcessingController extends Controller
     public function getStudent()
     {
         return User::where('name', 'like', request()->search, '%')->get('id', 'name');
-
 
         return request()->search;
     }
@@ -123,8 +127,8 @@ class InternshipProcessingController extends Controller
         
             if($company->approved_application)
             {
-                return back()->with('info', 'Application has already aubeen approved');
-            }   
+                return back()->with('info', 'Application has already been approved');
+            }
 
             ApprovedApplication::create([
 
@@ -137,6 +141,22 @@ class InternshipProcessingController extends Controller
 
             return back()->with('error', 'Failed! '.$company->company_name .' has no application(s)');
         }
+
+        $student = \collect();
+
+       /*  $this->redisConnection->pipeline(function($pipe)
+        { */
+            foreach($company->application as $application)
+            {
+                /* $pipe->HSET('ApprovedApplication:'.$application->id, $application->id); */
+                $student->add($application->student);
+            }
+
+      /*       
+        }); */
+
+   
+        Notification::toMultipleDevice($student, 'Application Approved', null, null, route('approved.application', 1));
 
         return back()->withSuccess('Application Approved. You may Send introductory letter now');
     }

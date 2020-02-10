@@ -7,17 +7,21 @@ use App\Company;
 use App\Department;
 use App\InternshipApplication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use App\Http\Requests\InternshipFormRequest;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendInternshipRegistrationNotification;
 
 class StudentController extends Controller
 {
+    protected $connection;
 
     public function __contruct()
     {
         $this->middleware('auth');
        // $this->middleware('verified');
+
+       $connection = Redis::connection();
     }
 
     /**
@@ -60,6 +64,8 @@ class StudentController extends Controller
         {
             auth()->user()->registerStudent($request->all());
 
+
+
             SendInternshipRegistrationNotification::dispatch(auth()->user());
      
             return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
@@ -101,7 +107,7 @@ class StudentController extends Controller
     }
 
 
-    public function StartInternship()
+    public function viewApprovedApp(InternshipApplication $application)
     {
         
     }
