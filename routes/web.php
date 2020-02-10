@@ -38,7 +38,7 @@ Route::get('/view-approved/{application}', 'Student\StudentController@viewApprov
 
 Route::get('/', function () {
 
-    return view('welcome')->with('map', $map);
+    return view('welcome');
 });
 
 //end student route 

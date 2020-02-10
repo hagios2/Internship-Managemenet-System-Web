@@ -95,7 +95,7 @@ input:checked + .slider:before {
             @csrf
             @method('PATCH')
             <!-- Rounded switch -->
-            <label class="switch">
+            <strong>App Switch:</strong>  &emsp; <label class="switch">
                 <input type="checkbox" name="toggle" {{ $toggleapp->toggle ? 'checked' :'' }} onchange="this.form.submit();">
                 
                 <span class="slider round"></span>

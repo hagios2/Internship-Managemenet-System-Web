@@ -3,48 +3,57 @@
 @section('content')
 
 <div class="container">
-    <div class="row">
 
-        <div class="col-md-3">
-            @include('student.profile')
-        </div>
-    
-        {{-- <div class="justify-content-center"> --}}
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    @if($toggleapp->toggle)
+          
+                <div class="row">
 
-                <div class="card-body center">
+                    <div class="col-md-3">
+                        @include('student.profile')
+                    </div>
+                
+                    {{-- <div > --}}
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">Dashboard</div>
 
-                    @if (auth()->user()->application->appointment)
+                            <div class="card-body center">
 
-                        <a id="view_appointment" class="btn btn-primary"></a>
+                                @if (auth()->user()->application->appointment)
 
-                    @endif
-                 
-                </div>
+                                    <a id="view_appointment" class="btn btn-primary"></a>
 
-                <div id="appointment_div">
+                                @endif
+                            
+                            </div>
 
-                    show Lecturer's name and date here
+                            <div id="appointment_div">
 
-
-                    @if (auth()->user()->application->appointment)
-
-                        <form action="/appointment/{{ auth()->user()->application->appointment->id}}" method="post">
-
-                            <button type="submit">Approve Appointment</button>
+                                show Lecturer's name and date here
 
 
-                        </form>
+                                @if (auth()->user()->application->appointment)
 
-                    @endif
+                                    <form action="/appointment/{{ auth()->user()->application->appointment->id}}" method="post">
 
+                                        <button type="submit">Approve Appointment</button>
+
+
+                                    </form>
+
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-</div>
+            </div>
+
+    @else
+
+        @include('student.unavailable_page')
+
+    @endif
    
 @endsection
