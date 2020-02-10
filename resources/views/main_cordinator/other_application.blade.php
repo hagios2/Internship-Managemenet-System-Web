@@ -4,8 +4,10 @@
 
 @section('content_header')
 
-
-    <a href="/main-cordinator/dashboard">Dashboard</a> / <a href="/main-cordinator/student-applications">Student Application</a>
+    <ol class="breadcrumb">
+        <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
+        <li class="active">Student Application</li>
+    </ol>
 
 @stop
 

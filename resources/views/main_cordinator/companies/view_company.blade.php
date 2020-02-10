@@ -6,8 +6,13 @@
 @section('content_header')
 
     @if($company)
+    
+    <ol class="breadcrumb">
+        <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
+        <li><a href="/main-cordinator/company">Company</a></li>
+        <li class="active">{{ $company->company_name }}</li>
+    </ol>
 
-    <a href="/main-cordinator/dashboard">Dashboard</a> / <a href="/main-cordinator/company">Company</a> / <a href="/main-cordinator/company/{{$company->id}}">{{$company->company_name}}</a>
 
     @endif
 

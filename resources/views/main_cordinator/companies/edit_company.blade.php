@@ -4,7 +4,12 @@
 
 @section('content_header')
 
-    <a href="/main-cordinator/dashboard">Dashboard</a> / <a href="/main-cordinator/company">Company</a> / <a href="/main-cordinator/company/{{ $company->id }}">{{ $company->company_name }}</a> / <a href="/main-cordinator/company/{{ $company->id }}/edit">Edit</a>
+    <ol class="breadcrumb">
+        <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
+        <li><a href="/main-cordinator/company">Company</a></li>
+        <li><a href="/main-cordinator/company/{{ $company->id }}">{{ $company->company_name }}</a></li>
+        <li class="active">Edit</li>
+      </ol>
 
 @stop
 

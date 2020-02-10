@@ -68,98 +68,101 @@ input:checked + .slider:before {
   border-radius: 50%;
 } 
 
-
 </style>
     
 @endsection
 
 @section('content_header')
-
-    <h4><a href="/main-cordinator/dashboard">Dashboard</a></h4>
-
-     <div style="margin-left:50%;">
-
-      <form action="/main-cordinator/toggle" method="post">
-    
-          @csrf
-          @method('PATCH')
-          <!-- Rounded switch -->
-          <label class="switch">
-              <input type="checkbox" name="toggle" {{ $toggleapp->toggle ? 'checked' :'' }} onchange="this.form.submit();">
-              
-              <span class="slider round"></span>
-      
-          </label>
-
-      </form>
-    
-    </div>          
+   
+  <ol class="breadcrumb">
+    <li class="active">Dashboard</li>
+  </ol> <br>
+  
 @stop
 
 @section('content')
 
     @include('includes.errors')
 
-    <div class="row">
+    <br>
 
-        <div class="panel" style="width:20%;">
+    <div class="container">
 
-            <div class="text-center" style="margin:3rem;">
+      <div class="pull-left">
+
+        <form action="/main-cordinator/toggle" method="post">
+      
+            @csrf
+            @method('PATCH')
+            <!-- Rounded switch -->
+            <label class="switch">
+                <input type="checkbox" name="toggle" {{ $toggleapp->toggle ? 'checked' :'' }} onchange="this.form.submit();">
+                
+                <span class="slider round"></span>
+        
+            </label>
+  
+        </form>
+      
+      </div><br><br>
 
 
-            <p class="title">
+      <div class="row">
 
-                    Department
+        <div class="col-md-3 col-lg-3">
 
-                </p><br>
+              <div class="panel">
 
-                <a class="btn btn-primary" href="/main-cordinatordepartment">View</a>
+                <div class="text-center" style="margin:2rem;">
 
+                    <p class="title">Department</p><br>
 
-            </div>
+                    <a class="btn btn-primary" href="/main-cordinatordepartment">View</a>
+
+                </div>
+
+              </div> 
 
         </div>
 
+      <div class="col-md-3 col-lg-3">
+          
+          <div class="panel">
 
-        <div class="panel" style="width:20%;">
+              <div class="text-center" style="margin:2rem;">
 
-          <div class="text-center" style="margin:3rem;">
+              <p class="title">Student Application</p><br>
+
+                  <a class="btn btn-primary" href="/main-cordinator/student-applications">View</a>
+
+              </div>
+
+          </div>
+          
+      </div>        
 
 
-          <p class="title">
+      <div class="col-md-3 col-lg-3">
 
-                  Student Application
+          <div class="panel">
 
-              </p><br>
+            <div class="text-center" style="margin:2rem;">
 
-              <a class="btn btn-primary" href="/main-cordinator/student-applications">View</a>
+                <p class="title">Companies</p><br>
 
+                <a class="btn btn-primary" href="/main-cordinator/company">View Company</a>
+
+            </div>
 
           </div>
 
       </div>
 
-        <div class="panel" style="width:20%;">
-
-                <div class="text-center" style="margin:2rem;">
-
-                    <p class="title">
-
-                            Companies
-
-                    </p><br>
-
-
-                    <a class="btn btn-primary" href="/main-cordinator/company">View Company</a>
-
-
-                </div>
-
-
-        </div>
-
+           
 
     </div>
+
+  </div>
 
 @stop
 

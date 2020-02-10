@@ -4,7 +4,11 @@
 
 @section('content_header')
 
-    <a href="main-cordinator/dashboard">Dashboard</a> / <a href="/main-cordinator/company">Company</a> / <a  href="/main-cordinator/company/create">Add Company</a>
+    <ol class="breadcrumb">
+        <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
+        <li><a href="/main-cordinator/company">Company</a></li>
+        <li class="active">Add New Company</li>
+      </ol>
 
 @stop
 

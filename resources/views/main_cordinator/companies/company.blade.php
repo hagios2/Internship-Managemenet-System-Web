@@ -4,7 +4,10 @@
 
 @section('content_header')
 
-        <a href="dashboard">Dashboard</a> / <a href="company">Companies</a>
+    <ol class="breadcrumb">
+        <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
+        <li class="active">Companies</li>
+    </ol>
 
 @stop
 
@@ -14,13 +17,15 @@
 
      @include('includes.errors') <br>
 
-     <div class="panel panel-default">
+     <div class="panel panel-default" style="width:45%; margin:auto;">
 
-            <div class="panel-heading"><h3> <span class="fas fa-industry"></span>   Our companies</h3></div>
+        <div class="panel-heading text-center"><h4> <span class="fas fa-industry"></span>&emsp;Our companies</h4></div>
 
-        </div><br>
+    </div><br>
 
-        <a style="margin-left:85%;" class="btn btn-primary" href="company/create">Add company</a><br><br>
+        <a class="btn btn-default pull-left" href="/main-cordinator/dashboard"><< Back</a>
+
+        <a class="btn btn-primary pull-right" href="/main-cordinator/company/create">Add company</a><br><br>
 
         <table class="table table-striped">
 
