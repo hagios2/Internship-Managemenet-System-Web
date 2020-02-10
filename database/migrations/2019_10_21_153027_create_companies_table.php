@@ -18,9 +18,10 @@ class CreateCompaniesTable extends Migration
             $table->string('company_name')->unique();
             $table->string('email')->unique();
             $table->string('location');
+            $table->string('lat');
+            $table->string('long');
             $table->integer('city')->unsigned();
             $table->integer('total_slots')->unsigned();
-            
             $table->timestamps();
         });
     }

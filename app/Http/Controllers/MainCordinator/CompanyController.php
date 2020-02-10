@@ -7,6 +7,8 @@ use App\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
+use FarhanWazir\GoogleMaps\Facades\GMapsFacade as GMaps;
+        
 
 class CompanyController extends Controller
 {
@@ -34,7 +36,35 @@ class CompanyController extends Controller
     public function create()
     {
 
-        return view('main_cordinator/companies/create_company');
+        $map = $this->googleMap();
+
+        return view('main_cordinator/companies/create_company', compact('map'));
+    }
+
+    public function googleMap($lat='5.603716800000001', $long='-0.18696439999996528')
+    {
+        $config = array();
+        $config['center'] = 'auto';
+        $config['zoom'] = 'auto';
+        $config['map_height'] = '500px';
+        $config['scrollwheel'] = true;
+        $config['places'] = true;
+        $config['placesAutocompleteInputID'] = 'companyTextBox';
+        $config['placesAutocompleteBoundsMap'] = TRUE;
+        $config['placesAutocompleteOnChange'] = 'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="lat" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="long" value="\'+event.latLng.lng()+\'" > \'';
+
+        GMaps::initialize($config);
+    
+        $marker['position'] = "{$lat}, {$long}";
+        $marker['draggable'] = true;
+        $marker['ondragend'] =  'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="lat" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="long" value="\'+event.latLng.lng()+\'" > \'';
+       
+        GMaps::add_marker($marker);
+        $map = GMaps::create_map(); 
+        /* echo $map['js'];
+        echo $map['html'];   */
+
+        return $map;
     }
 
     /**
@@ -45,7 +75,6 @@ class CompanyController extends Controller
      */
     public function store(CompanyFormRequest $request)
     {
-
         //persist in db
 
         $company =  Company::create($request->all());
@@ -76,7 +105,9 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
 
-        return view('main_cordinator.companies.edit_company', compact('company'));
+        $map = $this->googleMap($company->lat, $company->long);
+
+        return view('main_cordinator.companies.edit_company', \compact('company', 'map'));
     }
 
     /**
@@ -88,6 +119,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyFormRequest $request, Company $company)
     {
+
         $company->update($request->all());
 
         return redirect('/main-cordinator/company')->withSuccess('Updated '. $request->company_name . ' successfully');

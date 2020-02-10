@@ -38,19 +38,8 @@ Route::get('/view-approved/{application}', 'Student\StudentController@viewApprov
 
 Route::get('/', function () {
 
-  /*   $config = array();
-    $config['center'] = 'Accra, Ghana';
-    $config['zoom'] = '13';
-    $config['map_height'] = '500px';
-    $config['scrollwheel'] = false;
-    GMaps::initialize($config);
-    $map = GMaps::create_map(); 
-$pipe->HSET('ApprovedApplication:'.$application->id, $application->id);
-    echo $map['js'];
-    echo $map['html'];  */
 
-
-    return view('welcome');//->with('map', $map);
+    return view('welcome')->with('map', $map);
 });
 
 //end student route 

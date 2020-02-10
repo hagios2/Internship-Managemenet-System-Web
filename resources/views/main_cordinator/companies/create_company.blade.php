@@ -12,7 +12,10 @@
 
 
     @include('includes.errors')
-  
+
+    <br>
+
+    <div>{!! $map['html'] !!}</div><br><br>
 
     <div class="container" style="width:50%;">
 
@@ -29,7 +32,13 @@
 
             <div class="form-group">
 
-                <input type="text" class="form-control" placeholder="location" name="location" value="{{ old('location') }}">
+                <input type="email" class="form-control" placeholder="Enter Company email" name="email" value="{{ old('email') }}">
+
+            </div>
+
+            <div class="form-group">
+
+                <input type="text" class="form-control" placeholder="location" id="companyTextBox" name="location" value="{{ old('location') }}">
 
             </div>
 
@@ -60,44 +69,29 @@
 
             </div>
 
+            <div id="other_div" class="form-grop"></div>
 
-            <button class="btn btn-primary" style=" border-radius: 15px 50px 30px; padding: 10px;width: 100px;height: 50px;" type="submit">Add</button>
+
+            <button class="btn btn-primary type="submit">Add company</button>
 
         <form>
 
-    </div><br><br>
-
-
-    <div>
-
-       
-
-       {{--  <div class="container">
-
-            <div class="row">
-
-                @forelse ($companies as $company)
-
-                    <div class="panel panel-default" style="width:30rem;">
-
-                        <div class="panel-body">
-
-                            <p><a href="/company/{{ $company->id}}">{{ $company->company_name}}</a></p>
-
-                        </div>
-
-                    </div>
-
-                @empty
-                        <h4>No Company added</h4>
-
-                @endforelse
-
-            </div>
-
-        </div> --}}
-
-    </div>
+    </div><br>
 
 
 @stop
+
+@section('js')
+
+
+    {!! $map['js'] !!}  
+
+    <script>
+        $(document).ready(function(){
+
+            
+        })
+    </script>
+
+    
+@endsection
