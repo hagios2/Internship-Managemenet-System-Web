@@ -4,11 +4,13 @@
 
 @section('content_header')
 
+<div class="container">
     <ol class="breadcrumb">
         <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
         <li><a href="/main-cordinator/company">Company</a></li>
         <li class="active">Add New Company</li>
-      </ol>
+    </ol>
+</div>
 
 @stop
 

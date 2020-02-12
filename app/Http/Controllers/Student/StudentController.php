@@ -134,7 +134,10 @@ class StudentController extends Controller
 
         abort_if((!$application->approvedProposedApplicaton && !$application->company->approved_application), 403);
 
-        return view('student.intern');
+        $appointment = auth()->user()->application->appointment;
+
+        return view('student.intern', compact('appointment'));
+        
     }
 
 }

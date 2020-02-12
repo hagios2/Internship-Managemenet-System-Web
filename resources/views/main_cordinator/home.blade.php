@@ -74,9 +74,11 @@ input:checked + .slider:before {
 
 @section('content_header')
    
-  <ol class="breadcrumb">
-    <li class="active">Dashboard</li>
-  </ol> <br>
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="active">Dashboard</li>
+      </ol> <br>
+    </div>
   
 @stop
 

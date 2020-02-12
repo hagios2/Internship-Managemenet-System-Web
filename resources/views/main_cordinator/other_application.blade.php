@@ -4,10 +4,12 @@
 
 @section('content_header')
 
-    <ol class="breadcrumb">
-        <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
-        <li class="active">Student Application</li>
-    </ol>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
+            <li class="active">Student Application</li>
+        </ol>
+    </div>
 
 @stop
 
@@ -87,14 +89,16 @@
 
                     }).done(function(data){
 
+                        console.log(data);
+
                         /* setup table headers and no. of appliation  */
 
-                        $('span.myspan1').html('<strong> No. of applications: ' + 8 + '</strong>');
+                        $('span.myspan1').html('<strong> No. of applications: ' + data.length + '</strong>');
 
                         $('div#studapp').html('<table class="table table-striped"><thead><th>Student Name</th><th>Proposed Company</th><th>Location</th><th>Region</th></thead><tbody class="app"></tbody></table>');
 
                             /* iterate tru data and display in the DOM */
-                        $.map(data, function(data, u){
+                      //  $.map(data, function(data, u){
 
                             $.each(data, function(i, application){
 
@@ -102,8 +106,8 @@
                                 '  <span><form style="display:inline;" action="/main-cordinator/approve/' + application.id + '/proposed-application" method="post">@csrf <button class="btn btn-success">Approve</button></form></span><span>' +
                                 '  <form style="display:inline;" action="/main-cordinator/deny/' + application.id + '/other-application" method="post">@csrf @method("DELETE")  <button class="btn btn-danger">Deny</button></form></span></div></td></tr>');
                             
-                            });
-                        });   
+                           });
+                       // });   
 
                     });      
             } 
@@ -124,20 +128,21 @@
 
                 }).done(function(data){
 
+                    console.log(data);
 
                     $('div#open_letter').html('<table class="table table-striped"><thead><th>Student Name</th><th>Phone</th><th>Program</th><th>Level</th></thead><tbody class="app1"></tbody></table>');
 
-                    $('span.myspan2').html('<strong> No. of applications: ' +8 + '</strong>');  
+                    $('span.myspan2').html('<strong> No. of applications: ' + data.length + '</strong>');  
 
 
-                    $.map(data, function(data, u){
+                   // $.map(data, function(data, u){
 
                         $.each(data, function(i, application){
 
                             $('tbody.app1').append('<tr> <td>' + application.student_name + '</td><td>'+ application.phone + '</td><td>' + application.program + '</td><td>' + application.level + '</td></tr>');
                         });
 
-                    }); 
+                  //  }); 
 
                 });
             });

@@ -38,4 +38,9 @@ class Cordinator extends Authenticatable
     {
         $this->notify(new CordinatorResetPassword($token));
     }
+
+    public function appointment()
+    {
+        return $this->hasMany('App\Appointment');
+    }
 }

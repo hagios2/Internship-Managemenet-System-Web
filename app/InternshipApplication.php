@@ -37,6 +37,6 @@ class InternshipApplication extends Model
 
     public function appointment()
     {
-        return $this->hasMany('App\Appointment', 'application_id');
+        return $this->hasOne('App\Appointment', 'application_id');
     }
 }

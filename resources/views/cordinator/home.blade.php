@@ -3,19 +3,23 @@
 @section('title', 'Dashboard')
 
 @section('content_header')   
+
+<div class="container">
+
+    <ol class="breadcrumb" style="width:85%;">
+        {{-- <li><a href="/cordinator/">Home</a></li>
+        <li><a href="#">Library</a></li> --}}
+        <li class="active">Dashboard</li>
+    
+    </ol> <br><br>
+
+</div>
   
 @stop
 
 @section('content')
 
     <div class="container">
-
-        <ol class="breadcrumb" style="width:85%;">
-            {{-- <li><a href="/cordinator/">Home</a></li>
-            <li><a href="#">Library</a></li> --}}
-            <li class="active">Dashboard</li>
-        
-        </ol> <br><br>
 
         @include('includes.errors')
 

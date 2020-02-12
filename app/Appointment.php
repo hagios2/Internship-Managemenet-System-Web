@@ -14,6 +14,11 @@ class Appointment extends Model
     }
 
 
+    public function cordinator()
+    {
+        return $this->belongsTo('App\Cordinator');
+    }
+
 
     public function appointmentNoted()
     {
@@ -28,4 +33,5 @@ class Appointment extends Model
     {
         return $this->belongsTo('App\InternshipApplication', 'appointment_id');
     }
+    
 }

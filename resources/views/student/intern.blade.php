@@ -2,58 +2,60 @@
 
 @section('content')
 
-<div class="container">
+    <div class="container">
 
-    @if($toggleapp->toggle)
-          
-                <div class="row">
+        @if($toggleapp->toggle)
+            
+            <div class="row">
 
-                    <div class="col-md-3">
-                        @include('student.profile')
-                    </div>
-                
-                    {{-- <div > --}}
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">Dashboard</div>
-
-                            <div class="card-body center">
-
-                                @if (auth()->user()->application->appointment)
-
-                                    <a id="view_appointment" class="btn btn-primary"></a>
-
-                                @endif
-                            
-                            </div>
-
-                            <div id="appointment_div">
-
-                                show Lecturer's name and date here
-
-
-                                @if (auth()->user()->application->appointment)
-
-                                   {{--  <form action="/appointment/{{ auth()->user()->application->appointment->id}}" method="post">
- --}}
-                                        <button type="submit">Approve Appointment</button>
-
-
-                                    </form>
-
-                                @endif
-
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-3">
+                    @include('student.profile')
                 </div>
+                    
+                <div class="col-md-8">
+
+                    <div class="card">
+
+                        <div class="card-header">Dashboard</div>
+
+                        <div class="card-body center">
+
+                            @if ($appointment)
+
+                                <a id="view_appointment" class="btn btn-primary">View </a>
+
+                            @endif
+                        
+                        </div>
+
+                        <div id="appointment_div" style="display:none;">
+
+                            @if ($appointment)
+
+                                {{$appointment->cordinator->name}}
+
+                                <form action="/appointment/{{ $appointment->id}}" method="post">
+
+                                    <button class="btn btn-primary" type="submit">Approve Appointment</button>
+
+                                </form>
+
+                            @endif
+
+                        </div>
+
+                    </div>
+
+                </div>
+            
             </div>
-            </div>
 
-    @else
+        @else
 
-        @include('student.unavailable_page')
+            @include('student.unavailable_page')
 
-    @endif
-   
+        @endif
+            
+    </div>
+
 @endsection

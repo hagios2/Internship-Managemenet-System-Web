@@ -4,10 +4,12 @@
 
 @section('content_header')
 
-    <ol class="breadcrumb">
-        <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
-        <li class="active">Companies</li>
-    </ol>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/main-cordinator/dashboard">Dashboard</a></li>
+            <li class="active">Companies</li>
+        </ol>
+    </div>
 
 @stop
 
