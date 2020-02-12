@@ -28,7 +28,11 @@ class HomeController extends Controller
         {
             return auth()->user()->application->started_at;
         }
+
+
  */
+       // return auth()->user();//->application->company;
+
         return view('student.home');
     }
 }

@@ -46,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function registerStudent($attributes)
     {
         
-        $this->applying_student()->create($attributes);
+        $this->application()->create($attributes);
     }
 
     public function level()

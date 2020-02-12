@@ -98,7 +98,12 @@ class StudentController extends Controller
     public function update(Request $request, InternshipApplication $application)
     {
         abort_if((auth()->user() != $application->student), 403);
+//return $application;
 
+        if($application->company->approved_application)
+        {
+            return back()->with('error', 'Access Denied! Application already approved');
+        }
         $application->update($request->all());
 
         return redirect('/dashboard')->withSuccess('Updated successfully');

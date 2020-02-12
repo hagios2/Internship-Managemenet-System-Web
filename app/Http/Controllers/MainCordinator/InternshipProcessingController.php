@@ -119,8 +119,9 @@ class InternshipProcessingController extends Controller
         return back()->withSuccess($application->student->name . ' removed from applicants list');
     }
 
-    public function approve_application(Company $company)
+    public function approve_application(InternshipApplication $application)
     {
+
 
         if($company->application->count() > 0)
         {

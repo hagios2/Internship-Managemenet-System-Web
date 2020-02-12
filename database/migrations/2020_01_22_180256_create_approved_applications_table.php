@@ -15,13 +15,13 @@ class CreateApprovedApplicationsTable extends Migration
     {
         Schema::create('approved_applications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('company_id')->unique();
+            $table->integer('company_id')->unique()->nullable();
             $table->boolean('approved')->default(false);
             $table->string('approved_letter')->nullable();
             $table->timestamps();
         });
     }
-
+   
     /**
      * Reverse the migrations.
      *

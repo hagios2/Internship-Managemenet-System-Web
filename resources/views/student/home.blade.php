@@ -3,6 +3,9 @@
 @section('content')
 
 <div class="container">
+
+    @include('includes.errors')
+
     <div class="row">
 
         <div class="col-md-3">
@@ -20,11 +23,11 @@
 
                         <div>
                                
-                            @if (auth()->user()->application->company->approved_application || auth()->user()           ->application->approvedProposedApplicaton)
+                            @if (auth()->user()->application->approvedProposedApplicaton || auth()->user()->application->company->approved_application )
                                     
                                 @if (auth()->user()->application->started_at !== null)
 
-                                    <a href="/interns" class="btn btn-primary">Intern's page</a>
+                                    <a href="/interns" class="btn btn-primary">Interns page</a>
                                     
                                 @else
 

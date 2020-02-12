@@ -25,6 +25,11 @@ class InternshipApplication extends Model
         
     }
 
+ /*    public function approved_application()
+    {
+        return $this->hasOne('App\ApprovedApplication');
+    } */
+
     public function approvedProposedApplicaton()
     {
         return $this->hasOne('App\OtherApplicationApproved', 'application_id');

@@ -20,6 +20,8 @@
 
 @section('content')
 
+<br><br>
+
     @include('includes.errors') <br>
 
     <div class="container">
