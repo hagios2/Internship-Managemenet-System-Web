@@ -106,11 +106,16 @@ Route::group(['prefix' => 'cordinator'], function () {
   Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
 
   Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
+
+ // Route::get('/cordinator/{application}/application', 'Cordinator\CordinatorsController@');
+
 });
 
 Route::get('/department/{department}/programs', 'Cordinator\CordinatorsController@getDepartmentProgram');
 
 Route::get('/students-for/{program}/program', 'Cordinator\CordinatorsController@getProgramsStudent');
+
+
 
 
 

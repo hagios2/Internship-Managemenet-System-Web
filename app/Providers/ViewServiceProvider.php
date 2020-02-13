@@ -24,7 +24,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer(['student.edit_application', 'student.application_form', 'main_cordinator.companies.company' ],
+        view()->composer(['student.edit_application', 'student.application_form', 'main_cordinator.companies.company', 'cordinator.home' ],
              'App\Http\View\Composers\CompanyComposer');
 
         view()->composer(['cordinator.home'],
