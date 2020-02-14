@@ -18,6 +18,8 @@ class CreateAppointmentsTable extends Migration
             $table->integer('cordinator_id')->unsigned();
             $table->integer('company_id')->unique()->nullable();
             $table->integer('application_id')->unsigned()->nullable();
+            $table->boolean('company_appointment')->nullable();
+            $table->boolean('other_app_appointment')->nullable();
             $table->date('schedule_date');
             $table->timestamps();
         });

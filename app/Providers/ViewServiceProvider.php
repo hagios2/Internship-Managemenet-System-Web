@@ -31,7 +31,7 @@ class ViewServiceProvider extends ServiceProvider
              'App\Http\View\Composers\DepartmentComposer');
 
 
-        view()->composer(['student.edit_application', 'student.application_form', 'main_cordinator.companies.company', 'main_cordinator.companies.create_company', 'main_cordinator.companies.edit_company', 'main_cordinator.companies.view_company' ], 'App\Http\View\Composers\RegionComposer');
+        view()->composer(['student.edit_application', 'student.application_form', 'main_cordinator.companies.company', 'main_cordinator.companies.create_company', 'main_cordinator.companies.edit_company', 'main_cordinator.companies.view_company', 'cordinator.home' ], 'App\Http\View\Composers\RegionComposer');
 
 
         view()->composer(['main_cordinator.home', 'student.application_form', 'student.edit_application', 'student.intern'],'App\Http\View\Composers\ToggleAppComposer');

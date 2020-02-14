@@ -1,6 +1,6 @@
 @extends('adminlte::cord_page')
 
-@section('title', 'Dashboard')
+@section('title', 'UENR')
 
 @section('content_header')   
 
@@ -23,83 +23,133 @@
 
         @include('includes.errors')
 
-        <div style="background-color:orangered; height:15rem;" class="col-md-3 col-lg-3 col-xs-5 col-sm-5">
+        <div style="background-color:#26A498; height:10rem;" class="col-md-4 col-lg-4 col-xs-5 col-sm-5">
             
-           <h1> <span class="glyphicon glyphicon-calendar"></span></h1><h3>&emsp; {{auth()->guard('cordinator')->user()->appointment->count()}} Appointment(s)</h3>
+           <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><h4 id="count_appointment">&emsp; {{auth()->guard('cordinator')->user()->appointment->count()}} Appointment(s)</h4>
         
         </div><br><br><br><br><br><br><br><br>
 
         <div class="col-md-9 col-lg-9 col-xs-9 col-sm-9" style="margin-left:10%; margin-right:15%;">
 
-            <div id="calendar"></div>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        View Calendar
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+
+                        <div id="calendar"></div>
+                      
+                    </div>
+                  </div>
+                </div>
+
+            </div>
         
+        </div><br><br>
+
+        <div class="col-lg-12 col-md-12-col-xs-12 col-sm-12">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading"><span class="glyphicon glyphicon-calendar"></span> Schedule Appointment</div>
+    
+                <div class="row">
+    
+                    <div class="form-group col-md-3 col-lg-3 col-xs-5 col-sm-5">
+    
+                        <select class="form-control" name="application_type" id="appointment_application_type">
+    
+                            <option value="">Select Application type</option>
+    
+                            <option value="company application">Company application</option>
+                            
+                            <option value="other application">Other application</option>
+                        
+                        </select>
+    
+                    </div>
+    
+                    <div id="company_div" class="form-group col-md-3 col-lg-3 col-xs-5 col-sm-5" style="display:none;">
+    
+                        <select class="form-control" name="company" id="application_company">
+    
+                            <option value="">Select Company</option>
+    
+                            @forelse ($companies as $company)
+    
+                                <option value="{{$company->id}}">{{$company->company_name}}</option>
+                                
+                            @empty
+    
+                                <h5 class="title">No company added</h5>
+                                
+                            @endforelse
+    
+                        </select>
+    
+                    </div>
+    
+                    <div class="form-group col-md-3 col-lg-3 col-xs-5 col-sm-5" id="other_app_div" style="display:none;">
+                        
+                        <select class="form-control" name="" id="regional_applications">
+                            <option value="">Select City</option>
+
+                            @forelse ($regions as $city)
+    
+                                <option value="{{$city->id}}">{{$city->region}}</option>
+                                
+                            @empty
+    
+                                <h5 class="title">No city added</h5>
+                                
+                            @endforelse
+                        </select>
+                       
+                    </div>
+    
+    
+                   <div  class="col-md-3 col-lg-3 col-xs-5 col-sm-5" id="cal_div" style="display:none;">
+                        
+                        <form method="post">
+                       
+                            @csrf
+
+                            <div class="form-group">
+    
+                                <input type="date" class="form-control" id="cal_date">
+        
+                            </div>
+
+                        </form>
+                   
+                    </div>
+                        
+                </div>
+    
+            </div>    
+
         </div>
 
-        <div class="panel panel-default col-lg-12 col-md-12-col-xs-12 col-sm-12">
+        <div class="col-md-6 col-lg-6" style="margin-left:17%; margin-right:15%;">
 
-            <div class="panel-heading"><span class="glyphicon glyphicon-calendar"></span> Schedule Appointment</div>
-
-            <div class="row">
-
-                <span>Schedule Appointment By: </span> 
-
-                <div class="form-group col-md-3 col-lg-3">
-
-                    <select class="form-control" name="application_type" id="appointment_application_type">
-
-                        <option value="">Select Application type</option>
-
-                        <option value="company application">Company application</option>
-                        
-                        <option value="other application">Other application</option>
-                    
-                    </select>
-
+            <form>
+                <div class="input-group">
+                <input type="text" class="form-control " placeholder="Search">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                    </button>
                 </div>
-
-                <div id="company_div" class="form-group col-md-3 col-lg-3" style="display:none;">
-
-                    <select class="form-control" name="company" id="application_company">
-
-                        <option value="">Select Company</option>
-
-                        @forelse ($companies as $company)
-
-                            <option value="{{$company->id}}">{{$company->company_name}}</option>
-                            
-                        @empty
-
-                            <h5 class="title">No company added</h5>
-                            
-                        @endforelse
-
-                    </select>
-
                 </div>
+            </form> 
 
-                <div class="form-group" id="other_app_div" style="display:none;">
-
-                    i amd herer
-                </div>
-                    
-            </div>
-
-        </div>    
-
-            <div class="col-md-6 col-lg-6" style="margin-left:17%; margin-right:15%;">
-
-                <form>
-                    <div class="input-group">
-                    <input type="text" class="form-control " placeholder="Search">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                        <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
-                    </div>
-                </form> 
-
-            </div><br><br>
+        </div><br><br>
 
             <div>
 
@@ -172,6 +222,8 @@
 
     <link href="{{ asset('packages/core/main.css') }}" rel='stylesheet'/>
     <link href="{{ asset('packages/daygrid/main.css')}}" rel='stylesheet'/>
+    <link href="{{ asset('packages/list/main.css') }}" rel='stylesheet'/>
+    <link href="{{ asset('packages/timegrid/main.css')}}" rel='stylesheet'/>
     
 @stop
 
@@ -180,7 +232,10 @@
     {{-- <script type="module" src={{ asset('js/calendar.js') }}></script> --}}
     <script type="text/javascript" src={{ asset('packages/core/main.js')}}></script>
     <script type="text/javascript" src={{ asset('packages/daygrid/main.js') }}></script>
+    <script type="text/javascript" src={{ asset('packages/list/main.js')}}></script>
+    <script type="text/javascript" src={{ asset('packages/timegrid/main.js') }}></script>
 
+    {{-- fullcalendar --}}
 
     <script>
 
@@ -188,7 +243,8 @@
           var calendarEl = document.getElementById('calendar');
   
           var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'dayGrid', 'timeGrid', 'list']
+            plugins: [ 'dayGrid', 'timeGrid', 'list'],
+            defaultView: 'dayGridMonth'
           });
   
           calendar.render();
@@ -307,27 +363,97 @@
 
         });
 
+        $('select#regional_applications').change(function(){
+
+        var application = $('select#regional_applications option:selected').val();
+
+        if(application != '')
+        {
+            var requestData = {'application_id': application}
+
+            getDateAndAddSchedule( requestData);
+
+            $('select#regional_applications option:selected').val('');
+
+        
+        }else{
+
+            $('div#cal_div').hide();
+        }
+
+        });
+
         $('select#application_company').change(function(){
 
-           /*  var company = $('select#application_company option:selected').val();
+            var company = $('select#application_company option:selected').val();
 
-            if(company == '')
+            if(company != '')
             {
-                $.ajax({
+                var requestData = {'company_id': company}
 
-                    url: '/cordinator/' + company + 'application',
-                    dataType: 'json'
-                    method: 'GET'
-                }).done(function(data){
+                getDateAndAddSchedule( requestData);
 
-                    console.log(data);
+                $('select#application_company option:selected').val('');
 
-                })
-            }
- */
-        });
                
+            }else{
 
+                $('div#cal_div').hide();
+            }
+ 
+        });
+
+        function getDateAndAddSchedule(requests)
+        {
+            $('div#cal_div').show();
+
+            $('input#cal_date').change(function(){
+
+                var appointment_date = $('input#cal_date').val();
+
+                //retrieve the key f the method param
+
+                var requestKey = Object.keys(requests)
+                console.log('the key is : ' + requestKey );
+
+                if(appointment_date !== '')
+                {
+
+                    $.ajax({
+
+                        url: 'schedule-appointment',
+                        dataType: 'json',
+                        method: 'POST',
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: {'cordinator_id': {{ auth()->guard('cordinator')->id()}}, 'schedule_date': appointment_date, 'company_id':requests[requestKey] }
+
+                    }).done(function(data){
+
+                       /*  console.log(data); */
+
+                        $('#count_appointment').html('&emsp; '+ data.counts +' Appointment(s)');
+
+                        $('input#cal_date').val('');
+                    }); 
+
+                }
+
+            })
+
+          
+
+        }
+
+
+        /* function divtoggler(hidediv, showDiv)
+        {
+            hidediv.hide();
+
+            showDiv.show();
+
+        }
+               document
+ */
     </script>
 
 @stop

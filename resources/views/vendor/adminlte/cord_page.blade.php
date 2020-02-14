@@ -1,5 +1,11 @@
 @extends('adminlte::master')
 
+@section('tokens')
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+@endsection
+
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">

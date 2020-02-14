@@ -25,6 +25,17 @@ class Company extends Model
         return $this->hasOne('App\ApprovedApplication');
     }
 
+    public function appointment()
+    {
+        return $this->hasOne('App\Appointment');
+    }
+
+
+    public function addAppointment($appointment_data)
+    {
+        $this->appointment()->create($appointment_data);
+    }
+
     
 
 }

@@ -39,4 +39,9 @@ class InternshipApplication extends Model
     {
         return $this->hasOne('App\Appointment', 'application_id');
     }
+
+    public function addAppointment($appointment_data)
+    {
+        $this->appointment()->create($appointment_data);
+    }
 }
