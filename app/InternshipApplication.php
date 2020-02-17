@@ -20,7 +20,6 @@ class InternshipApplication extends Model
 
     public function company()
     {
-        
         return $this->belongsTo('App\Company');
         
     }

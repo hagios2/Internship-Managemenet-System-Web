@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Department;
 use App\OtherApplicationApproved;
 use App\Http\Resources\StudentDataAndApplication;
+use App\Http\Resources\OtherApplicantsListForAppointment;
 use App\Program;
 use App\Appointment;
 use App\InternshipApplication;
@@ -42,16 +43,16 @@ class CordinatorsController extends Controller
 
             $request['company_appointment'] = true;
         
-        }else if ($request->has('appointment_id')){
+        }else if ($request->has('application_id')){
 
-            $applicationType = InternshipApplication::find($request->appointment_id);
+            $applicationType = InternshipApplication::find($request->application_id);
 
             $request['other_app_appointment'] = true;
         }
     
         if($applicationType->appointment)
         {
-            return response(['status' => 'Appointment already booked with company'], 200);    
+            return response(['status' => 'Appointment already booked with company', 'counts' => auth()->guard('cordinator')->user()->appointment->count(),], 200);    
         }
 
         $applicationType->addAppointment($request->all());
@@ -71,6 +72,13 @@ class CordinatorsController extends Controller
     public function studentApplication(InternshipApplication $application)
     {
         return response()->json($application);
+    }
+
+    public function otherApplications(Request $request)
+    {
+        $application = InternshipApplication::where([['preferred_company', true], ['preferred_company_city', request()->region_id]])->get();
+
+        return OtherApplicantsListForAppointment::collection($application);
     }
 
 }

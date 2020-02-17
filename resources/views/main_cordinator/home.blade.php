@@ -84,11 +84,11 @@ input:checked + .slider:before {
 
 @section('content')
 
-    @include('includes.errors')
-
-    <br>
-
     <div class="container">
+
+      @include('includes.errors')
+      
+      <br>
 
       <div class="pull-left">
 
@@ -108,6 +108,40 @@ input:checked + .slider:before {
       
       </div><br><br>
 
+      <div class="row" style="margin:auto;">
+
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            
+            <div style="background-color:#26A498; height:10rem; padding:10px;">
+    
+                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('main-cordinator')->user()->appointment->count()}} Appointment(s)</h4>
+                
+            </div>
+        
+        </div>
+            
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+
+            <div style="background-color:peru; height:10rem; padding:10px;">
+        
+                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('main-cordinator')->user()->appointment->count()}} Appointment(s)</h4>
+                
+            </div>
+
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+
+            <div style="background-color:tomato; height:10rem; padding:10px;">
+        
+                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('main-cordinator')->user()->appointment->count()}} Appointment(s)</h4>
+                
+            </div>
+
+        </div>
+
+    </div>
+
 
       <div class="row">
 
@@ -119,7 +153,7 @@ input:checked + .slider:before {
 
                     <p class="title">Department</p><br>
 
-                    <a class="btn btn-primary" href="/main-cordinatordepartment">View</a>
+                    <a class="btn btn-primary" href="/main-cordinator/department">View</a>
 
                 </div>
 

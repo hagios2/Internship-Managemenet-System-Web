@@ -109,7 +109,9 @@ Route::group(['prefix' => 'cordinator'], function () {
 
   Route::post('/schedule-appointment', 'Cordinator\CordinatorsController@scheduleAppointments');
 
-/*   Route::post('/application/{application}/appointment', 'Cordinator\CordinatorsController@companyAppointment'); */
+  Route::post('/application/{application}/appointment', 'Cordinator\CordinatorsController@companyAppointment'); 
+
+  Route::get('/other-application/students', 'Cordinator\CordinatorsController@otherApplications');
 
 });
 
