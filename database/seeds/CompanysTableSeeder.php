@@ -20,7 +20,13 @@ class CompanysTableSeeder extends Seeder
 
             'location' => 'Osu',
 
-            'city' => '1'
+            'city' => '1',
+
+            'email' => 'gtl@info.com',
+
+            'lat' => '5.603716800000001',
+
+            'long' => '-0.18696439999996528'
 
         ]);
 
@@ -33,7 +39,13 @@ class CompanysTableSeeder extends Seeder
 
             'location' => 'Labone',
 
-            'city' => '2'
+            'city' => '2',
+
+            'email' => 'metro.p@info.com',
+
+            'lat' => '5.603716800000001',
+
+            'long' => '-0.18696439999996528'
 
         ]);
 
@@ -47,7 +59,13 @@ class CompanysTableSeeder extends Seeder
 
             'location' => 'Anaji',
 
-            'city' => '1'
+            'city' => '1',
+
+            'email' => 'qodelyn@uenr.edu.gh',
+
+            'lat' => '5.603716800000001',
+
+            'long' => '-0.18696439999996528'
 
         ]);
 
@@ -60,7 +78,13 @@ class CompanysTableSeeder extends Seeder
 
             'location' => 'East Legon',
 
-            'city' => '5'
+            'city' => '5',
+
+            'email' => 'crowdsource.ms@info.com',
+
+            'lat' => '5.603716800000001',
+
+            'long' => '-0.18696439999996528'
 
         ]);
     }
