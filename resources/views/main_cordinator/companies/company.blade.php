@@ -15,7 +15,7 @@
 
 @section('content')
 
-    <div>
+    <div class="container">
 
      @include('includes.errors') <br>
 

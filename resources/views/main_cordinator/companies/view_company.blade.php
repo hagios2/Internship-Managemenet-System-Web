@@ -90,8 +90,15 @@
             
                                 <td>{{ $application->student->level->level }}</td>
             
-                                <td><a class="btn btn-danger" href="/main-cordinator/{{$application->id}}/deny">Deny</a></td>
-            
+                                <td>
+
+                                    <form style="display:inline;" action="/main-cordinator/{{$application->id}}/deny" method="post">@csrf @method("DELETE")  
+                                        
+                                        <button {{$company->approved_application ? 'disabled' : ''}} class="btn btn-danger">Deny</button>
+                                    
+                                    </form>
+                                </td>
+                                
                             </tr>
         
                         @endforeach

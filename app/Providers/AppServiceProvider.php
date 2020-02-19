@@ -37,5 +37,14 @@ class AppServiceProvider extends ServiceProvider
             $view->with('levels', \App\Level::all());
         });
 
+
+        view()->composer('main_cordinator.home', function($view){
+
+            $view->with(['default_app_count'=> \App\InternshipApplication::where('default_application', 1)->get(),
+                        'default_approved_count'=> \App\Company::numberOfCompanyApplication(),
+                        'proposed_app_count'=> \App\InternshipApplication::where('preferred_company', 1)->get()->count(),
+                        'no_proposed_approved' => \App\OtherApplicationApproved::where('approved', 1)->get()->count()
+             ]);
+        });
     }
 }

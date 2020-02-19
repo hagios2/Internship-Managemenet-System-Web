@@ -57,8 +57,7 @@
 
         </div>
 
-        <br><br><br><br>
-
+        <br><br>
 
         <div class="col-md-7 col-lg-7 col-xs-7 col-sm-7" style="margin-left:17%; margin-right:17%;">
 

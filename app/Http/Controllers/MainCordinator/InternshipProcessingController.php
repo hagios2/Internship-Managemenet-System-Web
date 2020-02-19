@@ -9,6 +9,8 @@ use App\InternshipApplication;
 use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
 use App\ApprovedApplication;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -119,9 +121,8 @@ class InternshipProcessingController extends Controller
         return back()->withSuccess($application->student->name . ' removed from applicants list');
     }
 
-    public function approve_application(InternshipApplication $application)
+    public function approve_application(Company $company)
     {
-
 
         if($company->application->count() > 0)
         {
@@ -131,13 +132,8 @@ class InternshipProcessingController extends Controller
                 return back()->with('info', 'Application has already been approved');
             }
 
-            ApprovedApplication::create([
+            $company->addApplicationApproval();
 
-                'company_id' => $company->id,
-
-                'approved' => true
-            ]);
-        
         }else{
 
             return back()->with('error', 'Failed! '.$company->company_name .' has no application(s)');
@@ -156,6 +152,10 @@ class InternshipProcessingController extends Controller
       /*       
         }); */
 
+
+       /*  $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream(); */
    
         Notification::toMultipleDevice($student, 'Application Approved', null, null, route('approved.application', 1));
 

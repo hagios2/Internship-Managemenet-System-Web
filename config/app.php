@@ -177,6 +177,7 @@ return [
         App\Providers\ViewServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
         FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -230,6 +231,7 @@ return [
         'FCM'      => LaravelFCM\Facades\FCM::class,
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,   
         'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         
 
     ],

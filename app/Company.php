@@ -30,10 +30,34 @@ class Company extends Model
         return $this->hasOne('App\Appointment');
     }
 
+    public function addApplicationApproval()
+    {
+        $this->approved_application()->create(['approved' => true]);
+    }
+
 
     public function addAppointment($appointment_data)
     {
         $this->appointment()->create($appointment_data);
+    }
+
+    public static function numberOfCompanyApplication()
+    {
+        $companies = static::all();
+
+        static $number_company_application = 0;
+
+        foreach($companies as $company)
+        {
+            if($company->application && $company->approved_application)
+            {
+                $number_company_application += $company->application->count();
+            }
+            
+        }
+
+        return $number_company_application;
+        
     }
 
     

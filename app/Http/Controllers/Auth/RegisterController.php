@@ -54,7 +54,8 @@ class RegisterController extends Controller
             'index_no' => ['required', 'string', 'max:15', 'min:10', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'program' => ['required', 'integer'],
-            'level' => ['required', 'integer']
+            'level' => ['required', 'integer'],
+            'phone' => 'required|min:10|max:13|string'
         ]);
     }
 
@@ -72,6 +73,7 @@ class RegisterController extends Controller
             'index_no' => $data['index_no'],
             'program_id' => $data['program'],
             'level_id' => $data['level'],
+            'phone'=> $data['phone'],
             'password' => Hash::make($data['password']),
         ]);
     }

@@ -21,9 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('index_no')->unique();
             $table->unsignedInteger('level_id');
             $table->unsignedInteger('program_id');
+            $table->string('device_token')->nullable();
+            $table->string('phone')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('device_token')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
         });

@@ -77,7 +77,7 @@ input:checked + .slider:before {
     <div class="container">
       <ol class="breadcrumb">
         <li class="active">Dashboard</li>
-      </ol> <br>
+      </ol> 
     </div>
   
 @stop
@@ -88,8 +88,6 @@ input:checked + .slider:before {
 
       @include('includes.errors')
       
-      <br>
-
       <div class="pull-left">
 
         <form action="/main-cordinator/toggle" method="post">
@@ -114,8 +112,8 @@ input:checked + .slider:before {
             
             <div style="background-color:#26A498; height:10rem; padding:10px;">
     
-                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('main-cordinator')->user()->appointment->count()}} Appointment(s)</h4>
-                
+                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{$default_app_count->count()}} Rec. Application(s)</h4>
+                <p class="text-center"><small>{{ $default_approved_count }} Approved</small></p>
             </div>
         
         </div>
@@ -124,7 +122,9 @@ input:checked + .slider:before {
 
             <div style="background-color:peru; height:10rem; padding:10px;">
         
-                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('main-cordinator')->user()->appointment->count()}} Appointment(s)</h4>
+                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{$proposed_app_count}} Proposed Application(s)</h4>
+
+                <p class="text-center"><small style="margin:auto;"> {{$no_proposed_approved}} Approved</small></p>
                 
             </div>
 
@@ -134,13 +134,13 @@ input:checked + .slider:before {
 
             <div style="background-color:tomato; height:10rem; padding:10px;">
         
-                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('main-cordinator')->user()->appointment->count()}} Appointment(s)</h4>
+                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; Appointment(s)</h4>
                 
             </div>
 
         </div>
 
-    </div>
+    </div><br><br>
 
 
       <div class="row">

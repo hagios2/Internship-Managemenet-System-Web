@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
 use Illuminate\Http\Request;
 
+
 class LoginController extends Controller
 {
     /*

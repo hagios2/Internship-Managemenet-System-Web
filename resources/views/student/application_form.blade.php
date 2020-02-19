@@ -131,7 +131,7 @@
 
                                         </div>
 
-                                        <form action="/internshipapply" method="POST" enctype="multipart/form-data">
+                                        <form action="/internshipapply" method="post" enctype="multipart/form-data">
 
                                             @csrf
 

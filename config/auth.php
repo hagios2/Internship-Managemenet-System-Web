@@ -41,34 +41,19 @@ return [
             'provider' => 'cordinators',
         ],
 
-        'student' => [
-            'driver' => 'session',
-            'provider' => 'students',
-        ],
-
-    /*     'student' => [
-            'driver' => 'passport',
-            'provider' => 'students',
-        ], */
-
         'main_cordinator' => [
             'driver' => 'session',
             'provider' => 'main_cordinators',
         ],
 
-      /*   'main_cordinator' => [
-            'driver' => 'passport',
-            'provider' => 'main_cordinators',
-        ],
- */
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
 
         'api' => [
-            'driver' => 'passport',
-            'provider' => ['main_cordinators', 'students'],
+            'driver' => 'token',
+            'provider' => 'users',
             'hash' => false,
         ],
     ],
@@ -94,11 +79,6 @@ return [
         'cordinators' => [
             'driver' => 'eloquent',
             'model' => App\Cordinator::class,
-        ],
-
-        'students' => [
-            'driver' => 'eloquent',
-            'model' => App\Student::class,
         ],
 
         'main_cordinators' => [
@@ -136,12 +116,6 @@ return [
         'cordinators' => [
             'provider' => 'cordinators',
             'table' => 'cordinator_password_resets',
-            'expire' => 60,
-        ],
-
-        'students' => [
-            'provider' => 'students',
-            'table' => 'student_password_resets',
             'expire' => 60,
         ],
 
