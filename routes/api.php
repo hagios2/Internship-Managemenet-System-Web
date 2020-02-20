@@ -13,13 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::group(['prefix' => 'main-cordinator'], function () {
-
-    Route::apiResource('company', 'MainCordinator\CompanyController');
+Route::middleware('auth:api')->get('/user', function () {
     
+    return auth()->guard('api')->user();
 });
 
+
+Route::get('/programs', 'Api\RequestController@getPrograms');
+
+Route::get('/levels', 'Api\RequestController@getLevels');
+
+Route::post('/register', 'Api\RequestController@register');
