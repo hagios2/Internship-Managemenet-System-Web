@@ -72,6 +72,8 @@ class LoginController extends Controller
 
             return redirect()->intended('/main-cordinator/dashboard');
         }
+
+        return back()->with('error', 'Invalid email and password!');
     }
 
 

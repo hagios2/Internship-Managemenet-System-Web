@@ -101,9 +101,9 @@ class Notification extends Model
 
     }
 
-    public static function numberAlert()
+    public  function scopeNumberAlert()
     {
-        
+        return $this->where('read_at', null);  
     } 
 }
     

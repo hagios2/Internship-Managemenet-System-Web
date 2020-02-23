@@ -37,10 +37,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-/*     public function applying_student()
+    public function studentNotification()
     {
-        return $this->hasOne('App\InternshipApplication', 'student_id');
-    } */
+        return $this->hasOne('App\StudentNotification');
+    }
+
+    public function addNotification($notification)
+    {
+       $this->studentNotification()->create($notification);
+    } 
 
 
     public function registerStudent($attributes)

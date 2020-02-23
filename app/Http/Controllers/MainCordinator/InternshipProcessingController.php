@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MainCordinator;
 use App\User;
 use App\Company;
 use App\Notification;
+use App\StudentNotification;
 use App\InternshipApplication;
 use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
@@ -58,7 +59,6 @@ class InternshipProcessingController extends Controller
     {
         return view('main_cordinator.other_application');
     }
-
 
     public function getStudent()
     {
@@ -118,6 +118,17 @@ class InternshipProcessingController extends Controller
     {
         $application->delete();
 
+        $application->student->addNotification([
+
+            'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
+
+            'notification_type' => 'Application Denied',
+
+            'route' => '/dashboard',
+
+            'status' => 'Sorry! Your application has been denied. You may apply again'
+        ]);
+
         return back()->withSuccess($application->student->name . ' removed from applicants list');
     }
 
@@ -141,24 +152,30 @@ class InternshipProcessingController extends Controller
 
         $student = \collect();
 
-       /*  $this->redisConnection->pipeline(function($pipe)
-        { */
             foreach($company->application as $application)
             {
-                /* $pipe->HSET('ApprovedApplication:'.$application->id, $application->id); */
+                $application->student->addNotification([
+
+                    'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
+
+                    'notification_type' => 'Approval',
+
+                    'route' => '/dashboard',
+
+                    'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
+                ]);
+
+
+                // $pdf = App::make('dompdf.wrapper');
+                //     $pdf->loadHTML('<h1>Test</h1>');
+                //     return $pdf->stream(); */
+               
                 $student->add($application->student);
             }
 
-      /*       
-        }); */
-
-
-       /*  $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->stream(); */
    
-        Notification::toMultipleDevice($student, 'Application Approved', null, null, route('approved.application', 1));
-
+     /*    Notification::toMultipleDevice($student, 'Application Approved', null, null, '/dashboard');
+ */
         return back()->withSuccess('Application Approved. You may Send introductory letter now');
     }
 
@@ -181,17 +198,31 @@ class InternshipProcessingController extends Controller
 
     }
 
+        /* you may use this function to approve all Proposed Applicaton */
+
     public function approveAll()
     {
-        $applications = InternshipApplication::where(['preferred_company', true])->get();
+        $applications = InternshipApplication::where('preferred_company', true)->get();
 
         static $count = 0;
 
-        foreach($applcations as $application)
+        foreach($applications as $application)
         {
-            if(!$application->proposedApplication){
+         
+            if(!$application->approvedProposedApplication){
                 
-                $this->proposalApproval($application);
+                $approvedApplication->addProposalApproval();
+
+                $application->student->addNotification([
+
+                    'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
+
+                    'notification_type' => 'Approval',
+
+                    'route' => '/dashboard',
+
+                    'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
+                ]);
 
                 $count++;
             }
@@ -201,16 +232,29 @@ class InternshipProcessingController extends Controller
 
     }
 
+    /* you may use this function to approve individual Proposed Applicaton */
 
     public function approveProposedApplication(InternshipApplication $application)
     {
+
         if($application->approvedProposedApplicaton)
         {
             return back()->with('info', 'Application has already been approved');
         }
-         
-        $this->proposalApproval($application);
+                
+        $application->addProposalApproval();
 
+        $application->student->addNotification([
+
+            'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
+
+            'notification_type' => 'Approval',
+
+            'route' => '/dashboard',
+
+            'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
+        ]);
+        
         return back()->withSuccess('Application approved');
     }
 
@@ -218,23 +262,13 @@ class InternshipProcessingController extends Controller
     {
         if(!$application){
 
-            return back()->with('error', 'Request Application not found!');
+            return back()->with('error', 'Requested Application not found!');
         }
 
-        $application->delete();
+        $application->approvedProposedApplicaton->delete();
 
         return back()->withSuccess('Reverted Approval');
     }
 
-    public function proposalApproval(InternshipApplication $application)
-    {
-        OtherApplicationApproved::create([
-
-            'application_id' => $application->id,
-            
-            'approved' => true,
-        ]) ;
-
-    }
 
 }

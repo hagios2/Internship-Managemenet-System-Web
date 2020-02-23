@@ -95,20 +95,20 @@
 
                         $('span.myspan1').html('<strong> No. of applications: ' + data.length + '</strong>');
 
-                        $('div#studapp').html('<table class="table table-striped"><thead><th>Student Name</th><th>Proposed Company</th><th>Location</th><th>Region</th></thead><tbody class="app"></tbody></table>');
+                        $('div#studapp').html('<form style="display:block;" action="/main-cordinator/approve-all/proposed-application" method="post">@csrf <button class="btn btn-success">Approve all</button></form><br><table class="table table-striped"><thead><th>Student Name</th><th>Proposed Company</th><th>Location</th><th>Region</th></thead><tbody class="app"></tbody></table>');
 
                             /* iterate tru data and display in the DOM */
                       //  $.map(data, function(data, u){
 
                             $.each(data, function(i, application){
 
-                                $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td><td>' +
-                                    (application.approved == null || application.approved == 0) ? 
+                                $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td><td>' 
+                                   /*  (application.approved == null || application.approved == 0) ?  */
                                   
                                        +'<span><form style="display:inline;" action="/main-cordinator/approve/' + application.id + '/proposed-application" method="post">@csrf <button class="btn btn-success">Approve</button></form></span><span>' +
-                                        '  <form style="display:inline;" action="/main-cordinator/' + application.id + '/deny" method="post">@csrf @method("DELETE")  <button class="btn btn-danger">Deny</button></form></span></div></td></tr>'
-                                    :
-                                       + '<span><form style="display:inline;" action="/main-cordinator/revert/' + application.id + '/approval" method="post">@csrf  <button class="btn btn-primary">Revert</button></form></span></td></tr>'
+                                        '<form style="display:inline;" action="/main-cordinator/' + application.id + '/deny" method="post">@csrf @method("DELETE")  <button class="btn btn-danger">Deny</button></form></span></div></td></tr>'
+                                  /*   :
+                                       + '<span><form style="display:inline;" action="/main-cordinator/revert/' + application.id + '/approval" method="post">@csrf  <button class="btn btn-primary">Revert</button></form></span></td></tr>' */
                                 );
                             
                            });

@@ -14,6 +14,7 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
+            @include('includes.errors')<br>
             <p class="login-box-msg">{{ trans('adminlte::adminlte.login_message') }}</p>
             <form action="{{ url(config('adminlte.login_url', 'login')) }}" method="post">
                 {{ csrf_field() }}
