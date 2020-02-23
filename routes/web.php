@@ -25,6 +25,8 @@ Route::group(['middleware' => ['verified']], function () {
 
   Route::patch('/internshipapply/{application}', 'Student\StudentController@update');
 
+  Route::delete('/internshipapply/{application}/delete', 'Student\StudentController@destroy');
+
 });
 
 Route::patch('/start-internship/{application}', 'Student\StudentController@startInternship');

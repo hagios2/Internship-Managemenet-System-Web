@@ -100,7 +100,7 @@
 
                 <div>
 
-                    <form action="/internshipapply/{{$application->id}}" method="post">
+                    <form action="/internshipapply/{{$application->id}}" method="post" style="display:inline;">
 
                         @csrf
                         @method('PATCH')
@@ -142,6 +142,13 @@
                 
                     <button class="btn btn-primary" type=submit>Submit</button>
 
+                </form>
+
+                <form style="display:inline;" action="/internshipapply/{{ $application->id }}/delete" method="post">
+                    @csrf
+                    @method("DELETE")  
+                    
+                    <button class="btn btn-danger">Delete</button>
                 </form>
                 
             </div>

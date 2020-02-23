@@ -480,7 +480,6 @@
 
                             if(application_id != '')
                             {
-                                
 
                                 getDateAndAddSchedule(app_name,application_id);
 
@@ -511,7 +510,6 @@
 
             if(company != '')
             {
-                
 
                 getDateAndAddSchedule(com_id,company);
 

@@ -33,6 +33,8 @@ class ProposedApplicationResource extends JsonResource
 
             'program' =>  $applications->student->program->program,
 
+            'approved' => $applications->approvedProposedApplicaton
+
         ];
     }
 }

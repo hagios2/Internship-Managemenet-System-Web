@@ -185,7 +185,7 @@ class InternshipProcessingController extends Controller
     {
         $applications = InternshipApplication::where(['preferred_company', true])->get();
 
-        $count = 0;
+        static $count = 0;
 
         foreach($applcations as $application)
         {

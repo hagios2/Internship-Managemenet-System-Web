@@ -137,7 +137,6 @@ class StudentController extends Controller
 
             return back()->with('error', 'Access Denied! Application Approval Pending');
         }
-
         
         $application->update(['started_at' => now()]);
 
