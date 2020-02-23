@@ -17,13 +17,13 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['verified']], function () {
   
-  Route::get('internshipapply', 'Student\StudentController@create');
+  Route::get('/internshipapply', 'Student\StudentController@create');
 
-  Route::post('internshipapply', 'Student\StudentController@store');
+  Route::post('/internshipapply', 'Student\StudentController@store');
 
-  Route::get('internshipapply/{application}/edit', 'Student\StudentController@edit');
+  Route::get('/internshipapply/{application}/edit', 'Student\StudentController@edit');
 
-  Route::patch('internshipapply/{application}', 'Student\StudentController@update');
+  Route::patch('/internshipapply/{application}', 'Student\StudentController@update');
 
 });
 

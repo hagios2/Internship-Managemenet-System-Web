@@ -60,20 +60,12 @@
                                                 <div class="form-group ">
                                             
                                                     <label class="form-check-label" for="exampleCheck1">{{ $company->company_name }}</label>
-                                            </div>
+                                                </div>
                                             </td>
 
-                                            <td>
+                                            <td>{{ $company->region->region }}</td>
 
-                                                {{ $company->region->region }}
-
-                                            </td>
-
-                                            <td>
-
-                                                {{ $company->location }}
-
-                                            </td>
+                                            <td>{{ $company->location }}</td>
 
                                         @empty
 

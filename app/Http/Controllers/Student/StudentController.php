@@ -25,16 +25,6 @@ class StudentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,25 +43,37 @@ class StudentController extends Controller
      */
     public function store(InternshipFormRequest $request)
     {
+
         if(InternshipApplication::where('student_id', auth()->id())->first())
         {
             return back()->with('error', 'You have already applied! Consider editing your application instead.');
         }
 
-        $company = Company::findOrFail($request->company_id);
-
-        if($company->application->count() < $company->total_slots)
+        if($request->has('default_application'))
         {
+            $company = Company::findOrFail($request->company_id);
+
+            if($company->application->count() < $company->total_slots)
+            {
+                auth()->user()->registerStudent($request->all());
+            
+            }else{
+    
+                return back()->with('info', 'Denied! maximum application to ' .$company->company_name .' reached.');
+            }
+
+        } else {
+
             auth()->user()->registerStudent($request->all());
 
-            SendInternshipRegistrationNotification::dispatch(auth()->user());
-     
-            return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
-        
-        }else{
-
-            return back()->with('info', 'Denied! maximum application to ' .$company->company_name .' reached.');
         }
+
+        SendInternshipRegistrationNotification::dispatch(auth()->user());
+         
+        return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
+
+
+      
 
     }
 
@@ -100,10 +102,22 @@ class StudentController extends Controller
         abort_if((auth()->user() != $application->student), 403);
 //return $application;
 
-        if($application->company->approved_application)
+        if($request->has('company_id'))
         {
-            return back()->with('error', 'Access Denied! Application already approved');
+            if($application->company->approved_application)
+            {
+                return back()->with('error', 'Access Denied! Application already approved');
+            }
+
+        }else if ($request->has('preferred_company')) {
+
+            if($application->approvedProposedApplicaton)
+            {
+                return back()->with('error', 'Access Denied! Application already approved');
+            }
+
         }
+      
         $application->update($request->all());
 
         return redirect('/dashboard')->withSuccess('Updated successfully');
@@ -112,6 +126,19 @@ class StudentController extends Controller
 
     public function startInternship(InternshipApplication $application)
     {
+        if($application->company)
+        {
+            if(!$application->company->approved_application)
+            {
+                return back()->with('error', 'Access Denied! Application Approval Pending');
+            }
+
+        }else if(!$application->approvedProposedApplicaton){
+
+            return back()->with('error', 'Access Denied! Application Approval Pending');
+        }
+
+        
         $application->update(['started_at' => now()]);
 
         return redirect('/interns');
@@ -138,6 +165,13 @@ class StudentController extends Controller
 
         return view('student.intern', compact('appointment'));
         
+    }
+
+    public function destroy(InternshipApplication $application)
+    {
+        $application->delete();
+
+        return redirect('/dashboard')->with('success', 'Your application has been deleted successfully');
     }
 
 }

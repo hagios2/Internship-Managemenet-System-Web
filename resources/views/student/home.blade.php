@@ -23,7 +23,7 @@
 
                         <div>
                                
-                            @if (auth()->user()->application->approvedProposedApplicaton || auth()->user()->application->company->approved_application )
+                            @if (auth()->user()->application->approvedProposedApplicaton)
                                     
                                 @if (auth()->user()->application->started_at !== null)
 
@@ -38,6 +38,28 @@
                                         <button class="btn btn-primary" {{ auth()->user()->application->started_at ? 'disabled' : ''}} type="submit">Start Internship</button>
                                     
                                     </form>
+                                    
+                                @endif
+
+                            @elseif(auth()->user()->application->company)
+
+                                @if (auth()->user()->application->company->approved_application)
+
+                                    @if (auth()->user()->application->started_at !== null)
+
+                                        <a href="/interns" class="btn btn-primary">Interns page</a>
+                                        
+                                    @else
+
+                                        <form action="/start-internship/{{auth()->user()->application->id}}" method="post">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <button class="btn btn-primary" {{ auth()->user()->application->started_at ? 'disabled' : ''}} type="submit">Start Internship</button>
+                                        
+                                        </form>
+                                        
+                                    @endif
                                     
                                 @endif
 

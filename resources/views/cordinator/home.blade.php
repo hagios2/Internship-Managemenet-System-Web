@@ -474,15 +474,15 @@
 
                             var application_id = $('button#butt_app').val();
 
-                            console.log(application_id);
+                            let app_name = "application_id"
 
                             $('button#start_modal').hide()
 
                             if(application_id != '')
                             {
-                                var requestData = {'application_id': application_id}
+                                
 
-                                getDateAndAddSchedule(requestData);
+                                getDateAndAddSchedule(app_name,application_id);
 
                                 $('button#butt_app').val('');
 
@@ -507,12 +507,13 @@
         $('select#application_company').change(function(){
 
             var company = $('select#application_company option:selected').val();
+            let com_id = "company_id"
 
             if(company != '')
             {
-                var requestData = {'company_id': company}
+                
 
-                getDateAndAddSchedule( requestData);
+                getDateAndAddSchedule(com_id,company);
 
                 $('select#application_company option:selected').val('');
 
@@ -524,7 +525,7 @@
  
         });
 
-        function getDateAndAddSchedule(requests)
+        function getDateAndAddSchedule(name,id)
         {
             $('div#cal_div').show();
 
@@ -534,11 +535,19 @@
 
                 //retrieve the key for the method param
 
-                var requestKey = Object.keys(requests)
-                //console.log('the key is : ' + requestKey );
+               /*  var requestKey = Object.keys(requests) */
+            
 
                 if(appointment_date !== '')
                 {
+                    let data = {
+                        cordinator_id: {{ auth()->guard('cordinator')->id()}},
+                        schedule_date: appointment_date,
+
+                    }
+                    data[name] = id
+/* 
+                    console.log('the key is : ' + requestKey ); */
 
                     $.ajax({
 
@@ -546,7 +555,7 @@
                         dataType: 'json',
                         method: 'POST',
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        data: {'cordinator_id': {{ auth()->guard('cordinator')->id()}}, 'schedule_date': appointment_date, 'application_id':requests[requestKey] }
+                        data: data
 
                     }).done(function(data){
 
