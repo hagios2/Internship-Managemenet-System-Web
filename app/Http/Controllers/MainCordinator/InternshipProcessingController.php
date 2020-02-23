@@ -211,7 +211,7 @@ class InternshipProcessingController extends Controller
          
             if(!$application->approvedProposedApplication){
                 
-                $approvedApplication->addProposalApproval();
+                $application->addProposalApproval();
 
                 $application->student->addNotification([
 
