@@ -91,14 +91,20 @@
 
                         console.log(data);
 
-                        /* setup table headers and no. of appliation  */
+                        if(jQuery.isEmptyObject(data))
+                        {
+                            $('div#studapp').html('<div class="jumbotron text-center" > <h2 class="title">No application(s) recieved!</h2> <small>You may check up later</'+'small></div>');
 
-                        $('span.myspan1').html('<strong> No. of applications: ' + data.length + '</strong>');
+                        }else{
 
-                        $('div#studapp').html('<form style="display:block;" action="/main-cordinator/approve-all/proposed-application" method="post">@csrf <button class="btn btn-success">Approve all</button></form><br><table class="table table-striped"><thead><th>Student Name</th><th>Proposed Company</th><th>Location</th><th>Region</th></thead><tbody class="app"></tbody></table>');
+                            /* setup table headers and no. of appliation  */
 
-                            /* iterate tru data and display in the DOM */
-                      //  $.map(data, function(data, u){
+                            $('span.myspan1').html('<strong> No. of applications: ' + data.length + '</strong>');
+
+                            $('div#studapp').html('<form style="display:inline;" action="/main-cordinator/approve-all/proposed-application" method="post">@csrf <button class="btn btn-success" id="approve-all">Approve all</button></form> &emsp;<button style="display:inline;" type="submit" class="btn btn-primary" {{ $count > 0 ? "" : "disabled" }} id="view-unapproved" formaction="/main-cordinator/view-unapproved" formmethod="GET">View unapproved</button><br><table class="table table-striped"><thead><th>Student Name</th><th>Proposed Company</th><th>Location</th><th>Region</th></thead><tbody class="app"></tbody></table>');
+
+                                /* iterate tru data and display in the DOM */
+                        //  $.map(data, function(data, u){
 
                             $.each(data, function(i, application){
 
@@ -112,11 +118,53 @@
                                 }
                             
                            });
-                       // });   
+
+                           $('#view-unapproved').click(function(){
+
+                                $.ajax({    
+
+                                    url: '/main-cordinator/view-unapproved', 
+                                    dataType :'json'
+
+                                }).done(function(data){
+
+                                    console.log(data);
+
+                                    if(jQuery.isEmptyObject(data))
+                                    {
+                                        $('div#studapp').html('<div class="jumbotron text-center" > <h2 class="title">All application(s) approved</h2> <small>You may check up later</'+'small></div>');
+
+                                    }else{
+
+                                        /* setup table headers and no. of appliation  */
+
+                                        $('span.myspan1').html('<strong> No. of applications: ' + data.length + '</strong>');
+
+                                        $('div#studapp').html('<form style="display:inline;" action="/main-cordinator/approve-all/proposed-application" method="post">@csrf <button class="btn btn-success" id="approve-all">Approve all</button></form> &emsp;<button style="display:inline;" type="submit" class="btn btn-primary" {{ $count > 0 ? "" : "disabled" }} id="view-all" formaction="/main-cordinator/view-unapproved" formmethod="GET">View All </button><br><table class="table table-striped"><thead><th>Student Name</th><th>Proposed Company</th><th>Location</th><th>Region</th></thead><tbody class="app"></tbody></table>');
+
+                                        $.each(data, function(i, application){
+
+                                            $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td><td>' +'<span><form style="display:inline;" action="/main-cordinator/approve/' + application.id + '/proposed-application" method="post">@csrf <button class="btn btn-success">Approve</button></form></span><span><form style="display:inline;" action="/main-cordinator/' + application.id + '/deny" method="post">@csrf @method("DELETE")  <button class="btn btn-danger">Deny</button></form></span></div></td></tr>');
+
+                                        });
+
+                                        $('#view-all').click(function(){
+
+                                            proposed_application();
+                                        });
+
+                                    }
+
+                                });
+
+                            });
+                       // });  
+                        } 
 
                     });      
-            } 
-
+            
+                }
+          
 
             /* when click on btn for request_open_letter, open section with open letter request  */
 
@@ -135,19 +183,28 @@
 
                     console.log(data);
 
-                    $('div#open_letter').html('<table class="table table-striped"><thead><th>Student Name</th><th>Phone</th><th>Program</th><th>Level</th></thead><tbody class="app1"></tbody></table>');
+                    if(jQuery.isEmptyObject(data))
+                        {
+                            $('div#open_letter').html('<div class="jumbotron text-center" > <h2 class="title">No application(s) recieved!</h2> <small>You may check up later</'+'small></div>');
 
-                    $('span.myspan2').html('<strong> No. of applications: ' + data.length + '</strong>');  
+                        }else{
 
 
-                   // $.map(data, function(data, u){
+                            $('div#open_letter').html('<table class="table table-striped"><thead><th>Student Name</th><th>Phone</th><th>Program</th><th>Level</th></thead><tbody class="app1"></tbody></table>');
 
-                        $.each(data, function(i, application){
+                            $('span.myspan2').html('<strong> No. of applications: ' + data.length + '</strong>');  
 
-                            $('tbody.app1').append('<tr> <td>' + application.student_name + '</td><td>'+ application.phone + '</td><td>' + application.program + '</td><td>' + application.level + '</td></tr>');
-                        });
 
-                  //  }); 
+                        // $.map(data, function(data, u){
+
+                                $.each(data, function(i, application){
+
+                                    $('tbody.app1').append('<tr> <td>' + application.student_name + '</td><td>'+ application.phone + '</td><td>' + application.program + '</td><td>' + application.level + '</td></tr>');
+                                });
+
+                        //  }); 
+                        }
+
 
                 });
             });

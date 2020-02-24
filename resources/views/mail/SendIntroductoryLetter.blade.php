@@ -1,13 +1,11 @@
 @component('mail::message')
-# Hello
+# Congrats {{ $application->student->name }}
  
 
-We wish to introduce our student by this mail.
-Attached is an introductor letter to help get started with our students
+<p>
+   Your application has beeen approved
+</p>
 
-{{-- @component('mail::button', ['url' => ''])
-Button Text
-@endcomponent --}}
 
 Thanks,<br>
 Dominic Otoo <br>

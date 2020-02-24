@@ -17,7 +17,7 @@ class SendIntroductoryLetter implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $application;
-    public $user;
+
 
     /**
      * Create a new job instance.

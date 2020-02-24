@@ -59,7 +59,24 @@ class InternshipProcessingController extends Controller
 
     public function other_application()
     {
-        return view('main_cordinator.other_application');
+        $applications = InternshipApplication::where('preferred_company', true)->get();
+
+        static $count = 0;
+
+        $unapproved = \collect();
+
+        foreach($applications as $application)
+        {
+            $approved = $application->approvedProposedApplicaton;
+         
+            if(!$approved){
+
+                $count++;
+
+            }
+        }
+
+        return view('main_cordinator.other_application', compact('count'));
     }
 
     public function getStudent()
@@ -180,11 +197,11 @@ class InternshipProcessingController extends Controller
                 
             }
             
-            Storage::disk('local')->makeDirectory("public/Letters/{$company->id}");
+            Storage::disk('local')->makeDirectory("public/letters/company appliction/{$company->id}");
 
             $pdf = PDF::loadView('letters.intro_letters', \compact('application', 'student'));
 
-            $path =  storage_path("app/public/Letters/{$company->id}/")."introductory letter.pdf";
+            $path =  storage_path("app/public/letters/company application/{$company->id}/")."introductory letter.pdf";
 
             $pdf->save($path);
 
@@ -260,6 +277,8 @@ class InternshipProcessingController extends Controller
         {                
             $unapproved_application->addProposalApproval();
 
+          return  $this->generateletterforotherApplication($unapproved_application);
+
             $unapproved_application->student->addNotification([
 
                 'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
@@ -278,6 +297,25 @@ class InternshipProcessingController extends Controller
 
         return back()->withSuccess("{$count} Application(s) approved");
 
+    }
+
+    public function generateletterforotherApplication(InternshipApplication $application)
+    {
+        Storage::disk('local')->makeDirectory("public/letters/proposed appliction/{$application->id}");
+
+        $pdf = PDF::loadView('letters.other_intro_letters', \compact('application'));
+
+        return $pdf->stream();
+
+        $path =  storage_path("app/public/Letters/{$company->id}/")."introductory letter.pdf";
+
+        $pdf->save($path);
+
+        $approvedApp = ApprovedApplication::find($company->id);
+
+        $approvedApp->approved_letter = $path;
+
+        $approvedApp->save();
     }
 
     /* you may use this function to approve individual Proposed Applicaton */
@@ -302,6 +340,8 @@ class InternshipProcessingController extends Controller
 
             'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
         ]);
+
+        return $this->generateletterforotherApplication($application);
         
         return back()->withSuccess('Application approved');
     }
