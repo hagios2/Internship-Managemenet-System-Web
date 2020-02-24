@@ -192,7 +192,7 @@ class InternshipProcessingController extends Controller
             {
                 $this->dispatchApprovalMail($application);
 
-         } 
+            } 
 
           
 

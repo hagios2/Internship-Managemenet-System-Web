@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'supervisor' => [
+            'driver' => 'session',
+            'provider' => 'supervisors',
+        ],
+
         'cordinator' => [
             'driver' => 'session',
             'provider' => 'cordinators',
@@ -76,6 +81,11 @@ return [
     */
 
     'providers' => [
+        'supervisors' => [
+            'driver' => 'eloquent',
+            'model' => App\Supervisor::class,
+        ],
+
         'cordinators' => [
             'driver' => 'eloquent',
             'model' => App\Cordinator::class,
@@ -113,6 +123,12 @@ return [
     */
 
     'passwords' => [
+        'supervisors' => [
+            'provider' => 'supervisors',
+            'table' => 'supervisor_password_resets',
+            'expire' => 60,
+        ],
+
         'cordinators' => [
             'provider' => 'cordinators',
             'table' => 'cordinator_password_resets',

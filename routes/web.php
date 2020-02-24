@@ -49,16 +49,16 @@ Route::get('/', function () {
 
 //Main cordinator
 Route::group(['prefix' => 'main-cordinator'], function () {
-  Route::get('/login', 'MainCordinatorAuth\LoginController@showLoginForm')->name('login');
+  Route::get('/login', 'MainCordinatorAuth\LoginController@showLoginForm')->name('main_cordinator_login');
   Route::post('/login', 'MainCordinatorAuth\LoginController@login');
-  Route::post('/logout', 'MainCordinatorAuth\LoginController@logout')->name('logout');
+  Route::post('/logout', 'MainCordinatorAuth\LoginController@logout')->name('main_cordinator_logout');
 
-  Route::get('/register', 'MainCordinatorAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::get('/register', 'MainCordinatorAuth\RegisterController@showRegistrationForm')->name('main_cordinator_register');
   Route::post('/register', 'MainCordinatorAuth\RegisterController@register');
 
-  Route::post('/password/email', 'MainCordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'MainCordinatorAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'MainCordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::post('/password/email', 'MainCordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('main_cordinator_password.request');
+  Route::post('/password/reset', 'MainCordinatorAuth\ResetPasswordController@reset')->name('main_cordinator_password.email');
+  Route::get('/password/reset', 'MainCordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('main_cordinator_password.reset');
   Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
 
   Route::patch('/toggle', 'ToggleAppController@toggle');
@@ -95,16 +95,16 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
 
 Route::group(['prefix' => 'cordinator'], function () {
-  Route::get('/login', 'CordinatorAuth\LoginController@showLoginForm')->name('login');
+  Route::get('/login', 'CordinatorAuth\LoginController@showLoginForm')->name('cordinator_login');
   Route::post('/login', 'CordinatorAuth\LoginController@login');
-  Route::post('/logout', 'CordinatorAuth\LoginController@logout')->name('logout');
+  Route::post('/logout', 'CordinatorAuth\LoginController@logout')->name('cordinator_logout');
 
-  Route::get('/register', 'CordinatorAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::get('/register', 'CordinatorAuth\RegisterController@showRegistrationForm')->name('cordinator_register');
   Route::post('/register', 'CordinatorAuth\RegisterController@register');
 
-  Route::post('/password/email', 'CordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'CordinatorAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::post('/password/email', 'CordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('cordinator_password.request');
+  Route::post('/password/reset', 'CordinatorAuth\ResetPasswordController@reset')->name('cordinator_password.email');
+  Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('cordinator_password.reset');
   Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
 
   Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
@@ -123,12 +123,22 @@ Route::get('/students-for/{program}/program', 'Cordinator\CordinatorsController@
 
 
 
-
-
-
-
 /* 
 use multi file uploads for cordinator
 check file by index no to attach file in mail to send to the student with that index no
 check for status of open letter request to filter the issuing of the letters 
  */
+
+Route::group(['prefix' => 'supervisor'], function () {
+  Route::get('/login', 'SupervisorAuth\LoginController@showLoginForm')->name('supervisor_login');
+  Route::post('/login', 'SupervisorAuth\LoginController@login');
+  Route::post('/logout', 'SupervisorAuth\LoginController@logout')->name('supervisor_logout');
+
+  Route::get('/register', 'SupervisorAuth\RegisterController@showRegistrationForm')->name('supervisor_register');
+  Route::post('/register', 'SupervisorAuth\RegisterController@register');
+
+  Route::post('/password/email', 'SupervisorAuth\ForgotPasswordController@sendResetLinkEmail')->name('supervisor_password.request');
+  Route::post('/password/reset', 'SupervisorAuth\ResetPasswordController@reset')->name('supervisor_password.email');
+  Route::get('/password/reset', 'SupervisorAuth\ForgotPasswordController@showLinkRequestForm')->name('supervisor_password.reset');
+  Route::get('/password/reset/{token}', 'SupervisorAuth\ResetPasswordController@showResetForm');
+});

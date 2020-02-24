@@ -51,6 +51,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'supervisor' => \App\Http\Middleware\RedirectIfNotSupervisor::class,
+        'supervisor.guest' => \App\Http\Middleware\RedirectIfSupervisor::class,
         'cordinator' => \App\Http\Middleware\RedirectIfNotCordinator::class,
         'cordinator.guest' => \App\Http\Middleware\RedirectIfCordinator::class,
         'main_cordinator' => \App\Http\Middleware\RedirectIfNotMainCordinator::class,
