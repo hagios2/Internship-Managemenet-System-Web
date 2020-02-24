@@ -18,7 +18,7 @@ class RedirectIfNotMainCordinator
 	public function handle($request, Closure $next, $guard = 'main_cordinator')
 	{
 	    if (!Auth::guard($guard)->check()) {
-	        return redirect('main-cordinator/login');
+	        return redirect('/main-cordinator/login');
 	    }
 
 	    return $next($request);

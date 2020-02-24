@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\User;
-use App\Mail\ApplicationDeniedMail;
+use App\Mail\ApplicationRevertedMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -11,10 +11,11 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class ApplicationDeniedJob implements ShouldQueue
+class ApplicationRevertedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $user;
     /**
      * Create a new job instance.
      *
@@ -22,7 +23,7 @@ class ApplicationDeniedJob implements ShouldQueue
      */
     public function __construct(User $user)
     {
-        $this->user = $user;
+        $this->ser = $user;
     }
 
     /**
@@ -32,6 +33,6 @@ class ApplicationDeniedJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user)->queue(new ApplicationDeniedMail($this->user));
+        Mail::to($this->user)->queue(new ApplicationRevertedMail($this->user));
     }
 }

@@ -18,7 +18,7 @@ class RedirectIfNotSupervisor
 	public function handle($request, Closure $next, $guard = 'supervisor')
 	{
 	    if (!Auth::guard($guard)->check()) {
-	        return redirect('supervisor/login');
+	        return redirect('/supervisor/login');
 	    }
 
 	    return $next($request);

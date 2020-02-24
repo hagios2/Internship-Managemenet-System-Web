@@ -9,6 +9,8 @@ use App\StudentNotification;
 use App\InternshipApplication;
 use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
+use App\Jobs\ApplicationDeniedJob;
+use App\Jobs\ApplicationRevertedJob;
 use App\ApprovedApplication;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\App;
@@ -129,6 +131,10 @@ class InternshipProcessingController extends Controller
             'status' => 'Sorry! Your application has been denied. You may apply again'
         ]);
 
+        $user = $application->student;
+
+        ApplicationDeniedJob::dispatch($user);
+
         return back()->withSuccess($application->student->name . ' removed from applicants list');
     }
 
@@ -237,29 +243,40 @@ class InternshipProcessingController extends Controller
 
         static $count = 0;
 
+        $unapproved = \collect();
+
         foreach($applications as $application)
         {
+            $approved = $application->approvedProposedApplicaton;
          
-            if(!$application->approvedProposedApplication){
-                
-                $application->addProposalApproval();
+            if(!$approved){
 
-                $application->student->addNotification([
+                $unapproved->add($application);
 
-                    'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
-
-                    'notification_type' => 'Approval',
-
-                    'route' => '/dashboard',
-
-                    'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
-                ]);
-
-                $count++;
             }
         }
 
-        return back()->withSuccess('{$count} Application(s) approved');
+        foreach($unapproved as $unapproved_application)
+        {                
+            $unapproved_application->addProposalApproval();
+
+            $unapproved_application->student->addNotification([
+
+                'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
+
+                'notification_type' => 'Approval',
+
+                'route' => '/dashboard',
+
+                'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
+            ]);
+
+            $count++;
+
+        }
+        
+
+        return back()->withSuccess("{$count} Application(s) approved");
 
     }
 
@@ -289,7 +306,7 @@ class InternshipProcessingController extends Controller
         return back()->withSuccess('Application approved');
     }
 
-    public function revertProposedApplication(OtherApplicationApproved $application)
+    public function revertProposedApplication(InternshipApplication $application)
     {
         if(!$application){
 
@@ -298,8 +315,52 @@ class InternshipProcessingController extends Controller
 
         $application->approvedProposedApplicaton->delete();
 
+        if($application->started_at != null)
+        {
+            $application->started_at = null;
+
+            $application->save();
+        }
+
+        $user = $application->student;
+
+        ApplicationRevertedJob::dispatch($user);
+
+        $application->student->addNotification([
+
+            'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
+
+            'notification_type' => 'Reverted Application',
+
+            'route' => '/dashboard',
+
+            'status' => 'Sorry! Application\'s approval reverted'
+        ]);
+
         return back()->withSuccess('Reverted Approval');
     }
 
+
+    public function viewUnapproved()
+    {
+        $applications = InternshipApplication::where('preferred_company', true)->get();
+
+        $unapproved = \collect();
+
+        foreach($applications as $application)
+        {
+            $approved = $application->approvedProposedApplicaton;
+         
+            if(!$approved){
+
+                $unapproved->add($application);
+
+            }
+        }
+
+
+        return $unapproved;
+
+    }
 
 }

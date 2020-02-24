@@ -102,14 +102,14 @@
 
                             $.each(data, function(i, application){
 
-                                $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td><td>' 
-                                   /*  (application.approved == null || application.approved == 0) ?  */
-                                  
-                                       +'<span><form style="display:inline;" action="/main-cordinator/approve/' + application.id + '/proposed-application" method="post">@csrf <button class="btn btn-success">Approve</button></form></span><span>' +
-                                        '<form style="display:inline;" action="/main-cordinator/' + application.id + '/deny" method="post">@csrf @method("DELETE")  <button class="btn btn-danger">Deny</button></form></span></div></td></tr>'
-                                  /*   :
-                                       + '<span><form style="display:inline;" action="/main-cordinator/revert/' + application.id + '/approval" method="post">@csrf  <button class="btn btn-primary">Revert</button></form></span></td></tr>' */
-                                );
+                                if (application.approved == null || application.approved.approved == 0){
+
+                                    $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td><td>' +'<span><form style="display:inline;" action="/main-cordinator/approve/' + application.id + '/proposed-application" method="post">@csrf <button class="btn btn-success">Approve</button></form></span><span><form style="display:inline;" action="/main-cordinator/' + application.id + '/deny" method="post">@csrf @method("DELETE")  <button class="btn btn-danger">Deny</button></form></span></div></td></tr>');
+                                } else {
+
+                                    $('tbody.app').append('<tr><td>' + application.student_name + '</td><td>'+ application.preferred_company_name + '</td><td>' + application.preferred_company_location + '</td><td>' + application.preferred_company_city + '</td><td>'
+                                       + '<span><form style="display:inline;" action="/main-cordinator/revert/' + application.id + '/approval" method="post">@csrf  <button class="btn btn-primary">Revert</button></form></span></td></tr>' );
+                                }
                             
                            });
                        // });   

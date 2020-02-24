@@ -18,7 +18,7 @@ class RedirectIfSupervisor
 	public function handle($request, Closure $next, $guard = 'supervisor')
 	{
 	    if (Auth::guard($guard)->check()) {
-	        return redirect('supervisor/home');
+	        return redirect('supervisor/dashboard');
 	    }
 
 	    return $next($request);

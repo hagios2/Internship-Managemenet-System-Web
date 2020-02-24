@@ -49,7 +49,7 @@ Route::get('/', function () {
 
 //Main cordinator
 Route::group(['prefix' => 'main-cordinator'], function () {
-  Route::get('/login', 'MainCordinatorAuth\LoginController@showLoginForm')->name('main_cordinator_login');
+  Route::get('/login', 'MainCordinatorAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'MainCordinatorAuth\LoginController@login');
   Route::post('/logout', 'MainCordinatorAuth\LoginController@logout')->name('main_cordinator_logout');
 
@@ -90,6 +90,8 @@ Route::group(['prefix' => 'main-cordinator'], function () {
   Route::post('/revert/{application}/approval', 'MainCordinator\InternshipProcessingController@revertProposedApplication');
 
   Route::get('/getStudent', 'MainCordinator\InternshipProcessingController@getStudent');
+
+  Route::get('/view-unapproved', 'MainCordinator\InternshipProcessingController@viewUnapproved');
 
 });
 
