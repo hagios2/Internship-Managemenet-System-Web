@@ -2,33 +2,24 @@
 
 namespace App\Jobs;
 
-use Illuminate\Support\Facades\Mail;
-use App\InternshipApplication;
-use App\User;
-use App\Mail\SendIntroductoryLetterMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class SendIntroductoryLetter implements ShouldQueue
+class ApplicationDeniedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    public $application;
-    public $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(InternshipApplication $application)
+    public function __construct()
     {
-        $this->application = $application;
-
-        
+        //
     }
 
     /**
@@ -38,7 +29,6 @@ class SendIntroductoryLetter implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->application->student)->queue(new SendIntroductoryLetterMail($this->application));
-            
+        //
     }
 }

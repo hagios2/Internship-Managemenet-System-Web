@@ -10,7 +10,7 @@
 @section('body')
     <div class="login-box">
         <div class="login-logo">
-            <a href="/main-cordinator/dashboard">config('adminlte.logo','<b>Admin</b>LTE !!}') !!}</a>
+            <a href="/main-cordinator/dashboard">{!! config('adminlte.logo','<b>Admin</b>LTE') !!}</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">

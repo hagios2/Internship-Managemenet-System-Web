@@ -10,7 +10,7 @@ use App\InternshipApplication;
 use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
 use App\ApprovedApplication;
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
@@ -137,24 +137,28 @@ class InternshipProcessingController extends Controller
 
         if($company->application->count() > 0)
         {
-        
+        /* 
             if($company->approved_application)
             {
                 return back()->with('info', 'Application has already been approved');
-            }
+            } */
 
-            $company->addApplicationApproval();
+           /*  $company->addApplicationApproval();  */
 
         }else{
 
             return back()->with('error', 'Failed! '.$company->company_name .' has no application(s)');
         }
 
-        $student = \collect();
+          $student = \collect();
+ 
 
             foreach($company->application as $application)
             {
-                $application->student->addNotification([
+                
+               
+/* 
+               $application->student->addNotification([
 
                     'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
 
@@ -163,20 +167,47 @@ class InternshipProcessingController extends Controller
                     'route' => '/dashboard',
 
                     'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
-                ]);
-
-
-                // $pdf = App::make('dompdf.wrapper');
-                //     $pdf->loadHTML('<h1>Test</h1>');
-                //     return $pdf->stream(); */
-               
+                ]); */
+                
                 $student->add($application->student);
+
+                
             }
+            
+            Storage::disk('local')->makeDirectory("public/Letters/{$company->id}");
+
+            $pdf = PDF::loadView('letters.intro_letters', \compact('application', 'student'));
+
+            $path =  storage_path("app/public/Letters/{$company->id}/")."introductory letter.pdf";
+
+            $pdf->save($path);
+
+            $approvedApp = ApprovedApplication::find($company->id);
+
+            $approvedApp->approved_letter = $path;
+
+            $approvedApp->save();
+
+            foreach($student as $applicatant)
+            {
+                $this->dispatchApprovalMail($application);
+
+         } 
+
+          
 
    
      /*    Notification::toMultipleDevice($student, 'Application Approved', null, null, '/dashboard');
  */
-        return back()->withSuccess('Application Approved. You may Send introductory letter now');
+        return back()->withSuccess('Application Approved with Introductory Letter dispatched to student(s) ');
+    }
+
+    public function dispatchApprovalMail(InternshipApplication $application)
+    {
+        \Mail::to($application->student)->send(new \App\Mail\SendIntroductoryLetterMail($application));
+
+
+   /*      SendIntroductoryLetter::dispatch($application); */
     }
 
 

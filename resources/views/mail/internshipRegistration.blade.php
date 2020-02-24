@@ -1,16 +1,18 @@
 @component('mail::message')
 # Hello {{ $user->name }}
 
-Your application has been received successfully.
-Notice: You can modify your application before the deadline for registration.
+<p>
+    Your application has been received successfully.
+    Notice: You can modify your application before the deadline for registration.
 
-If you wish to modify your application kindly click on the link below to 
+    If you wish to modify your application kindly click on the link below to 
 
-@component('mail::button', ['url' => ''])
+</p>
+
+@component('mail::button', ['url' => "{{ config('app.url')}}/internshipapply/{$user->application->id}/edit"])
 Edit Application
 @endcomponent
 
-You may ignore this mail if you have.
 
 Thanks,<br>
 {{ config('app.name') }}

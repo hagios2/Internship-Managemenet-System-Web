@@ -60,8 +60,14 @@
                                         </form>
                                         
                                     @endif
+
+                                @else
+
+                                    <a class="btn btn-primary" href="/internshipapply/{{ auth()->user()->application->id }}/edit">Edit</a>
                                     
                                 @endif
+                            
+                                    
 
                             @else
 
