@@ -135,9 +135,16 @@
 
                                 <div>
 
-                                    <span class="glyphicon glyphicon-file"></span> <em>{{ explode('/', $company->approved_application->approved_letter ,4)[3] }}</em>
+                                    <span class="glyphicon glyphicon-file"></span> <em>{{ explode('/', $company->approved_application->approved_letter ,13)[12] }}</em>
 
                                     <a href="/main-cordinator/letter/{{ $company->approved_application->id }}/preview" class="btn btn-default">Preview</a>
+
+
+                                    <form style="display:inline;" id="rmv_form" action="/main-cordinator/copy/{{$company->id}}/with-letter" method="post">
+                                    
+                                        @csrf
+                                        <button class="btn btn-primary" type="submit">Copy company</button>
+                                    </form>
 
                                     <a id="rmv" class="btn btn-danger">Delete</a>
 
@@ -154,21 +161,6 @@
                         @endif
 
                     @endif
-
-                    <div style="margin-left:50%">
-
-                        <a class="btn btn-primary" id="addid">Add Student</a>
-
-                        <div id="add_div" style="display:none;">
-
-                            <form id="search_form">
-
-                                <input type="text" name="" id="search_student" placeholder="Enter Stud">
-                            </form>
-
-                        </div>
-
-                    </div>
                                 
                 </div><br><br>
 

@@ -93,6 +93,8 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::get('/view-unapproved', 'MainCordinator\InternshipProcessingController@viewUnapproved');
 
+  Route::post('copy/{company}/with-letter', 'MainCordinator\InternshipProcessingController@copycompany');
+
 });
 
 
@@ -143,4 +145,6 @@ Route::group(['prefix' => 'supervisor'], function () {
   Route::post('/password/reset', 'SupervisorAuth\ResetPasswordController@reset')->name('supervisor_password.email');
   Route::get('/password/reset', 'SupervisorAuth\ForgotPasswordController@showLinkRequestForm')->name('supervisor_password.reset');
   Route::get('/password/reset/{token}', 'SupervisorAuth\ResetPasswordController@showResetForm');
+
+  Route::get('/view-interns', 'Supervisor\SupervisorsController@viewInterns');
 });

@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use App\InternshipApplication;
 use App\ApprovedApplication;
+use App\OtherApplicationApproved;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -31,14 +32,29 @@ class SendIntroductoryLetterMail extends Mailable
      */
     public function build()
     {
-        $approvedApp = ApprovedApplication::find($this->application->company->id);
 
-        return $this->markdown('mail.SendIntroductoryLetter')
-            ->attach("{$approvedApp->approved_letter}", [
+        if($this->application->default_application)
+        {
+            $approvedApp = $this->application->company->approved_application;
+
+            return $this->markdown('mail.SendIntroductoryLetter')
+                ->from(auth()->guard('main_cordinator')->user()->email)
+                ->attach("{$approvedApp->approved_letter}", [
+                    'as' => 'Introductory Letter.pdf',
+                    'mime' => 'application/pdf',
+            ]);
+
+        } else if($this->application->preferred_company){
+
+            $approvedApp = $this->application->approvedProposedApplicaton;
+
+            return $this->markdown('mail.SendIntroductoryLetter')
+            ->from(auth()->guard('main_cordinator')->user()->email)
+            ->attach("{$approvedApp['letter']}", [
                 'as' => 'Introductory Letter.pdf',
                 'mime' => 'application/pdf',
             ]);
-        
+        }
     }
 }
 

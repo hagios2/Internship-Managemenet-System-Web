@@ -23,7 +23,7 @@ class ApplicationRevertedJob implements ShouldQueue
      */
     public function __construct(User $user)
     {
-        $this->ser = $user;
+        $this->user = $user;
     }
 
     /**
@@ -33,6 +33,6 @@ class ApplicationRevertedJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user)->queue(new ApplicationRevertedMail($this->user));
+        Mail::to($this->user->email)->send(new ApplicationRevertedMail($this->user));
     }
 }

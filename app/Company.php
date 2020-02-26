@@ -30,9 +30,20 @@ class Company extends Model
         return $this->hasOne('App\Appointment');
     }
 
+    public function confirmedAppCode()
+    {
+        return $this->hasOne('App\ConfirmedApplicationCode');
+    }
+
+    public function addConfirmApplicationCode($code)
+    {
+       return $this->confirmedAppCode()->create(['code' => $code]);
+    }
+
+
     public function addApplicationApproval()
     {
-        $this->approved_application()->create(['approved' => true]);
+       return $this->approved_application()->create(['approved' => true])->id;
     }
 
 

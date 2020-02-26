@@ -16,6 +16,7 @@ class CreateSupervisorsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('avatar')->default('/storage/images/noimage.jpg');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

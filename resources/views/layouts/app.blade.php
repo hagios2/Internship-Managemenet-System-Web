@@ -79,7 +79,7 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="{{auth()->user()->avatar }}" style="width:2rem" class="rounded-circle" alt="">
+                                    <img src="{{auth()->user()->avatar }}" style="width:2rem;" class="rounded-circle" alt="">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 

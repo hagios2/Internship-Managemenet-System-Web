@@ -32,6 +32,6 @@ class ApplicationDeniedJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user)->queue(new ApplicationDeniedMail($this->user));
+        Mail::to($this->user)->send(new ApplicationDeniedMail($this->user));
     }
 }

@@ -31,7 +31,7 @@ class InternshipApplication extends Model
 
     public function addProposalApproval()
     {
-        $this->approvedProposedApplicaton()->create(['approved' => true,]);
+       return $this->approvedProposedApplicaton()->create(['approved' => true,])->id;
     }
 
     public function appointment()

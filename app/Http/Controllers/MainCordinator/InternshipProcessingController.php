@@ -9,8 +9,12 @@ use App\StudentNotification;
 use App\InternshipApplication;
 use App\OtherApplicationApproved;
 use App\Jobs\SendIntroductoryLetter;
+use Illuminate\Support\Facades\Hash;
 use App\Jobs\ApplicationDeniedJob;
 use App\Jobs\ApplicationRevertedJob;
+use App\Mail\ApplicationRevertedMail;
+use App\Mail\SendIntroductoryLetterMail;
+use App\Mail\SendConfirmedApplicationCode;
 use App\ApprovedApplication;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\App;
@@ -160,14 +164,14 @@ class InternshipProcessingController extends Controller
 
         if($company->application->count() > 0)
         {
-        /* 
+        
             if($company->approved_application)
             {
                 return back()->with('info', 'Application has already been approved');
-            } */
-
-           /*  $company->addApplicationApproval();  */
-
+            } 
+ 
+           $companyApproved = $company->addApplicationApproval();  
+ 
         }else{
 
             return back()->with('error', 'Failed! '.$company->company_name .' has no application(s)');
@@ -175,12 +179,9 @@ class InternshipProcessingController extends Controller
 
           $student = \collect();
  
-
             foreach($company->application as $application)
             {
                 
-               
-/* 
                $application->student->addNotification([
 
                     'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
@@ -190,14 +191,13 @@ class InternshipProcessingController extends Controller
                     'route' => '/dashboard',
 
                     'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
-                ]); */
+                ]); 
                 
                 $student->add($application->student);
-
                 
             }
             
-            Storage::disk('local')->makeDirectory("public/letters/company appliction/{$company->id}");
+            Storage::disk('local')->makeDirectory("public/letters/company application/{$company->id}");
 
             $pdf = PDF::loadView('letters.intro_letters', \compact('application', 'student'));
 
@@ -205,21 +205,19 @@ class InternshipProcessingController extends Controller
 
             $pdf->save($path);
 
-            $approvedApp = ApprovedApplication::find($company->id);
+            $approvedApp = ApprovedApplication::find($companyApproved);
 
             $approvedApp->approved_letter = $path;
 
             $approvedApp->save();
 
-            foreach($student as $applicatant)
+            foreach($student as $applicant)
             {
-                $this->dispatchApprovalMail($application);
+                $this->dispatchApprovalMail($applicant->application);
 
             } 
 
           
-
-   
      /*    Notification::toMultipleDevice($student, 'Application Approved', null, null, '/dashboard');
  */
         return back()->withSuccess('Application Approved with Introductory Letter dispatched to student(s) ');
@@ -275,9 +273,9 @@ class InternshipProcessingController extends Controller
 
         foreach($unapproved as $unapproved_application)
         {                
-            $unapproved_application->addProposalApproval();
+           $approvedApplication =  $unapproved_application->addProposalApproval();
 
-          return  $this->generateletterforotherApplication($unapproved_application);
+          return  $this->generateletterforotherApplication($unapproved_application, $approvedApplication);
 
             $unapproved_application->student->addNotification([
 
@@ -299,23 +297,27 @@ class InternshipProcessingController extends Controller
 
     }
 
-    public function generateletterforotherApplication(InternshipApplication $application)
+    public function generateletterforotherApplication(InternshipApplication $application, $id)
     {
-        Storage::disk('local')->makeDirectory("public/letters/proposed appliction/{$application->id}");
+        Storage::disk('local')->makeDirectory("public/letters/proposed application/{$application->id}");
 
         $pdf = PDF::loadView('letters.other_intro_letters', \compact('application'));
 
-        return $pdf->stream();
+       /*  return $pdf->stream(); */
 
-        $path =  storage_path("app/public/Letters/{$company->id}/")."introductory letter.pdf";
+        $path =  storage_path("app/public/letters/proposed application/{$application->id}/")."introductory letter.pdf";
 
         $pdf->save($path);
 
-        $approvedApp = ApprovedApplication::find($company->id);
+        $approvedApp = OtherApplicationApproved::find($id);
 
-        $approvedApp->approved_letter = $path;
+        $approvedApp->letter = $path;
 
         $approvedApp->save();
+
+       \Mail::to($application->student)->send(new SendIntroductoryLetterMail($application)); 
+
+       /*  SendIntroductoryLetter::dispatch($application); */
     }
 
     /* you may use this function to approve individual Proposed Applicaton */
@@ -328,7 +330,7 @@ class InternshipProcessingController extends Controller
             return back()->with('info', 'Application has already been approved');
         }
                 
-        $application->addProposalApproval();
+        $approvedApplication = $application->addProposalApproval(); 
 
         $application->student->addNotification([
 
@@ -341,7 +343,7 @@ class InternshipProcessingController extends Controller
             'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
         ]);
 
-        return $this->generateletterforotherApplication($application);
+        return $this->generateletterforotherApplication($application, $approvedApplication);
         
         return back()->withSuccess('Application approved');
     }
@@ -363,8 +365,10 @@ class InternshipProcessingController extends Controller
         }
 
         $user = $application->student;
+/* 
+        \Mail::to($user->email)->send(new ApplicationRevertedMail($user)); */
 
-        ApplicationRevertedJob::dispatch($user);
+      /*   ApplicationRevertedJob::dispatch($user); */
 
         $application->student->addNotification([
 
@@ -400,6 +404,18 @@ class InternshipProcessingController extends Controller
 
 
         return $unapproved;
+
+    }
+
+    public function copycompany(Company $company)
+    {
+        $code = str_random(5);
+
+        $confirmedtoken = $company->addConfirmApplicationCode(Hash::make($code));
+
+        \Mail::to($company->email)->send(new SendConfirmedApplicationCode($confirmedtoken, $code));
+
+        return back()->withSuccess('Letter send to Company');
 
     }
 
