@@ -38,4 +38,10 @@ class Supervisor extends Authenticatable
     {
         $this->notify(new SupervisorResetPassword($token));
     }
+
+
+    public function internsApplication()
+    {
+        return $this->hasOne('App\ConfirmedApplicationCode');
+    }
 }

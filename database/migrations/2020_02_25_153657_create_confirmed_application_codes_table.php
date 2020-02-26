@@ -17,6 +17,7 @@ class CreateConfirmedApplicationCodesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('company_id')->unsigned()->unique()->nullable();
             $table->integer('application_id')->unsigned()->unique()->nullable();
+            $table->integer('supervisor_id')->unsigned()->unique()->nullable();
             $table->string('code');
             $table->timestamps();
         });

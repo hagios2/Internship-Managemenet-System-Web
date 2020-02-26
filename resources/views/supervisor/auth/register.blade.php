@@ -2,74 +2,90 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/supervisor/register') }}">
-                        {{ csrf_field() }}
+    <div class="row justify-content-center">
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
+
+                @include('includes.errors')
+
+                <span id="flash-code" class="col-md-4" style="display:none;" ></span>
+
+                <div class="card-body">
+                    <form method="POST" action="/supervisor/register">
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
                                     </span>
-                                @endif
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <input type="hidden" id="app_id">
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
                                     </span>
-                                @endif
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                        <div class="form-group row">
+                            <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Application code') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
+                                <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}" required autocomplete="code">
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                @error('code')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
                                     </span>
-                                @endif
+                                @enderror
+                            </div>   
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary" id="sub-butt"> 
+                                    {{ __('Register') }}
                                 </button>
                             </div>
                         </div>
@@ -79,4 +95,79 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('extra-js')
+
+    <script>
+
+        $(document).ready(function(){
+
+            $('#sub-butt').prop('disabled', true); 
+
+            $('#code').keyup(function(e){
+
+                console.log(e.currentTarget.value);
+
+                if(e.currentTarget.value.length == 5)
+                {
+                    $.ajax({
+
+                        url: '/supervisor/check-code',
+                        dataType: 'json',
+                        data: {code: e.currentTarget.value},
+                        method: 'POST',
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                        }).done(function(data){
+
+                        if(data.code == 'success')
+                        {
+                            $('#flash-code').text('Code accepted');
+
+                            $('#flash-code').attr('class', 'alert alert-success');
+
+                            $('#flash-code').fadeIn('slow');
+
+                            $('#flash-code').fadeOut(3000);
+
+                            if(data.application_id != null)
+
+                            {   
+                                $('#app_id').val(data.application_id);
+
+                                $('#app_id').attr('name', 'application_id');
+
+                            } else if(data.company_id != null){
+
+                                $('#app_id').val(data.company_id);
+
+                                $('#app_id').attr('name', 'company_id');
+                            }
+
+                            $('#sub-butt').prop('disabled', false); 
+
+                        }else {
+
+                            $('#flash-code').text('Invalid Code!');
+
+                            $('#flash-code').attr('class', 'alert alert-danger');
+
+                            $('#flash-code').fadeIn('slow');
+
+                            $('#flash-code').fadeOut(3000);
+
+                            $('#sub-butt').prop('disabled', true); 
+
+                        }
+
+                    });
+
+                }
+               
+            })
+        })
+    
+    </script>
+    
 @endsection

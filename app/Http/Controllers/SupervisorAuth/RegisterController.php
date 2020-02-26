@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SupervisorAuth;
 
 use App\Supervisor;
+use App\InternshipApplication;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -25,7 +26,7 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after login / registration.
-     *
+     *de' => 'required|string|max:5',
      * @var string
      */
     protected $redirectTo = '/supervisor/dashboard';
@@ -52,6 +53,8 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:supervisors',
             'password' => 'required|min:6|confirmed',
+            'application_id' => 'integer|nullable',
+            'company_id' => 'integer|nullable',
         ]);
     }
 
@@ -63,11 +66,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Supervisor::create([
+        $supervisor = Supervisor::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        if(request()->has('company_id'))
+        {
+            $company = Company::find(request()->company_id);
+
+            $company->confirmedAppCode->update(['supervisor_id' => $supervisor->id]);
+
+        } else if (request()->has('application_id')) {
+
+            $application = InternshipApplication::find(request()->application_id);
+
+            $application->confirmedAppCode->update(['supervisor_id' => $supervisor->id]);
+
+        }
+
+        return $supervisor;
     }
 
     /**

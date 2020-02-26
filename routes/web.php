@@ -147,4 +147,7 @@ Route::group(['prefix' => 'supervisor'], function () {
   Route::get('/password/reset/{token}', 'SupervisorAuth\ResetPasswordController@showResetForm');
 
   Route::get('/view-interns', 'Supervisor\SupervisorsController@viewInterns');
+
+  Route::post('/check-code', 'Supervisor\SupervisorsController@checkCode');
+
 });
