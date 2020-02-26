@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Jobs\ApplicationDeniedJob;
 use App\Jobs\ApplicationRevertedJob;
 use App\Mail\ApplicationRevertedMail;
+use App\Mail\ApplicationDeniedMail;
 use App\Mail\SendIntroductoryLetterMail;
 use App\Mail\SendConfirmedApplicationCode;
 use App\ApprovedApplication;
@@ -83,12 +84,12 @@ class InternshipProcessingController extends Controller
         return view('main_cordinator.other_application', compact('count'));
     }
 
-    public function getStudent()
+/*     public function getStudent()
     {
         return User::where('name', 'like', request()->search, '%')->get('id', 'name');
 
         return request()->search;
-    }
+    } */
 
     /**
      * Show the form for creating a new resource.
@@ -154,7 +155,9 @@ class InternshipProcessingController extends Controller
 
         $user = $application->student;
 
-        ApplicationDeniedJob::dispatch($user);
+        \Mail::to($user->email)->send(new ApplicationDeniedMail($user)); 
+
+   /*      ApplicationDeniedJob::dispatch($user); */
 
         return back()->withSuccess($application->student->name . ' removed from applicants list');
     }
@@ -273,9 +276,12 @@ class InternshipProcessingController extends Controller
 
         foreach($unapproved as $unapproved_application)
         {                
-           $approvedApplication =  $unapproved_application->addProposalApproval();
+            $approvedApplication =  $unapproved_application->addProposalApproval();
 
-          return  $this->generateletterforotherApplication($unapproved_application, $approvedApplication);
+            $this->generateletterforotherApplication($unapproved_application, $approvedApplication);
+
+            //copy company with letter using different mail template
+            $this->copyOtherCompany($unapproved_application);
 
             $unapproved_application->student->addNotification([
 
@@ -315,7 +321,7 @@ class InternshipProcessingController extends Controller
 
         $approvedApp->save();
 
-       \Mail::to($application->student)->send(new SendIntroductoryLetterMail($application)); 
+       \Mail::to($application->student)->send(new SendIntroductoryLetterMail($application, $path)); 
 
        /*  SendIntroductoryLetter::dispatch($application); */
     }
@@ -342,8 +348,12 @@ class InternshipProcessingController extends Controller
 
             'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
         ]);
+        
+        //send students intro letter
+        $this->generateletterforotherApplication($application, $approvedApplication);
 
-        return $this->generateletterforotherApplication($application, $approvedApplication);
+        //copy company with letter using different mail template
+        $this->copyOtherCompany($application);
         
         return back()->withSuccess('Application approved');
     }
@@ -357,6 +367,8 @@ class InternshipProcessingController extends Controller
 
         $application->approvedProposedApplicaton->delete();
 
+        $application->confirmedAppCode->delete();
+
         if($application->started_at != null)
         {
             $application->started_at = null;
@@ -365,8 +377,8 @@ class InternshipProcessingController extends Controller
         }
 
         $user = $application->student;
-/* 
-        \Mail::to($user->email)->send(new ApplicationRevertedMail($user)); */
+
+        \Mail::to($user->email)->send(new ApplicationRevertedMail($user)); 
 
       /*   ApplicationRevertedJob::dispatch($user); */
 
@@ -415,7 +427,26 @@ class InternshipProcessingController extends Controller
 
         \Mail::to($company->email)->send(new SendConfirmedApplicationCode($confirmedtoken, $code));
 
-        return back()->withSuccess('Letter send to Company');
+        return back()->withSuccess('Letter sent to Company');  
+
+    }
+
+
+    public function copyOtherCompany(InternshipApplication $application)
+    {
+
+        if($application->preferred_company){
+
+            $code = str_random(5);
+
+            $confirmedtoken = $application->addConfirmApplicationCode(Hash::make($code));
+
+            \Mail::to($application->preferred_company_email)->send(new SendConfirmedApplicationCode($confirmedtoken, $code));
+
+        } else {
+
+            return back();
+        }   
 
     }
 

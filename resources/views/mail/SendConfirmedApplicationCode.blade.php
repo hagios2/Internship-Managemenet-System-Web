@@ -19,11 +19,11 @@ Dear Sir, <br>
     Kindly use <strong>{{ $code }}</strong> as application code when registering into the system
 </p>
 
-@component('mail::button', ['url' => "{{config('app.url')}}/supervisor/register"])
+@component('mail::button', ['url' => '{{config("app.url")}}/supervisor/register'])
 Register
 @endcomponent
 
 Thanks,<br>
 {{ auth()->guard('main_cordinator')->user()->name }} <br>
-UENR Internship Coordinator
+Industrial Attachment Coordinator
 @endcomponent

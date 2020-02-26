@@ -43,4 +43,15 @@ class InternshipApplication extends Model
     {
         $this->appointment()->create($appointment_data);
     }
+
+    public function confirmedAppCode()
+    {
+        return $this->hasOne('App\ConfirmedApplicationCode', 'application_id');
+    }
+
+    public function addConfirmApplicationCode($code)
+    {
+       return $this->confirmedAppCode()->create(['code' => $code]);
+    }
+
 }

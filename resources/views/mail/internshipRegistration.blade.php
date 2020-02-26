@@ -9,11 +9,12 @@
 
 </p>
 
-@component('mail::button', ['url' => "{{ config('app.url')}}/internshipapply/{$user->application->id}/edit"])
+@component('mail::button', ['url' => '{{ config("app.url")}}/internshipapply/{{$user->application->id}}/edit'])
 Edit Application
 @endcomponent
 
 
 Thanks,<br>
-{{ config('app.name') }}
+{{ auth()->guard('main_cordinator')->user()->name }} <br>
+Industrial Attachment Coordinator
 @endcomponent

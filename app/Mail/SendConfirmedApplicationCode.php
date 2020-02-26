@@ -35,12 +35,28 @@ class SendConfirmedApplicationCode extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.SendConfirmedApplicationCode')
-            ->from(auth()->guard('main_cordinator')->user()->email)
-            ->attach("{$this->ConfirmedToken->company->approved_application->approved_letter}",[
-                'as' => 'Introductory Letter.pdf',
-                'mime' => 'application/pdf',
-            ]
-        );
+
+        if($this->ConfirmedToken->company)
+        {
+            return $this->markdown('mail.SendConfirmedApplicationCode')
+                ->from(auth()->guard('main_cordinator')->user()->email)
+                ->attach("{$this->ConfirmedToken->company->approved_application->approved_letter}",[
+                
+                    'as' => 'Introductory Letter.pdf',
+                    'mime' => 'application/pdf',
+                ]
+            );
+        } else if($this->ConfirmedToken->application){
+
+            return $this->markdown('mail.SendConfirmedApplicationCode')
+                ->from(auth()->guard('main_cordinator')->user()->email)
+                ->attach("{$this->ConfirmedToken->application->approvedProposedApplicaton->letter}",[
+                
+                    'as' => 'Introductory Letter.pdf',
+                    'mime' => 'application/pdf',
+                ]
+            );
+        }
+       
     }
 }

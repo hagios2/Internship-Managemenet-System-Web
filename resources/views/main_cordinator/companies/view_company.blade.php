@@ -131,7 +131,7 @@
 
                             <div style="font-size:18px">
 
-                                <h4 class="title">Introductory Letter</h4>
+                            {{--     <h4 class="title">Introductory Letter</h4> --}}
 
                                 <div>
 
@@ -143,7 +143,7 @@
                                     <form style="display:inline;" id="rmv_form" action="/main-cordinator/copy/{{$company->id}}/with-letter" method="post">
                                     
                                         @csrf
-                                        <button class="btn btn-primary" type="submit">Copy company</button>
+                                        <button {{ $company->confirmedAppCode ? 'disabled' : '' }} class="btn btn-primary" type="submit">Copy company</button>
                                     </form>
 
                                     <a id="rmv" class="btn btn-danger">Delete</a>

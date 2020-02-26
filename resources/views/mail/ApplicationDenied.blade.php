@@ -7,10 +7,11 @@
     
 </p>
 
-@component('mail::button', ['url' => '{{ config('app.url')}}/internshipapply'])
+@component('mail::button', ['url' => '{{ config("app.url")}}/internshipapply'])
 Apply
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+{{ auth()->guard('main_cordinator')->user()->name }} <br>
+Industrial Attachment Coordinator
 @endcomponent

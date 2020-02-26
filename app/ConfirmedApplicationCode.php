@@ -17,6 +17,6 @@ class ConfirmedApplicationCode extends Model
 
     public function application()
     {
-        return $this->belongsTo('App\InternshipApplication');
+        return $this->belongsTo('App\InternshipApplication', 'application_id');
     }
 }

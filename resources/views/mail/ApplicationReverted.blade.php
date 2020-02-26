@@ -8,5 +8,6 @@
 </p>
 
 Thanks,<br>
-{{ config('app.name') }}
+{{ auth()->guard('main_cordinator')->user()->name }} <br>
+Industrial Attachment Coordinator
 @endcomponent

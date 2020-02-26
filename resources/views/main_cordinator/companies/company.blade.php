@@ -25,7 +25,7 @@
 
     </div><br>
 
-        <a class="btn btn-default pull-left" href="/main-cordinator/dashboard"><< Back</a>
+        <a class="btn btn-default pull-left" href="/main-cordinator/student-applications"><< Back</a>
 
         <a class="btn btn-primary pull-right" href="/main-cordinator/company/create">Add company</a><br><br>
 

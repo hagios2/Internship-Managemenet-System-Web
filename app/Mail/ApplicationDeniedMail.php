@@ -30,6 +30,6 @@ class ApplicationDeniedMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.ApplicationDenied');
+        return $this->markdown('mail.ApplicationDenied')->from(auth()->guard('main_cordinator')->user()->email);
     }
 }
