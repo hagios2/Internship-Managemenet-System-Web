@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Supervisor;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\ConfirmedApplicationCode;
+use App\InternshipApplication;
+
 
 class SupervisorsController extends Controller
 {
@@ -24,13 +27,30 @@ class SupervisorsController extends Controller
 
     public function viewInterns()
     {
-        return view('supervisor.view_student');
+        
+       $confirmedAppcode = auth()->guard('supervisor')->user()->internsApplication; 
+
+       if($confirmedAppcode->company)
+       {
+
+            $studentApplication = InternshipApplication::where('company_id', $confirmedAppcode->company->id)->paginate(4);
+
+       } else {
+
+            $studentApplication = $confirmedAppcode->application;
+        }
+
+        return view('supervisor.view_student', \compact('studentApplication', 'confirmedAppcode'));
     }
 
 
-    public function viewInternsAttendance()
+    public function show(User $student)
     {
+        return $student->application->company->confirmedAppCode->supervisor_id ;
+        
+        abort_if((auth()->guard('supervisor')->id() !== $student->application->company->confirmedAppCode->supervisor_id  ), 403);
 
+        return $student;
     }
 
     public function showAccessmentForm()
@@ -66,6 +86,8 @@ class SupervisorsController extends Controller
         }
 
     }
+
+
 
 }
 

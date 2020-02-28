@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SupervisorAuth;
 
 use App\Supervisor;
+use App\Company;
 use App\InternshipApplication;
 use Validator;
 use App\Http\Controllers\Controller;

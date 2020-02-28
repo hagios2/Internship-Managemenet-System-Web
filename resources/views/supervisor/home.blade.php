@@ -18,14 +18,9 @@
 
                     <img src="" alt="">
 
-                     <p class="title">
+                     <p class="title">Interns</p><br>
 
-                            Internship Registration
-
-                    </p><br>
-
-
-                    <a class="btn btn-primary" href="/supervisor/view-interns">Apply</a>
+                    <a class="btn btn-primary" href="/supervisor/view-interns">view</a>
                     
                 </div>
             </div>
