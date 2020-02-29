@@ -7,7 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon" href="{{ asset('/storage/images/logo.jpg') }}" />
+
+    <title>{{ 'UENR Internship' }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

@@ -152,4 +152,8 @@ Route::group(['prefix' => 'supervisor'], function () {
   
   Route::get('/assess/{student}/interns', 'Supervisor\SupervisorsController@show');
 
+  Route::get('/download/assessment-forms', 'Supervisor\SupervisorsController@downloadAssessmentForms');
+
 });
+
+

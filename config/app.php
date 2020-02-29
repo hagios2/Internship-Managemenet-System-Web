@@ -178,6 +178,8 @@ return [
         LaravelFCM\FCMServiceProvider::class,
         FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
+
     ],
 
     /*
@@ -232,7 +234,7 @@ return [
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,   
         'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        
+        'Zipper' => Chumper\Zipper\Zipper::class,
 
     ],
 

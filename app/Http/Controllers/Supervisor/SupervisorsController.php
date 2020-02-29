@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\ConfirmedApplicationCode;
 use App\InternshipApplication;
-
+//use Chumper\Zipper\Zipper as Zipper;
 
 class SupervisorsController extends Controller
 {
@@ -40,17 +40,25 @@ class SupervisorsController extends Controller
             $studentApplication = $confirmedAppcode->application;
         }
 
-        return view('supervisor.view_student', \compact('studentApplication', 'confirmedAppcode'));
+        return view('supervisor.students', \compact('studentApplication', 'confirmedAppcode'));
     }
 
 
     public function show(User $student)
     {
-        return $student->application->company->confirmedAppCode->supervisor_id ;
+        if($student->application->company)
+        {
+            abort_if((auth()->guard('supervisor')->id() !== $student->application->company->confirmedAppCode->supervisor_id  ), 403);
         
-        abort_if((auth()->guard('supervisor')->id() !== $student->application->company->confirmedAppCode->supervisor_id  ), 403);
+        }else{
 
-        return $student;
+            abort_if((auth()->guard('supervisor')->id() !== $student->application->confirmedAppCode->supervisor_id  ), 403);
+
+        }
+       
+        $application = $student->application;
+
+        return view('supervisor.view_student', compact('application'));
     }
 
     public function showAccessmentForm()
@@ -88,7 +96,33 @@ class SupervisorsController extends Controller
     }
 
 
+    public function downloadAssessmentForms()
+    {
+        $zipper = new \Chumper\Zipper\Zipper;
+     
+        $files = glob(storage_path('app/public/assessment forms/*'));
+
+        $zip_path = storage_path('app/public/assessment.zip');
+        
+        $zipper->make($zip_path)->add($files)->close();
+
+        return response()->download('storage/assessment.zip');    
+
+        return back();
+    }
+
+/* 
+    public function download($path, $filename)
+    {
+         //headers
+         $headers = array(
+        
+            'Content-Type: application/pdf',
+        );
+
+        return response()->download([$path, $filename, $headers]);
+    } */
+
+
 
 }
-
-

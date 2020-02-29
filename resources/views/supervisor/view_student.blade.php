@@ -3,83 +3,45 @@
 @section('content')
 
     <div class="container">
+     
 
-        <div class="row">
-            <div class="col-md-4 col-lg-4" style="background-color:grey">put links here</div>
+        @if ($application)
 
-            <div class="col-md-8 col-lg-8">
-
-                @if ($confirmedAppcode)
-
-                    @if ($confirmedAppcode->company_id)
-
-
-                    <div class="card">
-                        <div class="card-header"><strong><span class="fas fa-user-md"></span> Intern(s)</strong> </div>
-                    </div><br>
-
-                    <div class="row">
-
-                        @foreach ($studentApplication as $application)
-
-                            <div class="col-md-4 col-lg-4">
-
-                                <div class="card">
-                
-                                    <div class="card-body text-center">
-                
-                                        <img class="rounded-circle"  style="width:5rem;" src="{{$application->student->avatar}}" alt="">
+            <div class="col-md-8 col-lg-8 offset-md-2">
                     
-                                        <p class="title">{{$application->student->name}}</p><br>
-                    
-                                        <a class="btn btn-primary" href="/supervisor/assess/{{$application->student->id}}/interns">Assess Student</a>
+                <div class="card">
 
-                                    </div>
-                                    
-                                </div>
+                    <div class="card-header"><strong><span class="fas fa-user-md"></span> Intern(s)</strong></div> <br>
 
-                            </div>
+                    <div>
+
+                        <a class="btn btn-primary" href="/supervisor/download/assessment-forms">Download assessment</a>
                         
-                        @endforeach
+                        <form action="" method="post"></form>
 
-                    </div> <br>
+                    </div>
 
-                    {{ $studentApplication->links() }}
 
-                    @elseif($confirmedAppcode->application_id)
 
-                        <div class="card">
-                            <div class="card-header"><strong><span class="fas fa-user-md"></span> Intern(s)</strong> </div>
-                        </div><br>
-                            
-                        <div class="col-md-4 col-lg-4">
-                    
-                            <div class="card">
+                    </div>
                         
-                                <div class="card-body text-center">
-                
-                                    <img class="rounded-circle"  style="width:5rem;" src="{{$studentApplication->student->avatar}}" alt="">
-                
-                                <p class="title">{{$studentApplication->student->name}}</p><br>
-                
-                                <a class="btn btn-primary" href="/supervisor/assess/{{$studentApplication->student->id}}/interns">Assess Student</a>
-
-                                </div>
-                                    
-                            </div>
-
-                        </div>
-                        
-                    @endif
-                    
-                @endif
-                
-              
+                </div>
 
             </div>
-        </div> <br>
 
-     
+        @else 
+
+            <div class="jumbotron text-center">
+
+                <h2 class="title">Unknown Application</h2>
+
+                <p>
+                    Please return to the previous page and select a valid student
+                </p>
+
+            </div>
+        
+        @endif
 
     </div>
     
