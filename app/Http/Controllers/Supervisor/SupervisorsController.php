@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\ConfirmedApplicationCode;
 use App\InternshipApplication;
-//use Chumper\Zipper\Zipper as Zipper;
 
 class SupervisorsController extends Controller
 {
