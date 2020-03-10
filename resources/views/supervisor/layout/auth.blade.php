@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+
     <link rel="shortcut icon" href="{{ asset('/storage/images/logo.jpg') }}" />
 
     <title>{{ 'UENR Internship' }}</title>
