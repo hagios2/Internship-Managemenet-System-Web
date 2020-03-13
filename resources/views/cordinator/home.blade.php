@@ -454,6 +454,8 @@
 
                     }else{
 
+
+
                         //rom 14 23 heb 10 35
 
                         $('#no_app').hide();
@@ -461,6 +463,8 @@
                         $('#other_app_stud_div').show();
 
                         $('#li_stu_list').html('<div id="stulist"></div>');
+
+                        $('#stulist').append('<a href="javascript:void(0);">Grid</a>')
 
                         $.map(data, function(application, i) {
 

@@ -44,4 +44,15 @@ class Supervisor extends Authenticatable
     {
         return $this->hasOne('App\ConfirmedApplicationCode');
     }
+
+    public function assessment()
+    {
+        return $this->hasMany('App\Assessment');
+    }
+
+    public function addStudentAssessment($studentAssessmenst)
+    {
+        $this->assessment()->create($studentAssessmenst);
+    }
+
 }

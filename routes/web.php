@@ -49,6 +49,12 @@ Route::get('/', function () {
 
 //Main cordinator
 Route::group(['prefix' => 'main-cordinator'], function () {
+  
+  Route::get('/', function(){
+
+    return redirect('/main-cordinator/dashboard');
+  });
+
   Route::get('/login', 'MainCordinatorAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'MainCordinatorAuth\LoginController@login');
   Route::post('/logout', 'MainCordinatorAuth\LoginController@logout')->name('main_cordinator_logout');
@@ -99,6 +105,12 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
 
 Route::group(['prefix' => 'cordinator'], function () {
+
+  Route::get('/', function(){
+
+    return redirect('/cordinator/dashboard');
+  });
+
   Route::get('/login', 'CordinatorAuth\LoginController@showLoginForm')->name('cordinator_login');
   Route::post('/login', 'CordinatorAuth\LoginController@login');
   Route::post('/logout', 'CordinatorAuth\LoginController@logout')->name('cordinator_logout');
@@ -134,6 +146,11 @@ check for status of open letter request to filter the issuing of the letters
  */
 
 Route::group(['prefix' => 'supervisor'], function () {
+  Route::get('/', function(){
+
+    return redirect('/supervisor/dashboard');
+  });
+
   Route::get('/login', 'SupervisorAuth\LoginController@showLoginForm')->name('supervisor_login');
   Route::post('/login', 'SupervisorAuth\LoginController@login');
   Route::post('/logout', 'SupervisorAuth\LoginController@logout')->name('supervisor_logout');
@@ -153,6 +170,12 @@ Route::group(['prefix' => 'supervisor'], function () {
   Route::get('/assess/{student}/interns', 'Supervisor\SupervisorsController@show');
 
   Route::get('/download/assessment-forms', 'Supervisor\SupervisorsController@downloadAssessmentForms');
+
+  Route::post('/upload/{student}/assessment-forms', 'Supervisor\SupervisorsController@uploadAssessmentForms');
+
+  Route::post('/assess/{student}/interns', 'Supervisor\SupervisorsController@assessStudent');
+
+  Route::patch('/edit/{student}/assessment', 'Supervisor\SupervisorsController@editAssessment');
 
 });
 

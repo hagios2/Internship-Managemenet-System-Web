@@ -42,6 +42,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne('App\StudentNotification');
     }
 
+
+    public function assessment()
+    {
+        return $this->hasOne('App\Assessment', 'student_id');
+    }
+
+
     public function addNotification($notification)
     {
        $this->studentNotification()->create($notification);

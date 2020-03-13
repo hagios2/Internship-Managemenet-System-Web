@@ -10,6 +10,9 @@
     </ol>
   </nav>
     <div class="row justify-content-center">
+
+        @include('includes.errors')
+
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
@@ -25,6 +28,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 @endsection

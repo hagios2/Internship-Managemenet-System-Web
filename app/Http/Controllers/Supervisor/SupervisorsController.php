@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Supervisor;
 
 use App\User;
+use App\Assessment;
+use App\Http\Requests\AssessmentFormRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -18,10 +20,34 @@ class SupervisorsController extends Controller
     }
 
 
-    public function accessStudent()
+    public function assessStudent(AssessmentFormRequest $request, User $student)
     {
 
+        if($student->assessment)
+        {
+            return back()->with('info', 'student has already been assessed');
+        }
+        
+        
+        $request['student_id'] = $student->id;
+
+        //return $request->all();
+
+        auth()->guard('supervisor')->user()->addStudentAssessment($request->all());
+
+        return redirect('/supervisor/dashboard')->withSuccess('Assessment added for ' . $student->name);
     }
+
+
+    public function editAssessment(Assessment $assessment, Request $request)
+   {
+
+        /* return $request->all(); */
+
+        $assessment->update($request->all());
+
+        return redirect('/supervisor/dashboard')->withSuccess('Updated Assessment successfully');
+   }
 
 
     public function viewInterns()
@@ -110,17 +136,48 @@ class SupervisorsController extends Controller
         return back();
     }
 
-/* 
-    public function download($path, $filename)
-    {
-         //headers
-         $headers = array(
-        
-            'Content-Type: application/pdf',
-        );
 
-        return response()->download([$path, $filename, $headers]);
-    } */
+    public function uploadAssessmentForms(User $student, Request $request)
+    {
+
+        if($student->assessment):
+
+            return back()->with('info', 'You have already assessed '.$student->name);
+
+        endif;
+/* 
+        $request->validate([
+
+            'assessmentFile' => 'required|mimes:pdf'
+        ]);  */
+
+        if($request->hasFile('assessmentFile')):
+
+            $files = $request->file('assessmentFile');
+
+            foreach($files as $file):
+
+                $fileName = $file->getClientOriginalName();
+
+                $file->storeAs('public/Filled Assessment Forms/'.$student->id, $fileName);
+
+            endforeach;
+
+            auth()->guard('supervisor')->user()->addStudentAssessment([
+
+                'student_id' => $student->id,
+
+                'filled_assessment_form' => '/storage/Filled Assessment Form/'.$student->id,
+            ]);
+
+            return back()->with('success', 'The files have been uploaded successfully');
+
+        endif;
+
+
+        return back()->with('info', 'Please attach assessment forms before submitting');
+        
+    }
 
 
 
