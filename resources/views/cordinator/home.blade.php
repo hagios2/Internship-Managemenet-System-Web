@@ -59,6 +59,8 @@
 
         <br><br>
 
+        <a class="btn btn-primary" href="/cordinator/view/{{auth()->guard('cordinator')->user()->department->id }}/applications">View applications</a>
+
         <div class="col-md-7 col-lg-7 col-xs-7 col-sm-7" style="margin-left:17%; margin-right:17%;">
 
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -464,7 +466,7 @@
 
                         $('#li_stu_list').html('<div id="stulist"></div>');
 
-                        $('#stulist').append('<a href="javascript:void(0);">Grid</a>')
+                        $('#stulist').append('<a href="javascript:void(0);">Grid</a>');
 
                         $.map(data, function(application, i) {
 

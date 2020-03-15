@@ -8,9 +8,11 @@ use App\OtherApplicationApproved;
 use App\Http\Resources\StudentDataAndApplication;
 use App\Http\Resources\OtherApplicantsListForAppointment;
 use App\Program;
+use App\User;
 use App\Appointment;
 use App\InternshipApplication;
 use App\Company;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 
@@ -23,12 +25,119 @@ class CordinatorsController extends Controller
     }
 
 
-    public function viewApplication()
+    public function viewApplication(Department $department)
     {
+        #show the applications for first program of the department
+        
+       // return auth()->guard('cordinator')->id();
+
+        $first_program = $department->program->first();
+
+        return $this->viewProgramApplication($first_program);
 
     }
 
-    public function getDepartmentProgram(Department $department)
+    public function getProgram(Request $request)
+    {
+        $program = Program::find($request->program);
+
+        abort_if(($program->department != auth()->guard('cordinator')->user()->department), 403);
+
+        return $this->viewProgramApplication($program);
+
+    }
+
+
+    public function viewProgramApplication(Program $program)
+    {
+
+        $program_application = \collect();
+
+        $applications = InternshipApplication::all();
+
+        foreach($applications as $application)
+        {
+            #get a fresh instance of program
+
+            $new_program = Program::find($program->id);
+
+            #check if application is approved by it type
+            
+            if($application->default_application && $application->company->approved_application)
+            {
+                #check if this applicant is reads the requested program
+
+                if($application->student->program == $new_program)
+                {
+                    # add applicant to collection
+
+                    $program_application->add($application);
+                }
+
+                #check if application is approved by it type
+
+            } elseif($application->preferred_company && $application->approvedProposedApplicaton){
+
+                #check if this applicant is reads the requested program
+
+                if($application->student->program == $new_program)
+                {
+                    # add applicant to collection
+
+                    $program_application->add($application);
+                }
+                
+            }
+
+        }
+
+        return view('cordinator.view_students', compact('program_application', 'new_program'));
+    }
+
+    public function viewStudentApplication(User $student)
+    {
+        return view('cordinator.show', compact('student'));
+    }
+
+    public function getAssessmentFiles(User $student)
+    {
+        $assessmentfiles = collect();
+
+        $files = Storage::allFiles("public/Filled Assessment Forms/$student->id");
+
+        foreach($files as $file)
+        {
+            $assessmentfiles->add(explode('/', $file, 4)[3]);
+        }
+
+        return response()->json(['files' => $assessmentfiles], 200);
+    }
+
+    public function viewFile(User $student, $file)
+    {
+
+       $path = storage_path('app/public/Filled Assessment Forms/'.$student->id.'/'.$file);
+
+        return response()->file($path);
+    }
+
+    public function assessStudent(User $student , Request $request)
+    {
+       /*  return $request->all(); */
+        
+        $assessment = $student->assessment;
+
+        $request['cordinator_id'] = auth()->guard('cordinator')->id();
+
+        $assessment->update($request->all());
+
+        return response()->json(['status' => 'success']);
+
+    }
+
+
+
+   /*  public function getDepartmentProgram(Department $department)
     {
         $program = $department->program; 
 
@@ -80,7 +189,7 @@ class CordinatorsController extends Controller
 
         return OtherApplicantsListForAppointment::collection($application);
     }
-
+ */
 }
 
 /* 

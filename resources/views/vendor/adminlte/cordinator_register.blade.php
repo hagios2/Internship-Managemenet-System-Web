@@ -37,6 +37,31 @@
                         </span>
                     @endif
                 </div>
+
+                {{--  --}}
+
+                <div class="form-group has-feedback {{ $errors->has('department') ? 'has-error' : '' }}">
+                    <select class="form-control" name="department" id="">
+                        <option value="">Select a department</option>
+                        
+                        @foreach ($departments as $department)
+
+                            <option {{ old('department') == $department->id ? 'selected' : ''}} value="{{ $department->id }}">{{ $department->department }}</option>
+                            
+                        @endforeach
+                    </select>
+               {{--      <input type="email" name="email" class="form-control" value="{{ old('email') }}"
+                           placeholder="{{ trans('adminlte::adminlte.email') }}">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span> --}}
+                    @if ($errors->has('department'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('department') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+
+                {{--  --}}
                 <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
                     <input type="password" name="password" class="form-control"
                            placeholder="{{ trans('adminlte::adminlte.password') }}">

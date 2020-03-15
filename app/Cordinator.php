@@ -16,7 +16,7 @@ class Cordinator extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'device_token'
+        'name', 'email', 'password', 'device_token', 'department_id'
     ];
 
     /**
@@ -43,4 +43,11 @@ class Cordinator extends Authenticatable
     {
         return $this->hasMany('App\Appointment');
     }
+
+
+    public function department()
+    {
+        return $this->belongsTo('App\Department');
+    }
+    
 }

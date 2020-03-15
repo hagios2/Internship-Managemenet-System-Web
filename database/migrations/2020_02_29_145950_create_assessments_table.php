@@ -22,6 +22,10 @@ class CreateAssessmentsTable extends Migration
             $table->string('interns_technical_abilities')->nullable();
             $table->string('general_impression_about_intern')->nullable();
             $table->text('additional_comment_about_intern')->nullable();
+            $table->string('coordinators_interns_technical_abilities')->nullable();
+            $table->string('coordinators_general_impression_about_intern')->nullable();
+            $table->text('coordinators_additional_comment')->nullable();
+            $table->integer('companys_activity_relevance')->unsigned()->nullable();
             $table->text('quality_of_internship_report')->nullable();
             $table->string('working_attitude_and_discipline')->nullable();
             $table->string('productivity_and_quality_of_work')->nullable();

@@ -52,6 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:cordinators',
             'password' => 'required|min:6|confirmed',
+            'department' => 'required|integer'
         ]);
     }
 
@@ -66,6 +67,7 @@ class RegisterController extends Controller
         return Cordinator::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'department_id' => $data['department'],
             'password' => bcrypt($data['password']),
         ]);
     }

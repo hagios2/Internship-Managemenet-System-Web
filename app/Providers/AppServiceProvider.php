@@ -38,6 +38,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
+        view()->composer('vendor.adminlte.cordinator_register', function($view){
+
+            $view->with('departments', \App\Department::all());
+        });
+
+
         view()->composer('main_cordinator.home', function($view){
 
             $view->with(['default_app_count'=> \App\InternshipApplication::where('default_application', 1)->get(),

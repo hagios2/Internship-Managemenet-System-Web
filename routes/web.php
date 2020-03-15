@@ -49,7 +49,7 @@ Route::get('/', function () {
 
 //Main cordinator
 Route::group(['prefix' => 'main-cordinator'], function () {
-  
+
   Route::get('/', function(){
 
     return redirect('/main-cordinator/dashboard');
@@ -123,13 +123,25 @@ Route::group(['prefix' => 'cordinator'], function () {
   Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('cordinator_password.reset');
   Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
 
-  Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
+  Route::get('/view/{department}/applications', 'Cordinator\CordinatorsController@viewApplication');
+
+  Route::get('/program/applications', 'Cordinator\CordinatorsController@getProgram');
+
+  Route::get('/view/{student}/application', 'Cordinator\CordinatorsController@viewStudentApplication');
+
+  Route::get('/{student}/assessment/folder', 'Cordinator\CordinatorsController@getAssessmentFiles');
+
+  Route::get('/view/{student}/{file}', 'Cordinator\CordinatorsController@viewFile');
+
+  Route::post('/assess/{student}', 'Cordinator\CordinatorsController@assessStudent');
+
+ /*  Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
 
   Route::post('/schedule-appointment', 'Cordinator\CordinatorsController@scheduleAppointments');
 
   Route::post('/application/{application}/appointment', 'Cordinator\CordinatorsController@companyAppointment'); 
 
-  Route::get('/other-application/students', 'Cordinator\CordinatorsController@otherApplications');
+  Route::get('/other-application/students', 'Cordinator\CordinatorsController@otherApplications'); */
 
 });
 
