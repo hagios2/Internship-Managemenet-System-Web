@@ -7,9 +7,9 @@
     <div class="container">
 
         <ol class="breadcrumb">
-            {{-- <li><a href="/cordinator/">Home</a></li>
-            <li><a href="#">Library</a></li> --}}
-            <li class="active">Dashboard</li>
+            <li><a href="/cordinator/">Dashboard</a></li>
+            {{-- <li><a href="#">Library</a></li>  --}}
+            <li class="active">View Applications</li>
         
         </ol>
 

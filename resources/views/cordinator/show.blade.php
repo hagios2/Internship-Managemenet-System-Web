@@ -103,23 +103,23 @@
 
                     @if ($student->assessment && $student->assessment->filled_assessment_form != null)
 
-                        <div id="first-folder">
+                        <div id="first-folder" style="display:inline;">
                             
-                            <a id="folder-but" href="javascript:void(0);"><i style="font-size:3rem; color:#3C8DBC" class="fa fa-folder" aria-hidden="true"></i>
-                                Open Folder
+                            <a id="folder-but" href="javascript:void(0);">
+
+                                <i class="fas fa-angle-right"></i>&nbsp;
+                                
+                                <i style="font-size:3rem; color:#3C8DBC" class="fa fa-folder" aria-hidden="true"></i>
+                                Assessment Folder
                             </a>
 
+                        </div>&emsp;
+
+                        <div class="fa-3x" style="display:inline;">
+                            <i style="font-size:2rem;" class="fas fa-spinner fa-spin"></i>
                         </div>
 
-                        <div class="fa-3x" style="display:none;">
-                            <i class="fas fa-spinner fa-spin"></i>
-                        </div>
-
-                        <div id="second-folder" style="display:none;">
-
-                         
-                            
-                        </div> 
+                        <div id="second-folder" style="display:none;"></div> 
 
                     @elseif($student->assessment && $student->assessment->filled_assessment_form == null)
 
@@ -183,6 +183,8 @@
         
         $(document).ready(function(){
 
+            $('.fa-3x').hide();
+
             $('#view_assessment').click(function(){
 
                 $('#assessment').toggle();
@@ -214,14 +216,14 @@
 
                         $('#first-folder').hide();
 
-                        $('#second-folder').html();
+                        $('#second-folder').html('<a href="javascript:void(0);" id="close_folder"><i class="fas fa-angle-down"></i> &nbsp; <i style="font-size:3rem;" class="fas fa-folder-open"></i> &nbsp; Assessment Folder</a>');
 
                         let dom = ``;   
 
                         $.each(data.files, function(i, file){
 
 
-                            dom += `<div >
+                            dom += `<div style="margin-left:5rem;">
 
                                         <a target="\_blank" href="/cordinator/view/{{$student->id}}/`+ file+`"><i style="font-size:3rem;" class="fas fa-file"></i> &nbsp; `+ file + `</a>
 
@@ -233,6 +235,14 @@
                             
                         $('#second-folder').show();
 
+                        $('#close_folder').click(function(){
+
+                            $('#first-folder').show();
+
+                            $('#second-folder').hide();
+
+                        });
+
                     }); 
 
 
@@ -240,6 +250,7 @@
 
 
             });
+
 
             $('.edit_next').click(function(e){
 
