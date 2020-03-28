@@ -39,6 +39,11 @@ Route::post('/appointment/{appointment}', 'Student\StudentController@approveAppo
 
 Route::get('/view-approved/{application}', 'Student\StudentController@viewApprovedApp')->name('approved.application');
 
+Route::get('/get-student/company-coordinates', 'Student\StudentController@getCompanyCoordinates');
+
+Route::get('/user-preference', 'HomeController@showPreference');
+
+Route::patch('/user-preference', 'HomeController@updatePreference');
 
 Route::get('/', function () {
 

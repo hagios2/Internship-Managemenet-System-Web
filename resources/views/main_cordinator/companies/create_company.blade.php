@@ -75,7 +75,7 @@
 
             </div>
 
-            <div id="other_div" class="form-grop"></div>
+            <div id="other_div" class="form-group"></div>
 
 
             <button class="btn btn-primary type="submit">Add company</button>

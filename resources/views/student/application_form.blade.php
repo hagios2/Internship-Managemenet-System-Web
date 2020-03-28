@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Internship App')
-
 @section('content')
 
     <div class="container">
@@ -15,7 +13,7 @@
                 </ol>
             </nav><br>
 
-            <div class="" style="width:60%;">
+            <div class="" style="width:80%; margin:0 auto;">
 
                 @include('includes.errors')
 
@@ -139,6 +137,8 @@
 
                                         </div>
 
+                                        <div>{!! $map['html'] !!}</div><br><br>
+
                                         <form method="POST" action="/internshipapply" enctype="multipart/form-data">
 
                                             @csrf
@@ -149,20 +149,25 @@
 
                                             <div class="form-group">
 
-                                                <input class="form-control" name="preferred_company_name" placeholder="Proposed Company">
+                                                <input class="form-control" name="preferred_company_name" {{ old('preferred_company_name') }} placeholder="Proposed Company">
 
                                             </div><br>
 
+                                            <div class="form-group">
+
+                                                <input type="email" class="form-control" name="preferred_company_email" {{ old('preferred_company_email') }} placeholder="Company Email">
+
+                                            </div><br>
 
                                             <div>
                                                 
-                                                <input class="form-control" value="{{ old('preferred_company_location')}}" name="preferred_company_location" placeholder="Enter location">
+                                                <input class="form-control" id="companyTextBox" value="{{ old('preferred_company_location')}}" name="preferred_company_location" placeholder="Enter location">
                                                 
                                             </div><br>
 
                                             <div class="form-group">
 
-                                                <select name="preferred_company_city" value="{{ old('preferred_company_city')}} class="form-control">
+                                                <select name="preferred_company_city" value="{{ old('preferred_company_city')}}" class="form-control">
 
                                                     <option value="">Select City</option>
 
@@ -176,6 +181,8 @@
                                                 </select>
 
                                             </div> 
+
+                                            <div id="other_div" class="form-group"></div>
 
                                             <button class="btn btn-primary" type=submit>Apply</button>
 
@@ -250,5 +257,7 @@
         @endif
             
     </div>
+
+    {!! $map['js'] !!}  
     
 @endSection

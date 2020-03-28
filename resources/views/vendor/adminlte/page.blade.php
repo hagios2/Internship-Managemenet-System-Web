@@ -16,7 +16,6 @@
 
 @section('body')
     <div class="wrapper">
-
         <!-- Main Header -->
         <header class="main-header">
             @if(config('adminlte.layout') == 'top-nav')

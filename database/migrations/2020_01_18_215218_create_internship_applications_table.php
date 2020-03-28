@@ -21,6 +21,8 @@ class CreateInternshipApplicationsTable extends Migration
             $table->string('preferred_company_location')->nullable();
             $table->string('preferred_company_city')->nullable();
             $table->string('preferred_company_email')->nullable();
+            $table->float('preferred_company_latitude')->nullable();
+            $table->float('preferred_company_longitude')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->boolean('default_application')->nullable();
             $table->boolean('preferred_company')->nullable();

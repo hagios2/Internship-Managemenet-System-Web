@@ -24,15 +24,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        /* if(auth()->user()->application()->has('started_at'))
-        {
-            return auth()->user()->application->started_at;
-        }
+       
+        return view('stu.index');
+
+       /* return view('student.home'); */
+    }
 
 
- */
-       //return auth()->user()->application->company;
-
-        return view('student.home');
+    public function showPreference()
+    {
+        return view('stu.profile');
     }
 }

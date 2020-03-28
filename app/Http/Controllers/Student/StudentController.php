@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redis;
 use App\Http\Requests\InternshipFormRequest;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendInternshipRegistrationNotification;
+use FarhanWazir\GoogleMaps\Facades\GMapsFacade as GMaps;
 
 class StudentController extends Controller
 {
@@ -24,6 +25,33 @@ class StudentController extends Controller
        $connection = Redis::connection();
     }
 
+
+    public function googleMap($lat='5.603716800000001', $long='-0.18696439999996528')
+    {
+        $config = array();
+        $config['center'] = 'auto';
+        $config['zoom'] = 'auto';
+        $config['map_height'] = '500px';
+        $config['scrollwheel'] = true;
+        $config['places'] = true;
+        $config['placesAutocompleteInputID'] = 'companyTextBox';
+        $config['placesAutocompleteBoundsMap'] = TRUE;
+        $config['placesAutocompleteOnChange'] = 'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="preferred_company_latitude" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="preferred_company_longitude" value="\'+event.latLng.lng()+\'" > \'';
+
+        GMaps::initialize($config);
+    
+        $marker['position'] = "{$lat}, {$long}";
+        $marker['draggable'] = true;
+        $marker['ondragend'] =  'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="preferred_company_latitude" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="preferred_company_longitude" value="\'+event.latLng.lng()+\'" > \'';
+       
+        GMaps::add_marker($marker);
+        $map = GMaps::create_map(); 
+        /* echo $map['js'];
+        echo $map['html'];   */
+
+        return $map;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -31,8 +59,9 @@ class StudentController extends Controller
      */
     public function create()
     {
+        $map = $this->googleMap();
 
-        return view('student.application_form');
+        return view('student.application_form', compact('map'));
     }
 
     /**
@@ -43,6 +72,7 @@ class StudentController extends Controller
      */
     public function store(InternshipFormRequest $request)
     {
+#        return $request->all();
 
         if(InternshipApplication::where('student_id', auth()->id())->first())
         {
@@ -71,8 +101,6 @@ class StudentController extends Controller
         SendInternshipRegistrationNotification::dispatch(auth()->user());
          
         return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
-
-
       
 
     }
@@ -158,12 +186,38 @@ class StudentController extends Controller
 
         $application = auth()->user()->application;
 
-        abort_if((!$application->approvedProposedApplicaton && !$application->company->approved_application), 403);
+        if($application->default_application && !$application->company->approved_application)
+        {
+            return redirect('/dashboard')->with('info', 'Assess Denied!');
+        
+        }else if($application->preferred_company && !$application->approvedProposedApplicaton)
+        {
+            return redirect('/dashboard')->with('info', 'Assess Denied!');
+        }
 
         $appointment = auth()->user()->application->appointment;
 
         return view('student.intern', compact('appointment'));
         
+    }
+
+
+    public function getCompanyCoordinates(){
+
+        $application = auth()->user()->application;
+
+        $coords = [
+
+            'lat' => $application->default_application ? $application->company->lat : $application->preferred_company_latitude,
+
+            'long' => $application->default_application ? $application->company->long : $application->preferred_company_longitude,
+
+            'location' => $application->default_application ? $application->company->location : $application->preferred_company_location,
+        ];
+
+
+        return $coords;
+
     }
 
     public function destroy(InternshipApplication $application)

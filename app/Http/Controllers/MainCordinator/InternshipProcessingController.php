@@ -414,8 +414,7 @@ class InternshipProcessingController extends Controller
             }
         }
 
-
-        return $unapproved;
+        return ProposedApplicationResource::collection($unapproved);
 
     }
 
@@ -439,7 +438,7 @@ class InternshipProcessingController extends Controller
 
             $code = str_random(5);
 
-            $confirmedtoken = $application->addConfirmApplicationCode($code);
+           $confirmedtoken = $application->addConfirmApplicationCode($code);
 
             \Mail::to($application->preferred_company_email)->send(new SendConfirmedApplicationCode($confirmedtoken, $code));
 
