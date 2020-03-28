@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Internship Coordinating and Monitoring System">
 
-  {{--   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
- --}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
 
     <!-- CSRF Token -->
@@ -121,19 +120,22 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
+            <h6 class="collapse-header">Student Pages:</h6>
             @if (auth()->user()->application)
-              @if(!auth()->user()->application->approvedProposedApplicaton)
-                <a class="collapse-item" aria-disabled="false" href="/internshipapply/{{ auth()->user()->application->id }}/edit">Edit application</a>
+              @if(auth()->user()->application->preferred_company && !auth()->user()->application->approvedProposedApplicaton)
+                <a class="collapse-item" aria-disabled="false" href="/internshipapply/{{ auth()->user()->application->id }}/edit"><i class="fab fa-wpforms fa-2x fa-sm fa-fw mr-2 text-gray-400"></i> Edit napplication</a>
               @elseif(auth()->user()->application->company && !auth()->user()->application->company->approved_application)
                 <a class="collapse-item" aria-disabled="false" href="/internshipapply/{{ auth()->user()->application->id }}/edit">Edit application</a>
+              @endif
+              @if (auth()->user()->application->approvedProposedApplicaton || auth()->user()->application->company->approved_application)
+                <a class="collapse-item" aria-disabled="false" href="/interns"><i class="fas fa-user-tie fa-sm fa-fw mr-2"></i> Intern</a>
               @endif
             @else
                 <a class="collapse-item" aria-disabled="false" href="/internshipapply">Apply</a>
             @endif
         {{--     <a class="collapse-item" href="login.html">Login</a>
             <a class="collapse-item" href="register.html">Register</a> --}}
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <a class="collapse-item" href="forgot-password.html">Reset Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
             <a class="collapse-item" href="404.html">404 Page</a>

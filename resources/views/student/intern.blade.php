@@ -20,76 +20,137 @@
             
             <div class="row">
 
-                <div class="col-md-3">
-                    @include('student.profile')
-                </div>
-                    
-                <div class="col-md-8">
-
-                    <div class="card">
-
-                        <div class="card-header">Dashboard</div>
-
-                        <div class="card-body center">
-
-                            @if ($appointment)
-
-                                <a id="view_appointment" class="btn btn-primary">View </a>
-
-                            @endif
-                        
-                        </div>
-
-                        <div id="appointment_div" style="display:none;">
-
-                            @if ($appointment)
-
-                                {{$appointment->cordinator->name}}
-
-                                <form action="/appointment/{{ $appointment->id}}" method="post">
-
-                                    <button class="btn btn-primary" type="submit">Approve Appointment</button>
-
-                                </form>
-
-                            @endif
-
-                        </div>
-
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                            Launch demo modal
-                        </button>
-                          
-                          <!-- Modal -->
-                          <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-
-                                  <div id="map"></div> <br>
-                                  
-                                  
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2"> 
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Intern</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to visit the intern's page</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-user-tie fa-2x"></i>
+                      </div>
 
                     </div>
-            
+                    <div style="margin-left:95%;">
+                      <a href="/interns">
+                        <div style="margin-top:5rem;">
+                          <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
-            
-            </div>
+              </div>
 
+
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2"> 
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Appointment(s)</div><br>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Click to view Appointments</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-user-tie fa-2x"></i>
+                      </div>
+
+                    </div>
+                    <div style="margin-left:95%;">
+                      <a href="/interns" data-toggle="modal" data-target="#exampleModalLong1">
+                        <div style="margin-top:5rem;">
+                          <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2"> 
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Attendance</div> <br>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to check in</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      </div>
+
+                    </div>
+                    <div style="margin-left:95%;">
+                      <a href="/interns" data-toggle="modal" data-target="#exampleModalLong">
+                        <div style="margin-top:5rem;">
+                          <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>            
+              <!-- Attendance Modal -->
+              <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Intern's Attendance</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div id="map"></div> <br>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!--Appointment  Modal -->
+              <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Scheduled Meeting with intern</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+
+                        @if ($appointment)
+
+                            {{$appointment->cordinator->name}}
+
+                            <form action="/appointment/{{ $appointment->id}}" method="post">
+
+                            </form>
+
+                        @else
+
+                        @endif
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      @if ($appointment)
+                        <button type="button" class="btn btn-primary">Save the Date</button>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
         @else
 
             @include('student.unavailable_page')
@@ -133,7 +194,7 @@
               });
 
 
-              console.log(company);
+             /*  console.log(company); */
 
                       // Add the circle for this city to the map.
               var companyCircle = new google.maps.Circle({
@@ -150,17 +211,51 @@
               infoWindow = new google.maps.InfoWindow;
 
               // Try HTML5 geolocation.
-              if (navigator.geolocation) {
+             if (navigator.geolocation) {
                 
-                  navigator.geolocation.getCurrentPosition(function(position) {
-                    
-                    var pos = {
-                      lat: position.coords.latitude,
-                      lng: position.coords.longitude
-                    };
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  
+                  var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  };
 
-                    console.log(pos);
+                  console.log(pos);
+
+                  var point = new google.maps.LatLng(pos.lat, pos.lng);
+
+                  var geocoder = new google.maps.Geocoder();  
+
+                  var bounds = companyCircle.getBounds();
+
+                  /* var position = this.getPosition();     */
+                  console.log(position)
+              /*     lat.val(position.lat());
+                  lng.val(position.lng());      */       
+                  geocoder.geocode({ 'latLng': pos }, function() {
+                      if(bounds.contains(pos)) {
+                        console.log('You are in the circle');
                     
+                          }
+                      else {
+                        console.log('You are not the circle');
+                     
+                        }
+                      });
+      /* 
+                        if( google.maps.geometry.poly.containsLocation(pos, companyCircle))/* companyCircle.Contains(pos)) */
+                        /*{
+                          console.log('You are in the circle');
+
+                        }else{
+
+                          console.log('You are not the circle');
+                        } */
+
+             
+
+            // }
+                /*    
                   var marker = new google.maps.Marker({position: pos, map: map});
 
                   infoWindow.setPosition(pos);
@@ -174,14 +269,18 @@
               } else { 
                 // Browser doesn't support Geolocation
               handleLocationError(false, infoWindow, map.getCenter());
-              }
+              } */
+            
+     
+
+        }); 
+
+             }    
             }
-         /*    if(google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle))
-            {
 
-            } */
+        });
 
-        });     
+      }
 
           function handleLocationError(browserHasGeolocation, infoWindow, pos) {
               infoWindow.setPosition(pos);
@@ -193,7 +292,7 @@
             }         
 
     
-      }
+      
 
     
 
