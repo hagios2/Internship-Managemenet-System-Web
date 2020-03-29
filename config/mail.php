@@ -73,6 +73,14 @@ return [
 
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
+    'markdown' => [
+        'theme' => 'default',
+
+        'paths' => [
+            resource_path('views/vendor/mail'),
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Username
@@ -112,14 +120,6 @@ return [
     |
     */
 
-    'markdown' => [
-        'theme' => 'default',
-
-        'paths' => [
-            resource_path('views/vendor/mail'),
-        ],
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Log Channel
@@ -133,4 +133,12 @@ return [
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
 
+
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
 ];

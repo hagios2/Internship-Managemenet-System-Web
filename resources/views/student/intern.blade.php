@@ -184,7 +184,7 @@
 
               var company = {
         
-                  center: {lat: parseFloat(data.lat)  , lng: parseFloat(data.long)}
+                center: {lat: parseFloat(data.lat)  , lng: parseFloat(data.long)}
                 
               };
 
@@ -192,9 +192,6 @@
                 center: company.center,
                 zoom: 15
               });
-
-
-             /*  console.log(company); */
 
                       // Add the circle for this city to the map.
               var companyCircle = new google.maps.Circle({
@@ -228,36 +225,16 @@
 
                   var bounds = companyCircle.getBounds();
 
-                  /* var position = this.getPosition();     */
-                  console.log(position)
-              /*     lat.val(position.lat());
-                  lng.val(position.lng());      */       
                   geocoder.geocode({ 'latLng': pos }, function() {
                       if(bounds.contains(pos)) {
                         console.log('You are in the circle');
-                    
-                          }
-                      else {
+                      }else {
                         console.log('You are not the circle');
-                     
-                        }
-                      });
-      /* 
-                        if( google.maps.geometry.poly.containsLocation(pos, companyCircle))/* companyCircle.Contains(pos)) */
-                        /*{
-                          console.log('You are in the circle');
-
-                        }else{
-
-                          console.log('You are not the circle');
-                        } */
-
-             
-
-            // }
-                /*    
+                     }
+                  });
+                   
                   var marker = new google.maps.Marker({position: pos, map: map});
-
+                  /*
                   infoWindow.setPosition(pos);
                     infoWindow.setContent('Location found.');
                     infoWindow.open(map);

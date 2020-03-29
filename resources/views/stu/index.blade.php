@@ -132,22 +132,26 @@ input:checked + .slider:before {
           </div>
         </div>
 
-        @if (auth()->user()->application->started_at !== null)
-        <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Appointment</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{auth()->user()->appointment}} appointment(s)</div>
+        @if (auth()->user()->application)
+            @if(auth()->user()->application->preferred_company && auth()->user()->application->approvedProposedApplicaton && auth()->user()->application->started_at !== null)          
+                <div class="col-xl-3 col-md-6 mb-4">
+                  <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Appointment</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{auth()->user()->appointment->count() == 0 ? 'No Appointment' : auth()->user()->appointment->count().' appointment(s)' }}</div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            @elseif(auth()->user()->application->company && auth()->user()->application->company->approved_application && auth()->user()->application->started_at !== null)
+
+            @endif
       @endif
       </div> 
 
