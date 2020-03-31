@@ -159,7 +159,7 @@
 
                                             </div><br>
 
-                                            <div>
+                                            <div class="form-group">
                                                 
                                                 <input class="form-control" id="companyTextBox" value="{{ old('preferred_company_location')}}" name="preferred_company_location" placeholder="Enter location">
                                                 

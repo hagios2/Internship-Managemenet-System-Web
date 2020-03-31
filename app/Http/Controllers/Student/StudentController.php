@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Region;
 use App\Company;
+use App\Intern;
 use App\Department;
 use App\InternshipApplication;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class StudentController extends Controller
 {
     protected $connection;
 
-    public function __contruct()
+    public function __construct()
     {
         $this->middleware('auth');
        // $this->middleware('verified');
@@ -114,6 +115,13 @@ class StudentController extends Controller
     public function edit(InternshipApplication $application)
     {
         abort_if((auth()->user() != $application->student), 403);
+
+        if($application->preferred_company)
+        {
+            $map = $this->googleMap($application->preferred_company_latitude, $application->preferred_company_longitude);
+
+            return view('student.edit_application',\compact('application', 'map'));
+        }
 
         return view('student.edit_application', compact('application'));
     }
@@ -225,6 +233,91 @@ class StudentController extends Controller
         $application->delete();
 
         return redirect('/dashboard')->with('success', 'Your application has been deleted successfully');
+    }
+
+    public function checkIn(Request $request)
+    {
+        $alreadyCheckedAttendance = json_decode($this->checkAttendance()->getContent(), true);
+
+        if($alreadyCheckedAttendance['checked_in'])
+        {
+            return response()->json(['status' => 'denied']);
+        }
+       
+        $user = auth()->user();
+
+        $user->addInternsAttendance($request->all());
+
+        return response()->json(['status' => 'success']);
+
+    }
+
+    public function checkOut()
+    {
+        $latestDate =  Intern::where('user_id', auth()->id())->latest()->first();
+
+        if($latestDate)
+        {
+
+           $latest = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $latestDate->check_in_timestamp)->format('Y-m-d');
+
+           if($latest === date('Y-m-d') && $latestDate->check_out_timestamp == null)
+           {
+
+            $latestDate->update([
+                'check_out_timestamp' => now()
+            ]);
+
+            return redirect('/dashboard')->with('success', 'You checked out for today');
+
+           }else if($latestDate->check_out_timestamp !== null){
+
+            return back()->with('error', 'Denied! You\'ve check out for the day');
+
+           }
+        }
+
+        return back()->with('error', 'You haven\'t checked in');
+    }
+
+
+    public function requestSupervisorApproval()
+    {    
+        $alreadyCheckedAttendance = json_decode($this->checkAttendance()->getContent(), true);
+
+        if($alreadyCheckedAttendance['checked_in'])
+        {
+            return response()->json(['status' => 'denied']);
+        }
+       
+       
+        $user = auth()->user();
+
+        $user->addRequestSupervisorApproval($request->all());
+
+        return response()->json(['status' => 'success']);
+
+    }
+
+    public function checkAttendance()
+    {
+        $latestDate =  Intern::where('user_id', auth()->id())->latest()->first();
+
+        if($latestDate)
+        {
+
+           $latest = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $latestDate->check_in_timestamp)->format('Y-m-d');
+
+           if($latest === date('Y-m-d'))
+           {
+              return response()->json(['checked_in' => true]);
+            }else{
+                return response()->json(['checked_in' => false]);
+            }
+        }
+
+        return response()->json(['checked_in' => false]);
+
     }
 
 }

@@ -8,6 +8,8 @@ class InternshipApplication extends Model
 {
     protected $guarded = ['id'];
 
+    protected $dates = ['started_at'];
+
     public function student()
     {
         return $this->belongsTo('App\User', 'student_id');

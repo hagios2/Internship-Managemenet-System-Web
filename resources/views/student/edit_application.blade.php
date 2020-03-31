@@ -99,7 +99,14 @@
 
                  {{-- closed  application --}}
 
+                    
+
                     <div>
+                        @if ($map)
+                            <div>{!! $map['html'] !!}</div><br><br>
+                        @endif
+
+                       
 
                         <form action="/internshipapply/{{$application->id}}" method="post" style="display:inline;">
 
@@ -116,10 +123,9 @@
 
                             </div><br>
 
-
-                            <div>
-                                
-                                <input class="form-control" value="{{ $application->preferred_company_location}}" name="preferred_company_location" placeholder="Enter location">
+                            <div class="form-group">
+                                            
+                                <input class="form-control" id="companyTextBox" value="{{ $application->preferred_company_location}}"name="preferred_company_location" placeholder="Enter location">
                                 
                             </div><br>
 
@@ -140,6 +146,8 @@
                                 </select>
 
                             </div> 
+
+                            <div id="other_div" class="form-group"></div>
                     
                             <button class="btn btn-primary" type=submit>Submit</button>
 
@@ -188,5 +196,10 @@
         @endif
 
     </div>
+
+    @if ($map)
+        {!! $map['js'] !!} 
+    @endif
+
 
 @endSection

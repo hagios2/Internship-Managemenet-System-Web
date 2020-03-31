@@ -77,8 +77,7 @@ input:checked + .slider:before {
     {{-- <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li> --}}
     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
     </ol>
-  </nav> <br>
-
+  </nav> 
 
   @include('includes.errors')
 
@@ -133,14 +132,15 @@ input:checked + .slider:before {
         </div>
 
         @if (auth()->user()->application)
-            @if(auth()->user()->application->preferred_company && auth()->user()->application->approvedProposedApplicaton && auth()->user()->application->started_at !== null)          
+            @if((auth()->user()->application->preferred_company && auth()->user()->application->approvedProposedApplicaton) || 
+                (auth()->user()->application->company && auth()->user()->application->company->approved_application) && auth()->user()->application->started_at !== null)          
                 <div class="col-xl-3 col-md-6 mb-4">
                   <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                           <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Appointment</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{auth()->user()->appointment->count() == 0 ? 'No Appointment' : auth()->user()->appointment->count().' appointment(s)' }}</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{!auth()->user()->application->appointment ? 'No Appointment' : 'You have an appointment' }}</div>
                         </div>
                         <div class="col-auto">
                           <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -149,177 +149,80 @@ input:checked + .slider:before {
                     </div>
                   </div>
                 </div>
-            @elseif(auth()->user()->application->company && auth()->user()->application->company->approved_application && auth()->user()->application->started_at !== null)
-
             @endif
-      @endif
+        @endif
       </div> 
-
-    {{--     <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                </div>
-                <div class="col-auto">
-                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
- --}}
 
       
       <div class="row">
 
         @if (auth()->user()->application)
         
-            @if(auth()->user()->application->approvedProposedApplicaton)
-            
-                @if(auth()->user()->application->started_at !== null)
+            @if((auth()->user()->application->preferred_company && auth()->user()->application->approvedProposedApplicaton) ||
+              (auth()->user()->application->company && auth()->user()->application->company->approved_application) && auth()->user()->application->started_at !== null)
 
-                    <div class="col-xl-3 col-md-6 mb-4">
-                      <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body">
-                          <div class="row no-gutters align-items-center">
-                            <div class="col mr-2"> 
-                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Intern</div>
-                              <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to visit the intern's page</div>
-                            </div>
-                            <div class="col-auto">
-                              <i class="fas fa-user-tie fa-2x"></i>
-                            </div>
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2"> 
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Intern</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to visit the intern's page</div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-user-tie fa-2x"></i>
+                          </div>
 
-                          </div>
-                          <div style="margin-left:95%;">
-                            <a href="/interns">
-                              <div style="margin-top:5rem;">
-                                <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
-                              </div>
-                            </a>
-                          </div>
+                        </div>
+                        <div style="margin-left:95%;">
+                          <a href="/interns">
+                            <div style="margin-top:5rem;">
+                              <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
+                            </div>
+                          </a>
                         </div>
                       </div>
                     </div>
+                  </div>
                     
-                @else
+            @elseif((auth()->user()->application->preferred_company && auth()->user()->application->approvedProposedApplicaton) ||
+              (auth()->user()->application->company && auth()->user()->application->company->approved_application) && auth()->user()->application->started_at == null)
 
-                   <div class="col-xl-3 col-md-6 mb-4">
+                  <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Internship Application</div>
+                          
+                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Internship Application</div>
+                          
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">Click on here to start internship</div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fab fa-wpforms fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                        <div style="margin-left:95%;">
 
-                            
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Click on the button below to start internship</div>
-                          </div>
-                          <div class="col-auto">
-                            <i class="fab fa-wpforms fa-2x text-gray-300"></i>
-                          </div>
-                          </div>
-                          <div style="margin-left:95%;">
-
-                            <form style="display: none;" action="/start-internship/{{auth()->user()->application->id}}" method="post" id="str">
-                                @csrf
-                                @method('PATCH')
-
-                               {{--  <button class="btn btn-primary" {{ auth()->user()->application->started_at ? 'disabled' : ''}} type="submit">Start Internship</button>
-                             --}}
-                            </form> 
-                             <a href="/intern" onclick="event.preventDefault();
-                             document.getElementById('str').submit();">
-                              <div style="margin-top:5rem;">
-                                <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
-                              </div>
-                            </a> 
-                         </div>
-                      </div>
+                          <form style="display: none;" action="/start-internship/{{auth()->user()->application->id}}" method="post" id="str">
+                              @csrf
+                              @method('PATCH')
+                          </form> 
+                            <a href="/intern" onclick="event.preventDefault();
+                            document.getElementById('str').submit();">
+                            <div style="margin-top:5rem;">
+                              <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
+                            </div>
+                          </a> 
+                        </div>
                     </div>
                   </div>
-  
-              @endif
+                </div>
 
             @endif
           
-            @if(auth()->user()->application->company)
-
-                @if (auth()->user()->application->company->approved_application)
-                
-                    @if(auth()->user()->application->started_at !== null)
-
-                      <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                          <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                              <div class="col mr-2">
-                                
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Intern</div>
-
-                                
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to visit the intern's page</div>
-                              </div>
-                              <div class="col-auto">
-                                <i class="fas fa-user-tie fa-2x"></i>
-                              </div>
-
-                              </div>
-                              <div style="margin-left:95%;">
-                                <a href="/interns">
-                                  <div style="margin-top:5rem;">
-                                    <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
-                                  </div>
-                                </a>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    @else
-
-                      <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                          <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                              <div class="col mr-2">
-                                
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Intern's Page</div>
-
-                                    <form action="/start-internship/{{auth()->user()->application->id}}" method="post" id="sfr">
-                                      @csrf
-                                      @method('PATCH')
-
-                                  {{--    <button class="btn btn-primary" {{ auth()->user()->application->started_at ? 'disabled' : ''}} type="submit">Start Internship</button> --}}
-                                  
-                                  </form>
-
-                                
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to start your internsihp</div>
-                              </div>
-                              <div class="col-auto">
-                                <i class="fab fa-wpforms fa-2x text-gray-300"></i>
-                              </div>
-                              </div>
-                              <div style="margin-left:95%;">
-                                <a href="/internsihpapply" onclick="event.preventDefault();
-                                document.getElementById('sfr').submit();">
-                                  <div style="margin-top:5rem;">
-                                    <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
-                                  </div>
-                                </a>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    @endif
-
-                @else
+            @if((auth()->user()->application->preferred_company && !auth()->user()->application->approvedProposedApplicaton) || 
+                (auth()->user()->application->company && !auth()->user()->application->company->approved_application))
 
                     <div class="col-xl-3 col-md-6 mb-4">
                       <div class="card border-left-success shadow h-100 py-2">
@@ -327,12 +230,13 @@ input:checked + .slider:before {
                           <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Internship Application</div>
-                              <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to visit the edit application</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">Click here to edit your application</div>
                             </div>
                             <div class="col-auto">
                               <i class="fab fa-wpforms fa-2x text-gray-300"></i>
                             </div>
-                            </div>
+                         
+                               </div>
                             <div style="margin-left:95%;">
                               <a href="/internshipapply/{{ auth()->user()->application->id }}/edit">
                                 <div style="margin-top:5rem;">
@@ -343,11 +247,9 @@ input:checked + .slider:before {
                         </div>
                       </div>
                     </div>
-
-                @endif
-
+                
             @endif
-
+            
         @else
             
             <div class="col-xl-3 col-md-6 mb-4">

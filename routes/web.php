@@ -45,6 +45,14 @@ Route::get('/user-preference', 'HomeController@showPreference');
 
 Route::patch('/user-preference', 'HomeController@updatePreference');
 
+Route::post('/intern/request-supervisor/approval', 'Student\StudentController@requestSupervisorApproval');
+
+Route::get('/check/interns/attendance', 'Student\StudentController@checkAttendance');
+
+Route::post('/intern/check-out/', 'Student\StudentController@checkOut');
+
+Route::post('/intern/check-in/', 'Student\StudentController@checkIn');
+
 Route::get('/', function () {
 
     return view('welcome');

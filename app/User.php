@@ -85,4 +85,24 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Intern::class);
     }
+
+    public function addRequestSupervisorApproval($coords)
+    {
+        $this->intern()->create([
+            'off_premises' => true,
+            'check_in_timestamp' => now(),
+            'latitude' => $coords['latitude'],
+            'longitude' => $coords['longitude'],
+        ]);
+    }
+
+    public function  addInternsAttendance($coords)
+    {
+        $this->intern()->create([
+            'on_premises' => true,
+            'check_in_timestamp' => now(),
+            'latitude' => $coords['latitude'],
+            'longitude' => $coords['longitude'],
+        ]);
+    }
 }

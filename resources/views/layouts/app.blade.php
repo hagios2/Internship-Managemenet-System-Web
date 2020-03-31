@@ -19,7 +19,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <link href="manifest.json" rel="manifest">
+    <link href="{{ asset('manifest.json')}}" rel="manifest">
     <script src="{{ asset('js/firebase.js')}}"></script>
     @yield('extra-js')
 
@@ -123,11 +123,11 @@
             <h6 class="collapse-header">Student Pages:</h6>
             @if (auth()->user()->application)
               @if(auth()->user()->application->preferred_company && !auth()->user()->application->approvedProposedApplicaton)
-                <a class="collapse-item" aria-disabled="false" href="/internshipapply/{{ auth()->user()->application->id }}/edit"><i class="fab fa-wpforms fa-2x fa-sm fa-fw mr-2 text-gray-400"></i> Edit napplication</a>
+                <a class="collapse-item" aria-disabled="false" href="/internshipapply/{{ auth()->user()->application->id }}/edit"><i class="fab fa-wpforms  fa-sm fa-fw mr-2 text-gray-400"></i> Edit application</a>
               @elseif(auth()->user()->application->company && !auth()->user()->application->company->approved_application)
                 <a class="collapse-item" aria-disabled="false" href="/internshipapply/{{ auth()->user()->application->id }}/edit">Edit application</a>
               @endif
-              @if (auth()->user()->application->approvedProposedApplicaton || auth()->user()->application->company->approved_application)
+              @if ((auth()->user()->application->preferred_company && auth()->user()->application->approvedProposedApplicaton) || (auth()->user()->application->defaulft_application && auth()->user()->application->company->approved_application))
                 <a class="collapse-item" aria-disabled="false" href="/interns"><i class="fas fa-user-tie fa-sm fa-fw mr-2"></i> Intern</a>
               @endif
             @else
@@ -335,6 +335,8 @@
 
       </div>
       <!-- End of Main Content -->
+
+      <hr style="width:60%">
 
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
