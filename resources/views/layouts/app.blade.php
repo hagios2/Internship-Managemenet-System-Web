@@ -50,7 +50,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <img style="width:3rem;" src="{{ asset('/storage/images/logo.jpg') }}" />
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Intern</div>
       </a>
 
       <!-- Divider -->
@@ -131,7 +131,7 @@
                 <a class="collapse-item" aria-disabled="false" href="/interns"><i class="fas fa-user-tie fa-sm fa-fw mr-2"></i> Intern</a>
               @endif
             @else
-                <a class="collapse-item" aria-disabled="false" href="/internshipapply">Apply</a>
+                <a class="collapse-item" aria-disabled="false" href="/internshipapply"><i class="fab fa-wpforms  fa-sm fa-fw mr-2 text-gray-400"></i> Apply</a>
             @endif
         {{--     <a class="collapse-item" href="login.html">Login</a>
             <a class="collapse-item" href="register.html">Register</a> --}}

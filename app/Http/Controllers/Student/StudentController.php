@@ -281,8 +281,9 @@ class StudentController extends Controller
     }
 
 
-    public function requestSupervisorApproval()
-    {    
+    public function requestSupervisorApproval(Request $request)
+    {
+
         $alreadyCheckedAttendance = json_decode($this->checkAttendance()->getContent(), true);
 
         if($alreadyCheckedAttendance['checked_in'])

@@ -22,7 +22,7 @@
 
 @section('content')
 
-<br><br>
+<br>
 
     @include('includes.errors') <br>
 

@@ -53,7 +53,6 @@
                 </div>
               </div>
 
-
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
@@ -265,6 +264,7 @@
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
       var map, infoWindow;
+
       function initMap() {
         
         $.ajax({
@@ -459,7 +459,7 @@
 
       }
 
-      function requestSupervisorApproval()
+      function requestSupervisorApproval(pos)
       {
         $.ajax({
             
@@ -467,6 +467,7 @@
             method: 'POST',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             dataType: 'json',
+            data:  {latitude: pos.lat, longitude: pos.lng}
 
         }).done(function(data){
 
@@ -509,14 +510,11 @@
 
       }
 
-
-            
-
-    
-
 </script>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap" type="text/javascript"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap" type="text/javascript"></script>
+
+<script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     
 @endsection
 

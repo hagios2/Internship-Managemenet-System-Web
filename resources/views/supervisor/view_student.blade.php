@@ -7,21 +7,25 @@
 
         @if ($application)
 
-            <div id="app_div" class="col-md-8 col-lg-9 offset-md-2">
+            <div id="app_div" class="col-md-10 col-lg-10 offset-md-2">
                     
                 <div class="card">
 
                     <div class="card-header"><strong><span class="fas fa-user-md"></span> Assessment form</strong></div> <br>
 
-                    <div><br>
+                    <div>
 
-                        <a class="btn btn-success" href="/supervisor/download/assessment-forms"><i class="fas fa-download"></i> Download assessment forms</a>
+                        <div style="margin-left:5rem;display:inline;">
 
-                        @if ($application->student->assessment)
+                            <a class="btn btn-success" href="/supervisor/download/assessment-forms"><i class="fas fa-download"></i> Download assessment forms</a>
 
-                            <a id="show_edit_form" href="javascript:void(0);" class="btn btn-outline-primary">Edit Student assessment</a>
-                            
-                        @endif
+                            @if ($application->student->assessment)
+
+                                <a id="show_edit_form" href="javascript:void(0);" class="btn btn-outline-primary">Edit Student assessment</a>
+                                
+                            @endif
+
+                        </div>
 
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModalLong">

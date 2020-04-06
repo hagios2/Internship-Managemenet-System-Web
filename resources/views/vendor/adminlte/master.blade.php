@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @yield('tokens')
-{{--     <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
-@yield('title', config('adminlte.title', 'AdminLTE 2'))
-@yield('title_postfix', config('adminlte.title_postfix', ''))</title> --}}
+
 <link rel="shortcut icon" href="{{ asset('/storage/images/logo.jpg') }}" />
 <title>{{ 'UENR Internship' }}</title>
     <!-- Tell the browser to be responsive to screen width -->

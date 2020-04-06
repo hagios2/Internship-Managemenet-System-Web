@@ -126,16 +126,13 @@ return [
     | Awesome. A string instead of an array represents a header in sidebar
     | layout. The 'can' is a filter on Laravel's built in Gate functionality.
     */
-/* 
-    if (auth()-user()->role() == 'Student') {
-        # code...
-    } */
+
 
     'menu' => [
-        [
+     /*    [
             'text' => 'search',
             'search' => true,
-        ],
+        ], */
         ['header' => 'main_navigation'],
        /*  [
             'text' => 'blog',

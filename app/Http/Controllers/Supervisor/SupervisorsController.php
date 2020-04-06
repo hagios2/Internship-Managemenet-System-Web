@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Supervisor;
 
 use App\User;
+use App\Intern;
 use App\Assessment;
+use App\Supervisor;
 use App\Http\Requests\AssessmentFormRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\ConfirmedApplicationCode;
 use App\InternshipApplication;
+use App\Http\Resources\CheckInResource ;
 
 class SupervisorsController extends Controller
 {
@@ -145,11 +148,6 @@ class SupervisorsController extends Controller
             return back()->with('info', 'You have already assessed '.$student->name);
 
         endif;
-/* 
-        $request->validate([
-
-            'assessmentFile' => 'required|mimes:pdf'
-        ]);  */
 
         if($request->hasFile('assessmentFile')):
 
@@ -179,6 +177,145 @@ class SupervisorsController extends Controller
         
     }
 
+    public function ApproveStudentCheckIn(Intern $intern, Request $request)
+    {
 
+        $application = $intern->student->application;
+
+        if($application->default_application):
+
+            abort_if((auth()->guard('supervisor')->id() !== $application->company->confirmedAppCode->supervisor_id), 403);
+
+        else:
+
+            abort_if((auth()->guard('supervisor')->id() !== $application->confirmedAppCode->supervisor_id), 403);
+
+        endif;
+
+        $intern->update([
+
+            'supervisor_id' => auth()->guard('supervisor')->id(),
+
+            'approved_by_supervisor' => $request->approve
+        ]);
+
+        $approved = ($request->approve == 1) ? 'Check in approved' : 'Check in denied';
+
+        return redirect('/supervisor/dashboard')->withSuccess($approved);
+
+    }
+
+    /* This will return a specific coordinte  */
+    public function getStudentRequestCoords(Intern $intern)
+    {
+        return new CheckInResource($intern);
+    }
+
+
+    public function viewStudentRequest(Intern $intern)
+    {
+        $application = $intern->student->application;
+
+        if($application->default_application):
+
+            abort_if((auth()->guard('supervisor')->id() !== $application->company->confirmedAppCode->supervisor_id), 403);
+
+        else:
+
+            abort_if((auth()->guard('supervisor')->id() !== $application->confirmedAppCode->supervisor_id), 403);
+
+        endif;
+
+       return view('supervisor.approve_student', compact('intern'))->with('info', 'Click on the marker to view check in details');
+
+       /* return new CheckInResource($studentRequest); */
+
+    }
+
+    public function getApprovalRequests()
+    { 
+        $confirmedAppcode = auth()->guard('supervisor')->user()->internsApplication;
+
+        if($confirmedAppcode->company)
+        {
+            $applications = $confirmedAppcode->company->application;
+
+            $studentRequest = \collect();
+
+            foreach ($applications as $application):
+
+                $internsCheckIns = $application->student->intern;
+
+                if ($internsCheckIns->count() !== 0):
+
+                    foreach ($internsCheckIns as $checkIn):
+
+                        if ($checkIn->supervisor_id == null && $checkIn->approved_by_supervisor == null):
+
+                            $studentRequest->add($checkIn);
+
+                        endif;
+                
+                    endforeach;
+
+                endif;
+            
+            endforeach;
+
+            return CheckInResource::collection($studentRequest);
+ 
+        }else{
+
+           $internsCheckIns = $confirmedAppcode->application->student->intern;
+
+            if($internsCheckIns)
+            {
+                $studentRequest = \collect();
+
+                if ($internsCheckIns->count() !== 0):
+
+                    foreach ($internsCheckIns as $checkIn):
+
+                        if ($checkIn->supervisor_id == null && $checkIn->approved_by_supervisor == null):
+                            
+                            $studentRequest->add($checkIn);
+
+                        endif;
+                
+                    endforeach;
+
+                    return CheckInResource::collection($studentRequest);
+
+                endif;
+
+            }else{
+                return response()->json(['data' => 'empty']);
+
+            }
+
+ 
+        }
+
+    }
+
+    public function showProfileForm()
+    {
+        return view('supervisor.profile');
+    }
+
+
+    public function updateProfile(Supervisor $supervisor, Request $request)
+    {
+        auth()->guard('supervisor')->user()->update([
+
+            'name' => $request->fname.' '.$request->sname,
+
+            'email' => $request->email
+
+        ]);
+
+        return back()->withSuccess('Saved details successfully');
+
+    }
 
 }

@@ -58,6 +58,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/map', function(Request $request){
+
+  $lat = $request->input('lat');
+  $long = $request->input('long');
+  $location = ["lat"=>$lat, "long"=>$long];
+  event(new SendLocation($location));
+  return response()->json(['status'=>'success', 'data'=>$location]);
+
+
+});
+
 //end student route 
 
 //Main cordinator
@@ -163,7 +174,6 @@ Route::get('/department/{department}/programs', 'Cordinator\CordinatorsControlle
 Route::get('/students-for/{program}/program', 'Cordinator\CordinatorsController@getProgramsStudent');
 
 
-
 /* 
 use multi file uploads for cordinator
 check file by index no to attach file in mail to send to the student with that index no
@@ -175,6 +185,10 @@ Route::group(['prefix' => 'supervisor'], function () {
 
     return redirect('/supervisor/dashboard');
   });
+  
+  Route::get('/profile', 'Supervisor\SupervisorsController@showProfileForm');
+
+  Route::post('/{supervisor}/profile-update', 'Supervisor\SupervisorsController@updateProfile');
 
   Route::get('/login', 'SupervisorAuth\LoginController@showLoginForm')->name('supervisor_login');
   Route::post('/login', 'SupervisorAuth\LoginController@login');
@@ -202,6 +216,14 @@ Route::group(['prefix' => 'supervisor'], function () {
 
   Route::patch('/edit/{student}/assessment', 'Supervisor\SupervisorsController@editAssessment');
 
+  Route::get('/get-interns/approval-requests', 'Supervisor\SupervisorsController@getApprovalRequests');
+
+  Route::post('/approve/{intern}/check-in', 'Supervisor\SupervisorsController@ApproveStudentCheckIn');
+
+/*   Route::post('/deny/{intern}/check-in', 'Supervisor\SupervisorsController@ApproveStudentCheckIn'); */
+
+  Route::get('/get/{intern}/check-in/coords', 'Supervisor\SupervisorsController@getStudentRequestCoords');
+
+  Route::get('/view/{intern}/check-in/coords', 'Supervisor\SupervisorsController@viewStudentRequest');
+
 });
-
-

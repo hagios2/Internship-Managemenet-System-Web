@@ -4,19 +4,20 @@
 
     <div class="container">
 
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/supervisor/dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">View Interns</li>
+            </ol>
+          </nav>
+
         <div class="row">
-            <div class="col-md-4 col-lg-4" style="background-color:grey">put links here</div>
 
             <div class="col-md-8 col-lg-8">
 
                 @if ($confirmedAppcode)
 
                     @if ($confirmedAppcode->company_id)
-
-
-                    <div class="card">
-                        <div class="card-header"><strong><span class="fas fa-user-md"></span> Intern(s)</strong> </div>
-                    </div><br>
 
                     <div class="row">
 

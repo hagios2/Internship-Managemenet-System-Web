@@ -14,11 +14,11 @@ class Intern extends Model
 
     public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function supervisor()
     {
-        return $this->belongsTo(Supervisor::class);
+        return $this->belongsTo('App\Supervisor');
     }
 }

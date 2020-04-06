@@ -336,7 +336,13 @@ class InternshipProcessingController extends Controller
             return back()->with('info', 'Application has already been approved');
         }
                 
-        $approvedApplication = $application->addProposalApproval(); 
+        $approvedApplicationId = $application->addProposalApproval(); 
+
+         //send students intro letter
+         $this->generateletterforotherApplication($application, $approvedApplicationId);
+
+         //copy company with letter using different mail template
+         $this->copyOtherCompany($application);
 
         $application->student->addNotification([
 
@@ -348,12 +354,6 @@ class InternshipProcessingController extends Controller
 
             'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
         ]);
-        
-        //send students intro letter
-        $this->generateletterforotherApplication($application, $approvedApplication);
-
-        //copy company with letter using different mail template
-        $this->copyOtherCompany($application);
         
         return back()->withSuccess('Application approved');
     }
