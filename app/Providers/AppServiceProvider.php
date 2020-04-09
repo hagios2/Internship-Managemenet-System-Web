@@ -44,6 +44,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
+        view()->composer('layouts.app', function($view){
+
+            $view->with('notification', \App\StudentNotification::numberAlert());
+        });
+
+
         view()->composer('main_cordinator.home', function($view){
 
             $view->with(['default_app_count'=> \App\InternshipApplication::where('default_application', 1)->get(),

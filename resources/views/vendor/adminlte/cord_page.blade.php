@@ -108,7 +108,7 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    @each('adminlte::partials.menu-item', $adminlte->cordinator_menu(), 'item')
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

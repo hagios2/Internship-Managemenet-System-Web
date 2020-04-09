@@ -7,10 +7,7 @@
     <div class="container">
 
         <ol class="breadcrumb">
-            {{-- <li><a href="/cordinator/">Home</a></li>
-            <li><a href="#">Library</a></li> --}}
             <li class="active">Dashboard</li>
-        
         </ol>
 
     </div>
@@ -192,84 +189,7 @@
             </div>    
 
         </div>
-
-        <div class="col-md-6 col-lg-6" style="margin-left:17%; margin-right:15%;">
-
-            <form>
-                <div class="input-group">
-                <input type="text" class="form-control " placeholder="Search">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                    <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                </div>
-                </div>
-            </form> 
-
-        </div><br><br>
-
-            <div>
-
-                <div class="col-md-9 col-lg-9" style="margin-left:8%; margin-right:8%;">
         
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading"><span class="fa fa-user-md"></span> Student</div>
-
-                        <div class="panel-body">
-
-                            <div class="row">
-
-                                <div class="col-md-5">
-
-                                    <form id="departmentform">
-
-                                        <div class="form-group">
-
-                                            <select class="form-control" name="department" id="selected_department">
-                                                
-                                                <option value="">Select department</option>
-
-                                                @foreach ($departments as $department)
-
-                                                    <option {{ old('department') == $department->id ? 'selected' : '' }}  value="{{ $department->id }}"> {{ $department->department}} </option>
-                                                    
-                                                @endforeach
-
-                                            </select>
-
-                                        </div>
-                                        
-                                    </form>
-
-                                </div>
-
-                                <div id="programs_div" class="col-md-5" style="display:none;">
-
-                                    <form id="prog_form">
-                                        
-                                        <div class="form-group">
-                                            
-                                            <select class="form-control" name="program" id="selectedProgram"></select>
-                                    
-                                        </div>
-                                    
-                                    </form>
-
-                                </div>
-
-                            </div> <br>
-
-                            <div id="student_div" style="display:none;"></div>
-
-                        </div>
-
-                    </div>
-
-                </div><br>
-
-            </div>
-
     </div>   
     
 @stop
@@ -464,8 +384,6 @@
                         $('#other_app_stud_div').hide(); //hide if off
 
                     }else{
-
-
 
                         //rom 14 23 heb 10 35
 

@@ -13,11 +13,11 @@ class Notification extends Model
 {
     use SoftDeletes;
     
-    protected $quarded = ['id'];
+    protected $guarded = ['id'];
 
     protected $dates = ['deleted_at'];
     
-    public static function toSingleDevice($token=null, $title=null, $body=null, $icon, $click_action)
+    public function scopeToSingleDevice($query, $token=null, $title=null, $body=null, $icon, $click_action)
     {
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
@@ -25,7 +25,7 @@ class Notification extends Model
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge(1)
+                            ->setBadge($this->where('read_at', null)->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -58,7 +58,7 @@ class Notification extends Model
         $downstreamResponse->tokensWithError(); 
     } 
 
-    public static function toMultipleDevice($model, $title=null, $body=null, $icon, $click_action)
+    public function scopeToMultipleDevice($query, $model, $title=null, $body=null, $icon, $click_action)
     {
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
@@ -66,7 +66,7 @@ class Notification extends Model
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge(1)
+                            ->setBadge($this->where('read_at', null)->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -101,9 +101,14 @@ class Notification extends Model
 
     }
 
+    public function scopeRead()
+    {
+        return $this->where('read_at', null)->get();
+    }
+
     public  function scopeNumberAlert()
     {
-        return $this->where('read_at', null);  
+        return $this->where('read_at', null)->count();  
     } 
 }
     

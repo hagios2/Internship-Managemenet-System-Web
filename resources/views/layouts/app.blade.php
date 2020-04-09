@@ -190,25 +190,19 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                @if ($notification > 0)
+
+                    <span class="badge badge-danger badge-counter numberalert">{{ $notification  }}</span>
+                    
+                @endif
+                
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
+                <h6 class="dropdown-header readNoti">
+                  Notification Center
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                {{-- <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="mr-3">
                     <div class="icon-circle bg-success">
                       <i class="fas fa-donate text-white"></i>
@@ -225,13 +219,13 @@
                       <i class="fas fa-exclamation-triangle text-white"></i>
                     </div>
                   </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
+                  <div> --}}
+                  {{--   <div class="small text-gray-500">December 2, 2019</div>
                     Spending Alert: We've noticed unusually high spending for your account.
                   </div>
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
+              </div> --}}
             </li>
 
             <!-- Nav Item - Messages -->
@@ -403,6 +397,68 @@
   <script src="js/demo/chart-pie-demo.js"></script>
  --}}
 
+ <script>
+
+      $.ajax({
+
+        url: 'get-student/notifications',
+        method: 'POST',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        
+      }).done(function(data){
+
+        console.log(data);
+
+        var note_cover =``;
+
+        $.each(data, function(i, notice){
+
+          if(notice.notification_type == 'Approval')
+          {
+            note_cover = `<div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>`
+          }else if(notice.notification_type == 'Reverted Application'){
+            note_cover = `<div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>`
+
+          }else if(notice.notification_type == 'Application Denied'){
+            note_cover = `<div class="mr-3">
+                    <div class="icon-circle bg-danger">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>`
+
+          }else{
+
+            note_cover = `<div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>`
+          }
+
+
+          let dom = `<a class="dropdown-item d-flex align-items-center" href="#">
+                  `+note_cover+`
+                  <div>
+                    <div class="small text-gray-500">`+notice.notification_type+` `+notice.date+`</div>
+                    <span class="font-weight-bold">`+notice.status+`</span>
+                  </div>
+                </a>`;
+
+           $('.readNoti').after(dom);
+
+        });
+
+      });
+
+ </script>
  
         
     @endauth

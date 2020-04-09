@@ -37,5 +37,9 @@ messaging.onMessage((payload) => {
 
     console.log(payload);
 
+    $('.numberalert').empty().html(payload.data['gcm.notification.badge'])
+
+   /*  $('.number-message').empty().html() */
+
 });
  

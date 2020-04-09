@@ -231,6 +231,16 @@ return [
         ], */
     ],
 
+    'cord_menu' => [
+
+        [
+            'text' => 'the school',
+            'url'  => 'main-cordinator/settings',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Menu Filters

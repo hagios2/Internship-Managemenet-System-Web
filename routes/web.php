@@ -53,6 +53,8 @@ Route::post('/intern/check-out/', 'Student\StudentController@checkOut');
 
 Route::post('/intern/check-in/', 'Student\StudentController@checkIn');
 
+Route::post('get-student/notifications', 'Student\StudentNotificationController@getNotifications');
+
 Route::get('/', function () {
 
     return view('welcome');

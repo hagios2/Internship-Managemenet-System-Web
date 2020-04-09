@@ -84,12 +84,6 @@ class InternshipProcessingController extends Controller
         return view('main_cordinator.other_application', compact('count'));
     }
 
-/*     public function getStudent()
-    {
-        return User::where('name', 'like', request()->search, '%')->get('id', 'name');
-
-        return request()->search;
-    } */
 
     /**
      * Show the form for creating a new resource.
@@ -153,6 +147,10 @@ class InternshipProcessingController extends Controller
             'status' => 'Sorry! Your application has been denied. You may apply again'
         ]);
 
+        $token = $application->student->device_token;
+
+        StudentNotification::toSingleDevice($token, 'Sorry! Your application has been denied. You may apply again', null, '/dashboard');
+
         $user = $application->student;
 
         \Mail::to($user->email)->send(new ApplicationDeniedMail($user)); 
@@ -197,6 +195,10 @@ class InternshipProcessingController extends Controller
                 ]); 
                 
                 $student->add($application->student);
+
+                $token = $application->student->device_token;
+
+                StudentNotification::toSingleDevice($token, 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship', null, '/dashboard');
                 
             }
             
@@ -276,6 +278,7 @@ class InternshipProcessingController extends Controller
 
         foreach($unapproved as $unapproved_application)
         {                
+            /* get of the approved application */
             $approvedApplication =  $unapproved_application->addProposalApproval();
 
             $this->generateletterforotherApplication($unapproved_application, $approvedApplication);
@@ -293,6 +296,11 @@ class InternshipProcessingController extends Controller
 
                 'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
             ]);
+
+
+            $token = $unapproved_application->student->device_token;
+
+            StudentNotification::toSingleDevice($token, 'Application Approval Reverted', 'Sorry! Application\'s approval reverted', null, '/dashboard');
 
             $count++;
 
@@ -354,6 +362,10 @@ class InternshipProcessingController extends Controller
 
             'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
         ]);
+
+        $token = $application->student->device_token;
+
+        StudentNotification::toSingleDevice($token, 'Application Approved', 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship', null, '/dashboard');
         
         return back()->withSuccess('Application approved');
     }
@@ -392,6 +404,10 @@ class InternshipProcessingController extends Controller
 
             'status' => 'Sorry! Application\'s approval reverted'
         ]);
+
+        $token = $application->student->device_token;
+
+        StudentNotification::toSingleDevice($token, 'Application Approval Reverted', 'Sorry! Application\'s approval reverted', null, '/dashboard');
 
         return back()->withSuccess('Reverted Approval');
     }
