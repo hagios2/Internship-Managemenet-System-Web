@@ -53,11 +53,20 @@ Route::post('/intern/check-out/', 'Student\StudentController@checkOut');
 
 Route::post('/intern/check-in/', 'Student\StudentController@checkIn');
 
-Route::post('get-student/notifications', 'Student\StudentNotificationController@getNotifications');
+Route::get('get-student/notifications', 'Student\StudentNotificationController@getNotifications');
+
+Route::post('/send-message', 'MessageController@store');
+
+Route::get('/get-messages', 'MessageController@getMessages');
 
 Route::get('/', function () {
 
     return view('welcome');
+});
+
+Route::get('/message', function () {
+
+  return view('student.chats');
 });
 
 Route::post('/map', function(Request $request){
@@ -95,7 +104,7 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::patch('/toggle', 'ToggleAppController@toggle');
 
-  Route::get('/student-applications', 'MainCordinator\InternshipProcessingController@index');
+  Route::get('/student-applications', 'MainCordinator\InternshipProcessingController@getMessagess');
 
   Route::get('/default-applications', 'MainCordinator\InternshipProcessingController@default_application');
 

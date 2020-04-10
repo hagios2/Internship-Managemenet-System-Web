@@ -37,6 +37,19 @@ messaging.onMessage((payload) => {
 
     console.log(payload);
 
+    if(payload.notification.tille == 'student message')
+    {
+
+    }else if(payload.notification.tille == 'main_cordinator message')
+    {
+
+      $('<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + payload.notification.body + '</p></li>').appendTo($('.messages ul'));
+      $('.message-input input').val(null);
+      $('.contact.active .preview').html('<span>You: </span>' + payload.notification.body);
+      $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+    }
+
+
     $('.numberalert').empty().html(payload.data['gcm.notification.badge'])
 
    /*  $('.number-message').empty().html() */

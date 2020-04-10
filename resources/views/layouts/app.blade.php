@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Internship Coordinating and Monitoring System">
 
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
     <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
 
     <!-- CSRF Token -->
@@ -23,7 +23,7 @@
     <script src="{{ asset('js/firebase.js')}}"></script>
     @yield('extra-js')
 
-    @yield('extra-css')
+   
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
  
@@ -33,6 +33,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('extra-css')
 
 </head>
 
@@ -401,9 +403,9 @@
 
       $.ajax({
 
-        url: 'get-student/notifications',
-        method: 'POST',
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: '/get-student/notifications',
+        method: 'GET',
+       /*  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, */
         
       }).done(function(data){
 
@@ -411,7 +413,7 @@
 
         var note_cover =``;
 
-        $.each(data, function(i, notice){
+        $.each(data.data, function(i, notice){
 
           if(notice.notification_type == 'Approval')
           {
@@ -444,7 +446,7 @@
           }
 
 
-          let dom = `<a class="dropdown-item d-flex align-items-center" href="#">
+          let dom = `<a class="dropdown-item d-flex align-items-center noty" href="#">
                   `+note_cover+`
                   <div>
                     <div class="small text-gray-500">`+notice.notification_type+` `+notice.date+`</div>
@@ -456,7 +458,151 @@
 
         });
 
+        if(data.links.next != null)
+        {
+          $('div .noty:last-child').after('<a class="dropdown-item text-center small text-gray-500 noty-but" href="#">Show All Alerts</a>');
+        }
+
+       
+
       });
+
+  $('#msg_sub').prop('disabled', true);
+
+  $('#msg').keyup(function(e){
+
+    var text = $('#msg').val();
+
+    if(text != '')
+    {
+
+      $('#msg_sub').prop('disabled', false);
+
+      $("#msg_sub").unbind('click');
+
+      $('#msg_sub').click(function(){
+
+        $('#msg').val(null);
+
+        $('#msg_sub').prop('disabled', true);
+
+        sendMessage($.trim(text))
+
+      });
+
+
+      if(e.which == 13)
+      {
+        $('#msg').val(null);
+
+        $('#msg_sub').prop('disabled', true);
+
+        sendMessage($.trim(text))
+      }
+
+    }else{
+
+      $('#msg_sub').prop('disabled', true);
+
+    }
+
+  });
+
+  /* $('#msg').keydown(function(){
+
+
+    $('#msg').val(null);
+
+    $('#msg_sub').prop('disabled', true);
+
+    sendMessage($.trim(text))
+
+  });
+ */
+
+  function sendMessage(message)
+  {
+      $.ajax({
+
+        url: '/send-message',
+        dataType: 'json',
+        data: {message: message},
+        method: 'POST',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+
+      }).done(function(data){
+
+        console.log(data)
+
+        if(data.status == 'success')
+        {
+          $('<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+          $('.message-input input').val(null);
+          $('.contact.active .preview').html('<span>You: </span>' + message);
+          $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+        }else{
+
+
+
+        }
+
+
+      });
+
+  }
+
+
+  $.ajax({
+
+    url: '/get-messages',
+    dataType: 'json',
+    method: 'GET',
+
+    }).done(function(data){
+
+    console.log(data);
+
+    if(data != 'no message' )
+    {
+      $.each(data, function(i, data){
+
+        if(data.from_student == 1 && data.from_main_cord == null)
+        {
+          $('<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + data.message + '</p></li>').appendTo($('.messages ul'));
+          $('.message-input input').val(null);
+          $('.contact.active .preview').html('<span>You: </span>' + data.message);
+          $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+        
+        }else if(data.from_student == null && data.from_main_cord == 1){
+
+          $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + data.message + '</p></li>').appendTo($('.messages ul'));
+          $('.message-input input').val(null);
+          $('.contact.active .preview').html('<span>You: </span>' + data.message);
+          $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+        }
+
+      })
+
+    }else{
+
+      
+    }
+
+   /*  <li class="sent">
+					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+					<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+				</li>
+				<li class="replies">
+					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+					<p>When you're backed against the wall, break the god damn thing down.</p>
+				</li>
+ */
+    });
+
+
+
 
  </script>
  

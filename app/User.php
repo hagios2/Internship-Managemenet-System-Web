@@ -105,4 +105,15 @@ class User extends Authenticatable implements MustVerifyEmail
             'longitude' => $coords['longitude'],
         ]);
     }
+
+    public function message()
+    {
+        return $this->hasMany('App\Message');
+    }
+
+
+    public function addMessage($message)
+    {
+      return $this->message()->create($message);
+    }
 }

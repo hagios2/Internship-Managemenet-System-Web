@@ -107,7 +107,7 @@ class StudentNotification extends Model
 
     public function scopeRead()
     {
-        return $this->where([['read_at', null], ['user_id', auth()->id()]])->get();
+        return $this->where([['read_at', null], ['user_id', auth()->id()]])->paginate(5);
     }
 
     public  function scopeNumberAlert()

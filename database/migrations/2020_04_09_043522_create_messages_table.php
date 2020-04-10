@@ -15,11 +15,15 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('main_cordinator_id')->unsigned();
-            $table->integer('company_id')->unsigned()->nullabe();
-            $table->integer('application_id')->unsigned()->nullabe();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('main_cordinator_id')->unsigned()->nullable();
+            $table->integer('company_id')->unsigned()->nullable();
+            $table->integer('application_id')->unsigned()->nullable();
             $table->text('message');
+            $table->string('attachment')->nullable();
+            $table->boolean('from_student')->nullable();
+            $table->boolean('from_main_cordinator')->nullable();
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
