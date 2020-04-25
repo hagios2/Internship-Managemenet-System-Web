@@ -187,6 +187,7 @@
                 "laravel",
                 "zip"
             ],
+            "abandoned": true,
             "time": "2020-02-25T11:57:40+00:00"
         },
         {
