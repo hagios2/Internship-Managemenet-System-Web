@@ -4,6 +4,10 @@
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
 
+   {{--  <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet"> --}}
+
+   {{--  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+ --}}
     @stack('css')
     @yield('css')
 @stop
@@ -57,6 +61,63 @@
                 <div class="navbar-custom-menu">
 
                     <ul class="nav navbar-nav">
+                        
+                        {{-- messages --}}
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"          aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i><sup> <span class="badge alert-danger">7</span></sup>
+                                <!-- Counter - Messages -->
+                            </a>
+                           
+                            <!-- Dropdown - Messages -->
+                            <ul class=" dropdown-menu dropdown-menu-left" aria-labelledby="messagesDropdown">
+                              <li class="dropdown-header">
+                                Message Center
+                              </li>
+                              <a class="align-items-center" href="#">
+                                
+                                  <img class="img-circle" style="width:4rem; height:4rem;" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                               
+                                <div class="font-weight-bold">
+                                  <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                                  <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                </div>
+                              </a>
+                             {{--  <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                  <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                                  <div class="status-indicator"></div>
+                                </div>
+                                <div>
+                                  <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                                  <div class="small text-gray-500">Jae Chun · 1d</div>
+                                </div>
+                              </a>
+                              <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                  <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
+                                  <div class="status-indicator bg-warning"></div>
+                                </div>
+                                <div>
+                                  <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                                  <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                </div>
+                              </a>
+                              <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                  <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                                  <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div>
+                                  <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                                  <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                </div>
+                              </a> --}}
+                              <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </ul>
+                        </li>
+                        {{-- end of messages --}}
                         <li>
                             @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
                                 <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">

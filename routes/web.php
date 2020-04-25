@@ -104,7 +104,7 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::patch('/toggle', 'ToggleAppController@toggle');
 
-  Route::get('/student-applications', 'MainCordinator\InternshipProcessingController@getMessagess');
+  Route::get('/student-applications', 'MainCordinator\InternshipProcessingController@index');
 
   Route::get('/default-applications', 'MainCordinator\InternshipProcessingController@default_application');
 
@@ -136,6 +136,14 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::post('copy/{company}/with-letter', 'MainCordinator\InternshipProcessingController@copycompany');
   
+  Route::get('/messages', 'MainCordinator\MessageController@index'); 
+
+  Route::post('/send-message', 'MainCordinator\MessageController@store');
+
+  Route::get('/get-student/{user}/messages', 'MainCordinator\MessageController@getMessages');
+
+  Route::get('/get-unique/messages', 'MainCordinator\MessageController@getUniqueChat');
+
 });
 
 

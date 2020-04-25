@@ -46,7 +46,7 @@ class MessageController extends Controller
 
             $token = $main_cordinator->device_token;
 
-            StudentNotification::toSingleDevice($token, 'student message', $request->message, null, '/message'); 
+            Message::toSingleDevice($token, 'student message', nl2br($request->message), null, '/message'); 
 
             return response()->json(['status' => 'success']);
         
@@ -54,8 +54,6 @@ class MessageController extends Controller
 
             return response()->json(['status' => 'failed']);
         }
-
-        
 
     }
 
@@ -72,6 +70,5 @@ class MessageController extends Controller
 
         endif;
     }
-
     
 }

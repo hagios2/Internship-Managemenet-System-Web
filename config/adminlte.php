@@ -214,21 +214,21 @@ return [
                 ],
             ],
         ],
-      /*   ['header' => 'Our Companies'],
+       ['header' => 'End Session'],
         [
-            'text'       => 'Company',
-            'url'        => '/company',
+            'text'       => 'logout',
+            'url'        => '/main-cordinator/logout',
             'icon_color' => 'red',
-            'icon'       => 'fas fa-industry'
+            'icon'       => 'fas fa-sign-out-alt'
         ],
-        [
+       /*  [
             'text'       => 'warning',
             'icon_color' => 'yellow',
         ],
         [
             'text'       => 'information',
             'icon_color' => 'aqua',
-        ], */
+        ],  */
     ],
 
     'cord_menu' => [

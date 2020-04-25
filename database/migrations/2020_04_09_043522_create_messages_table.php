@@ -23,7 +23,8 @@ class CreateMessagesTable extends Migration
             $table->string('attachment')->nullable();
             $table->boolean('from_student')->nullable();
             $table->boolean('from_main_cordinator')->nullable();
-            $table->timestamp('read_at')->nullable();
+            $table->timestamp('student_read_at')->nullable();
+            $table->timestamp('main_cordinator_read_at')->nullable();
             $table->timestamps();
         });
     }

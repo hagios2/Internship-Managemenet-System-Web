@@ -40,4 +40,14 @@ class MainCordinator extends Authenticatable
     {
         $this->notify(new MainCordinatorResetPassword($token));
     }
+
+    public function message()
+    {
+        return $this->hasMany('App\Message');
+    }
+
+    public function addMessage($message)
+    {
+        return $this->message()->create($message);
+    }
 }

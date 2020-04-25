@@ -23,13 +23,14 @@ class StudentNotification extends Model
     
     public function scopeToSingleDevice($query, $token=null, $title=null, $body=null, $icon, $click_action)
     {
+
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge($this->where('read_at', null)->count())
+                            ->setBadge($this->where([['read_at', null], ['user_id', auth()->id()]])->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -70,7 +71,7 @@ class StudentNotification extends Model
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge($this->where('read_at', null)->count())
+                            ->setBadge($this->where([['read_at', null], ['user_id', auth()->id()]])->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 

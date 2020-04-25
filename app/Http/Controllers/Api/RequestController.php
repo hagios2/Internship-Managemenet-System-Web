@@ -42,5 +42,21 @@ class RequestController extends Controller
         return response()->json(['status' => 'success', 'user' => $user ]);
 
     }
-}
 
+    public function postToken(Request $request)
+    {
+        if($request->has('api_token'))
+        {
+            $user = User::where('email', $request->email)->get();
+
+            $user->update([
+                
+                'api_token' => $request->api_token
+            ]);
+
+            return response()->json(['status' => 'Token saved']);
+        }
+
+        return response()->json(['status' => 'No token received']);
+    }
+}

@@ -24,3 +24,9 @@ Route::get('/programs', 'Api\RequestController@getPrograms');
 Route::get('/levels', 'Api\RequestController@getLevels');
 
 Route::post('/register', 'Api\RequestController@register');
+
+Route::post('user/token', 'Api\RequestController@saveToken');
+
+Route::get('/companies', 'Api\StudentController@sendCompany');
+
+Route::post('/student-application', 'Api\StudentController@StudentApplication');
