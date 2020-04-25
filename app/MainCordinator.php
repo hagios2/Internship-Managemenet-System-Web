@@ -2,7 +2,7 @@
 
 namespace App;
 
-use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
+/* use SMartins\PassportMultiauth\HasMultiAuthApiTokens; */
 use App\Notifications\MainCordinatorResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class MainCordinator extends Authenticatable
 {
-    use Notifiable, HasMultiAuthApiTokens;
+    use Notifiable/* , HasMultiAuthApiTokens */;
     
     /**
      * The attributes that are mass assignable.
