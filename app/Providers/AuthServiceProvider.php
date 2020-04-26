@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-       /*  Passport::loadKeysFrom('/secret-keys/oauth'); */
+        Passport::loadKeysFrom(storage_path('keys/'));
 
         // Middleware `oauth.providers` middleware defined on $routeMiddleware above
      /*    Route::group(['middleware' => 'oauth.providers'], function () {
