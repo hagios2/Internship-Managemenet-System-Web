@@ -18,7 +18,7 @@ class StudentController extends Controller
 
     public function sendCompany()
     {
-        $toogleApp = ToggleApp::find(1);
+        $toggleApp = ToggleApp::find(1);
 
         if($toggleApp->toggle)
         {
@@ -31,9 +31,9 @@ class StudentController extends Controller
     public function studentApplication(Request $request)
     {
 
-        if(InternshipApplication::where('student_id', auth()->id())->first())
+        if(InternshipApplication::where('student_id', auth()->guard('api')->id())->first())
         {
-            return back()->with('error', 'You have already applied! Consider editing your application instead.');
+            return response()->json(['error' => 'You have already applied! Consider editing your application instead.']);
         }
 
         if($request->has('default_application'))
@@ -42,11 +42,11 @@ class StudentController extends Controller
 
             if($company->application->count() < $company->total_slots)
             {
-                auth()->user()->registerStudent($request->all());
+                auth()->guard('api')->user()->registerStudent($request->all());
             
             }else{
     
-                return back()->with('info', 'Denied! maximum application to ' .$company->company_name .' reached.');
+                return response()->json(['info' => 'Denied! maximum application to ' .$company->company_name .' reached.']);
             }
 
         } else {
@@ -55,9 +55,9 @@ class StudentController extends Controller
 
         }
 
-        SendInternshipRegistrationNotification::dispatch(auth()->user());
+        SendInternshipRegistrationNotification::dispatch(auth()->guard('api')->user());
          
-        return response()->json([]);
+        return response()->json(['status' => 'Success']);
 
     }
 
@@ -77,7 +77,7 @@ class StudentController extends Controller
 
     public function update(Request $request, InternshipApplication $application)
     {
-        abort_if((auth()->user() != $application->student), 403);
+        abort_if((auth()->guard('api')->user() != $application->student), 403);
 
 
         if($request->has('company_id'))
