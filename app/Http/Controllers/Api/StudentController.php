@@ -18,9 +18,10 @@ class StudentController extends Controller
 
     public function sendCompany()
     {
-        $toggleApp = ToggleApp::find(1);
+        return $toggleApp = ToggleApp::find(1);
 
-        if($toggleApp->toggle)
+
+        if($toggleApp || $toggleApp->toggle)
         {
             return response()->json(['companies' => Company::all()]);
         }
