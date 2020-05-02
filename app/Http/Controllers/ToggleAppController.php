@@ -14,8 +14,6 @@ class ToggleAppController extends Controller
         $this->middleware('auth:main_cordinator');
     }
 
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -28,9 +26,7 @@ class ToggleAppController extends Controller
 
         $toggleapp = ToggleApp::find(1);
 
-       // return $toggleapp;
-
-        $request->has('toggle') && $toggleapp->toggle == false ? $toggleapp->update(['toggle' => true]) : $toggleapp->update(['toggle' => false]);
+        $request->has('toggle') ? $toggleapp->update(['toggle' => true]) : $toggleapp->update(['toggle' => false]);
 
         $switch = $toggleapp->toggle ? 'ON' : 'OFF';
 

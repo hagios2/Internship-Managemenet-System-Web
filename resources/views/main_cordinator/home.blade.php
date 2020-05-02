@@ -96,15 +96,14 @@ input:checked + .slider:before {
             @method('PATCH')
             <!-- Rounded switch -->
             <strong>App Switch:</strong>  &emsp; <label class="switch">
-                <input type="checkbox" name="toggle" {{   $toggleapp ? 'checked' :'' }} onchange="this.form.submit();">
+              
+                <input type="checkbox" name="toggle" {{   $toggleapp->toggle ? 'checked' :'' }} onchange="this.form.submit();">
                 
                 <span class="slider round"></span>
         
             </label>
   
         </form>
-
-        <span>{{ $toggleapp }}</span>
       
       </div><br><br>
 
