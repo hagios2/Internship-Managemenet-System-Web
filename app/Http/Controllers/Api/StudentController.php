@@ -262,7 +262,7 @@ class StudentController extends Controller
 
     public function logoutApi()
     {
-        $user = auth()->guard('api')::user()->token();
+        $user = auth()->guard('api')->user()->token();
     
         $user->revoke();
     
