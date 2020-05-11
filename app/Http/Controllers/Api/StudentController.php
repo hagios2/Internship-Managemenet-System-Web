@@ -260,6 +260,15 @@ class StudentController extends Controller
 
     }
 
+    public function logoutApi()
+    {
+        $user = Auth::user()->token();
+    
+        $user->revoke();
+    
+        return response()->json(['status' => 'logged out']);
+    }
+
 
 }
 
@@ -288,3 +297,4 @@ public function googleMap($lat='5.603716800000001', $long='-0.18696439999996528'
    
     return $map;
 } */
+

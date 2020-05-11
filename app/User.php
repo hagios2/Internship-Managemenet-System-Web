@@ -117,4 +117,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
       return $this->message()->create($message);
     }
+
+    public function AauthAcessToken(){
+        return $this->hasMany('\App\OauthAccessToken');
+    }
 }
