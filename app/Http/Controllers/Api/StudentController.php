@@ -33,7 +33,7 @@ class StudentController extends Controller
 
         if(InternshipApplication::where('student_id', auth()->guard('api')->id())->first())
         {
-            return response()->json(['error' => 'You have already applied! Consider editing your application instead.']);
+            return response()->json(['status' => 'You have already applied! Consider editing your application instead.']);
         }
 
         if($request->has('default_application'))
@@ -46,7 +46,7 @@ class StudentController extends Controller
             
             }else{
     
-                return response()->json(['info' => 'Denied! maximum application to ' .$company->company_name .' reached.']);
+                return response()->json(['status' => 'Denied! maximum application to ' .$company->company_name .' reached.']);
             }
 
         } else {

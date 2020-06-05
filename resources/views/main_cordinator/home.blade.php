@@ -88,115 +88,69 @@ input:checked + .slider:before {
 
       @include('includes.errors')
       
-      <div class="pull-left">
+      <br>
 
-        <form action="/main-cordinator/toggle" method="post">
-      
-            @csrf
-            @method('PATCH')
-            <!-- Rounded switch -->
-            <strong>App Switch:</strong>  &emsp; <label class="switch">
-              
-                <input type="checkbox" name="toggle" {{   $toggleapp->toggle ? 'checked' :'' }} onchange="this.form.submit();">
-                
-                <span class="slider round"></span>
-        
-            </label>
-  
-        </form>
-      
-      </div><br><br>
 
       <div class="row" style="margin:auto;">
 
         <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-            
-            <div style="background-color:#26A498; height:10rem; padding:10px;">
-    
-                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{$default_app_count->count()}} Rec. Application(s)</h4>
-                <p class="text-center"><small>{{ $default_approved_count }} Approved</small></p>
-            </div>
-        
+
+          <div class="info-box">
+            <!-- Apply any bg-* class to to the icon to color it -->
+            <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Recommended Applications</span>
+              <span class="info-box-number" id="count_appointment">{{$default_app_count->count()}}<br>
+                <p class="text-center"><small style="margin:auto;"> {{ $default_approved_count }} Approved</small></p>
+              </span>
+             
+            </div><!-- /.info-box-content -->
+          </div><!-- /.info-box -->
+
         </div>
             
         <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
 
-            <div style="background-color:peru; height:10rem; padding:10px;">
-        
-                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{$proposed_app_count}} Proposed Application(s)</h4>
-
+          <div class="info-box">
+            <!-- Apply any bg-* class to to the icon to color it -->
+            <span class="info-box-icon bg-blue"><i class="fa fa-star-o"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Proposed Applications</span>
+              <span class="info-box-number" id="count_appointment">{{$proposed_app_count}} <br>
                 <p class="text-center"><small style="margin:auto;"> {{$no_proposed_approved}} Approved</small></p>
-                
-            </div>
+              </span>
+             
+            </div><!-- /.info-box-content -->
+          </div><!-- /.info-box -->
 
         </div>
 
         <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
 
-            <div style="background-color:tomato; height:10rem; padding:10px;">
-        
-                <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; Appointment(s)</h4>
+            <div class="info-box">
+              <!-- Apply any bg-* class to to the icon to color it -->
+              <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Application Switch</span>
+                <span class="info-box-number"><br>
+                  <form action="/main-cordinator/toggle" method="post">
+                    @csrf
+                    @method('PATCH')
+                    <!-- Rounded switch -->
+                     &emsp; <label class="switch"> 
+                        <input type="checkbox" name="toggle" {{   $toggleapp->toggle ? 'checked' :'' }} onchange="this.form.submit();">
+                        <span class="slider round"></span>
                 
-            </div>
-
+               </label>
+                </form>
+                  
+                </span>
+              </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
         </div>
 
     </div><br><br>
-
-
-      <div class="row">
-
-        <div class="col-md-3 col-lg-3">
-
-              <div class="panel">
-
-                <div class="text-center" style="margin:2rem;">
-
-                    <p class="title">Department</p><br>
-
-                    <a class="btn btn-primary" href="/main-cordinator/department">View</a>
-
-                </div>
-
-              </div> 
-
-        </div>
-
-      <div class="col-md-3 col-lg-3">
-          
-          <div class="panel">
-
-              <div class="text-center" style="margin:2rem;">
-
-              <p class="title">Student Application</p><br>
-
-                  <a class="btn btn-primary" href="/main-cordinator/student-applications">View</a>
-
-              </div>
-
-          </div>
-          
-      </div>        
-
-
-      <div class="col-md-3 col-lg-3">
-
-          <div class="panel">
-
-            <div class="text-center" style="margin:2rem;">
-
-                <p class="title">Companies</p><br>
-
-                <a class="btn btn-primary" href="/main-cordinator/company">View Company</a>
-
-            </div>
-
-          </div>
-
-      </div>
-
-           
-
+{
     </div>
 
   </div>

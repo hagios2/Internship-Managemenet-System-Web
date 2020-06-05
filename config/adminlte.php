@@ -134,84 +134,82 @@ return [
             'search' => true,
         ], */
         ['header' => 'main_navigation'],
-       /*  [
-            'text' => 'blog',
-            'url'  => 'main-cordinator/blog',
-            'can'  => 'manage-blog',
-        ], */
+
+        ['header' => 'account_settings'],
         [
-            'text'        => 'Companies',
-            'url'         => '/main-cordinator/company',
+            'text' => 'Profile',
+            'url'  => 'main-cordinator/settings',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Change_password',
+            'url'  => 'main-cordinator/settings',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+     
+        ['header' => 'Our Companies'],
+        [
+            'text'    => 'Companies',
+            'icon'    => 'fas fa-building',
             'icon'        => 'fas fa-industry',
-            'icon_color'  => 'aqua'
+            'icon_color'  => 'aqua',
+            'submenu' => [
+                [
+                    'text' => 'New Company',
+                    'url'  => '/main-cordinator/company/create',
+                ],
+                [
+                    'text' => 'View Companies',
+                    'url' => '/main-cordinator/company',
+                ],
+             
+            ],
         ],
 
-        [
-            'text'        => 'department',
+     /*    [
+            'text'        => 'Department',
             'url'         => '/main-cordinator/departments',
             'icon'        => 'fas fa-building',
             'label'       => 4,
             'label_color' => 'success',
         ],
-        //companies
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'main-cordinator/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'main-cordinator/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+       */
           //departments
-        ['header' => 'departments'],
+        ['header' => 'Our Departments'],
         [
-            'text'    => 'departments',
+            'text'    => 'Department',
             'icon'    => 'fas fa-building',
             'submenu' => [
                 [
-                    'text' => 'Computer and Electical',
-                    'url'  => '/department/eleesa',
+                    'text' => 'New Department',
+                    'url'  => '/main-cordinator/department/create',
                 ],
                 [
-                    'text' => 'Mechanical and Agricultural',
-                    'url'  => '/department/messa',
+                    'text' => 'View Departmens',
+                    'url'  => '/main-cordinator/department',
                 ],
-                [
-                    'text' => 'Computer Science and IT',
-                    'url'  => '/department/citsa',
-                ],
+       
+            ],
+        ],
 
-               /*  [
-                    'text'    => '',
-                    'url'     => '/department/messa',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ], */
+        ['header' => 'Application Requests'],
+        [
+            'text'    => 'Student Application',
+            'icon'    => 'fas fa-building',
+            'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'All Applications',
+                    'url'  => '/main-cordinator/student-applications',
                 ],
+                [
+                    'text' => 'Recommended Applications',
+                    'url'  => '/main-cordinator/default/applications',
+                ],
+                [
+                    'text' => 'Proposed Application',
+                    'url'  => '/main-cordinator/other-applications',
+                ],
+       
             ],
         ],
        ['header' => 'End Session'],
@@ -229,16 +227,6 @@ return [
             'text'       => 'information',
             'icon_color' => 'aqua',
         ],  */
-    ],
-
-    'cord_menu' => [
-
-        [
-            'text' => 'the school',
-            'url'  => 'main-cordinator/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-
     ],
 
     /*

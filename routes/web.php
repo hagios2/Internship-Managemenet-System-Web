@@ -144,26 +144,37 @@ Route::group(['prefix' => 'main-cordinator'], function () {
 
   Route::get('/get-unique/messages', 'MainCordinator\MessageController@getUniqueChat');
 
+ // Route::get('/department/create', 'DepartmentController@create');
+
+  Route::post('/department', 'DepartmentController@store');
+
+  Route::get('/department', 'DepartmentController@index');
+
+/*   Route::post('/department', 'DepartmentController@store'); */
+
 });
 
 
 Route::group(['prefix' => 'cordinator'], function () {
 
-  Route::get('/', function(){
-
-    return redirect('/cordinator/dashboard');
-  });
+  Route::get('/', function(){ return redirect('/cordinator/dashboard');});
 
   Route::get('/login', 'CordinatorAuth\LoginController@showLoginForm')->name('cordinator_login');
+
   Route::post('/login', 'CordinatorAuth\LoginController@login');
+  
   Route::post('/logout', 'CordinatorAuth\LoginController@logout')->name('cordinator_logout');
 
   Route::get('/register', 'CordinatorAuth\RegisterController@showRegistrationForm')->name('cordinator_register');
+  
   Route::post('/register', 'CordinatorAuth\RegisterController@register');
 
   Route::post('/password/email', 'CordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('cordinator_password.request');
+  
   Route::post('/password/reset', 'CordinatorAuth\ResetPasswordController@reset')->name('cordinator_password.email');
+  
   Route::get('/password/reset', 'CordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('cordinator_password.reset');
+  
   Route::get('/password/reset/{token}', 'CordinatorAuth\ResetPasswordController@showResetForm');
 
   Route::get('/view/{department}/applications', 'Cordinator\CordinatorsController@viewApplication');
@@ -246,3 +257,10 @@ Route::group(['prefix' => 'supervisor'], function () {
   Route::get('/view/{intern}/check-in/coords', 'Supervisor\SupervisorsController@viewStudentRequest');
 
 });
+
+Route::fallback(function () {
+    
+  return view('stu.404');
+
+});
+

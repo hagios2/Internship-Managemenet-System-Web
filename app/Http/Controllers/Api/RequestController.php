@@ -39,11 +39,11 @@ class RequestController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        return response()->json(['status' => 'success', 'user' => $user ]);
+        return response()->json(['status' => 'success']);
 
     }
 
-    public function postToken(Request $request)
+  /*   public function postToken(Request $request)
     {
         if($request->has('api_token'))
         {
@@ -58,5 +58,5 @@ class RequestController extends Controller
         }
 
         return response()->json(['status' => 'No token received']);
-    }
+    } */
 }
