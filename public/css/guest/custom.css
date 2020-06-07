@@ -1,0 +1,36 @@
+.error {
+    color: 'red';
+}
+.invalid-feedback{
+    color : 'red' !important;
+}
+.err{
+    color: 'red';
+}
+label{
+    font-weight: 100 !important;
+}
+
+
+.text-danger{
+    font-weight: 400 !important;
+    font-size:  12px !important;
+    font-family: "Helvetica Neue", Helvetica, Aria !important;
+     color: rgb(221, 16, 55) !important;
+    line-height: normal !important;
+
+}
+label{
+    font-family: "Helvetica Neue", Helvetica, Aria !important;
+    font-size:  14px !important;
+    color: rgb(38, 40, 42) !important;
+    font-weight: lighter !important;
+    line-height: normal !important;
+
+
+
+
+
+
+}
+

@@ -1,0 +1,21 @@
+<div class="loader">
+    <div id="cssload-pgloading">
+        <div class="cssload-loadingwrap">
+            <ul class="cssload-bokeh">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cssload-loadingwrap">
+        <ul class="cssload-bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>

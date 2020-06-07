@@ -1,18 +1,4 @@
-@extends('adminlte::cord_page')
-
-@section('title', 'UENR')
-
-@section('content_header')   
-
-    <div class="container">
-
-        <ol class="breadcrumb">
-            <li class="active">Dashboard</li>
-        </ol>
-
-    </div>
-  
-@stop
+@extends('cordinator.layout.auth')
 
 @section('content')
 
@@ -20,43 +6,71 @@
 
         @include('includes.errors')
 
-        <div class="row" style="margin:auto;">
-
-            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-                
-                <div style="background-color:#26A498; height:10rem; padding:10px;">
-        
-                    <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('cordinator')->user()->appointment->count()}} Appointment(s)</h4>
-                    
+        <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>{{ auth()->guard('cordinator')->user()->appointment->count() }}</h3>
+  
+                  <p>Appointments</p>
                 </div>
-            
-            </div>
-                
-            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-
-                <div style="background-color:peru; height:10rem; padding:10px;">
-            
-                    <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('cordinator')->user()->appointment->count()}} Appointment(s)</h4>
-                    
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
                 </div>
-
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
             </div>
-
-            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-
-                <div style="background-color:tomato; height:10rem; padding:10px;">
-            
-                    <h1 style="float:left;"><span class="glyphicon glyphicon-calendar"></span></h1><br><h4 id="count_appointment">&emsp; {{auth()->guard('cordinator')->user()->appointment->count()}} Appointment(s)</h4>
-                    
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+  
+                  <p>Bounce Rate</p>
                 </div>
-
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
             </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>44</h3>
+  
+                  <p>Departmental Students</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>65</h3>
+  
+                  <p>Unique Visitors</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+          </div>
 
-        </div>
 
         <br><br>
-
-        <a class="btn btn-primary" href="/cordinator/view/{{auth()->guard('cordinator')->user()->department->id }}/applications">View applications</a>
 
         <div class="col-md-7 col-lg-7 col-xs-7 col-sm-7" style="margin-left:17%; margin-right:17%;">
 

@@ -180,10 +180,10 @@ return [
             'text'    => 'Department',
             'icon'    => 'fas fa-building',
             'submenu' => [
-                [
+          /*       [
                     'text' => 'New Department',
                     'url'  => '/main-cordinator/department/create',
-                ],
+                ], */
                 [
                     'text' => 'View Departmens',
                     'url'  => '/main-cordinator/department',
