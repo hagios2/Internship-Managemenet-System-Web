@@ -45,7 +45,7 @@
                 <div class="container-fluid">
        
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#"><img src="https://i1.wp.com/aschoolz.com/wp-content/uploads/2019/03/UENRlogo.png?resize=320%2C136&ssl=1"  alt="kokrokoo"></a>
+                        <a class="navbar-brand" href="/"><img src="https://i1.wp.com/aschoolz.com/wp-content/uploads/2019/03/UENRlogo.png?resize=320%2C136&ssl=1"  alt="uenr internship"></a>
                     </div>
             
                     <div class="container">
@@ -53,7 +53,7 @@
                         <div class="collapse navbar-collapse navbar-ex1-collapse  ">
                             
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="active"><a href="#Home" class="scroll">Home</a></li>
+                                <li class="active"><a href="#" class="scroll">Home</a></li>
                                 {{-- <li><a href="#about-us" class="scroll">About</a></li> --}}
                                 <li><a href="#services" class="scroll">Services</a></li>
 
@@ -83,7 +83,7 @@
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Register <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="/register" style="color: #0c0c0c">Student</a></li>
-                                                <li><a href="/cordinator/register" style="color: #0c0c0c">Lecture</a></li>
+                                                <li><a href="/cordinator/register" style="color: #0c0c0c">Lecturer</a></li>
                                                 <li><a href="/supervisor/register" style="color: #0c0c0c">Intern Supervisor</a></li>
                                             </ul>
                                         </li>
@@ -145,8 +145,8 @@
                                    data-whitespace="normal"
                                    data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1000;e:Power2.easeOut;"
                                    data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                   data-start="2200" data-width="870" data-fontsize="18">providing an advanced way
-                                    of linking you to advertising  media outlets without human intervention.
+                                   data-start="2200" data-width="870" data-fontsize="18">Providing a more flexible way
+                                    for Students to apply and track their application status.
                                 </p>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
                 
@@ -179,7 +179,7 @@
                                     data-transform_idle="o:1;"
                                     data-transform_in="y:-50px;opacity:0;s:1500;e:Power3.easeOut;"
                                     data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                    data-start="1000" data-fontsize="65">Track
+                                    data-start="1000" data-fontsize="65">Attendance
                                 </h1>
                                 <h1 class="tp-caption News-Title  text-center"
                                     data-x="middle" data-hoffset=""
@@ -188,7 +188,7 @@
                                     data-transform_idle="o:1;"
                                     data-transform_in="x:-50px;opacity:0;s:2000;e:Power3.easeOut;"
                                     data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                    data-start="1500" data-width="670" data-fontsize="65">Your ads  <span>anytime</span>
+                                    data-start="1500" data-width="670" data-fontsize="65">  <span>anytime</span>
                                 </h1>
                                 <p class="tp-caption News-Title  text-center"
                                    data-x="middle" data-hoffset=""
@@ -196,8 +196,9 @@
                                    data-whitespace="normal"
                                    data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1000;e:Power2.easeOut;"
                                    data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                   data-start="2200" data-width="870" data-fontsize="18">Tracking of ad submissions  whiles sitting at the
-                                    comfort of your homes and offices.
+                                   data-start="2200" data-width="870" data-fontsize="18">No need for log books. 
+
+                                   Digital attendance system
                                 </p>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
                 
@@ -206,7 +207,7 @@
                                      data-hoffset="['-80','-80','-150','-200']" data-transform_idle="o:1;"
                                      data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1000;e:Power2.easeOut;"
                                      data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                     data-start="3000"><a href="#about-us" class="btn button first scroll">Start Now</a>
+                                     data-start="3000"><a href="/login" class="btn button first scroll">Start Now</a>
                                 </div>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
                 
@@ -230,7 +231,7 @@
                                     data-transform_idle="o:1;"
                                     data-transform_in="y:-50px;opacity:0;s:1500;e:Power3.easeOut;"
                                     data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                    data-start="1000" data-fontsize="60">Growing
+                                    data-start="1000" data-fontsize="60">Student
                                 </h1>
                                 <h1 class="tp-caption News-Title  text-center"
                                     data-x="middle" data-hoffset=""
@@ -239,7 +240,7 @@
                                     data-transform_idle="o:1;"
                                     data-transform_in="x:-50px;opacity:0;s:2000;e:Power3.easeOut;"
                                     data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                    data-start="1500" data-width="670" data-fontsize="60">  <span>Businesses</span>
+                                    data-start="1500" data-width="670" data-fontsize="60">  <span>Assessment</span>
                                 </h1>
                                 <p class="tp-caption News-Title  text-center"
                                    data-x="middle" data-hoffset=""
@@ -247,7 +248,7 @@
                                    data-whitespace="normal"
                                    data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1000;e:Power2.easeOut;"
                                    data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                   data-start="2200" data-width="870" data-fontsize="18">Ensuring better accountability on the part of advertising media outlets and your marketing teams.
+                                   data-start="2200" data-width="870" data-fontsize="18">Ensuring better and easy student assessment by lecturers and industrial site supervisors.
                                 </p>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
                 
@@ -256,7 +257,7 @@
                                      data-hoffset="['-80','-80','-150','-200']" data-transform_idle="o:1;"
                                      data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1000;e:Power2.easeOut;"
                                      data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                     data-start="3000"><a href="#about-us" class="btn button first scroll">Start Now</a>
+                                     data-start="3000"><a href="/" class="btn button first scroll">Start Now</a>
                                 </div>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
                 
@@ -303,14 +304,14 @@
                                                 <span class="fa fa-user fa-2x"></span>
                                             </div>
                                             <div class="col-xs-8">
-                                                <p>Sign up to access the functionality of kokrokoo</p>
+                                                <p>Sign up to access the UENR internship Platform</p>
                                             </div>
                                         </div>
                                     </div>
                                     <ul class="packages">
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Provide personal or organization details</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Make sure personal details are valid</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Upload the necessary documents</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Register with the system</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Verify your email </li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Apply or edit application before approval</li>
                                         <li><i class="fa fa-check" aria-hidden="true"></i>Submit details</li>
             
                                         {{--<li><i class="fa fa-check" aria-hidden="true"></i>8 Free Forks Every Months</li>--}}
@@ -329,15 +330,15 @@
                                                 <span class="fa fa-sign-in fa-2x"></span>
                                             </div>
                                             <div class="col-xs-8">
-                                                <p>Log into your kokrokoo account</p>
+                                                <p>Interns</p>
                                             </div>
                                         </div>
                                     </div>
                                     <ul class="packages">
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Click create subscription button </li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Upload ad and select a media house.</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Schedule ad production/publishing</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Submit ad</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Login to asses interns page</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Check in or request for check approval.</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Check out for the day</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>End your day</li>
                                         {{--<li><i class="fa fa-check" aria-hidden="true"></i>Email Accounts</li>--}}
                                         {{--<li><i class="fa fa-check" aria-hidden="true"></i>8 Free Forks Every Months</li>--}}
                                     </ul>
@@ -355,16 +356,16 @@
                                                 <span class="fa fa-envelope fa-2x"></span>
                                             </div>
                                             <div class="col-xs-8">
-                                                <p>Selected media house will send a confirmation email/sms for approval.</p>
+                                                <p>Student Assessment</p>
                                             </div>
                                         </div>
                                     </div>
                                     <ul class="packages">
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Make payment</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Ad is reviewed by media house</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Confirmation email and sms is sent to you</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Ad is published live</li>
-                                        <li><i class="fa fa-check" aria-hidden="true"></i>Track your ad anytime</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Lecturers may schedule a visit with interns</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Supervisor reviews student's performance & attendance</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Supervisor then assesses student</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Lecturer receives Student assessments.</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>Lecturer also assesses student and grades student</li>
                                         {{--<li><i class="fa fa-check" aria-hidden="true"></i></li>--}}
                                     </ul>
                                      {{--  @include('includes.pages.partials.buttons.public-block-btn') --}}

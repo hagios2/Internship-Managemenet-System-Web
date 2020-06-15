@@ -22,7 +22,7 @@
               </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+       {{--      <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
@@ -35,7 +35,7 @@
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-            </div>
+            </div> --}}
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
@@ -52,7 +52,7 @@
               </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            {{-- <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
@@ -65,7 +65,7 @@
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-            </div>
+            </div> --}}
             <!-- ./col -->
           </div>
 
@@ -96,7 +96,7 @@
         
         </div><br><br>
 
-        <div class="col-lg-12 col-md-12-col-xs-12 col-sm-12">
+   {{--      <div class="col-lg-12 col-md-12-col-xs-12 col-sm-12">
 
             <div class="panel panel-default">
 
@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" id="close_modal" class="btn btn-default" data-dismiss="modal">Close</button>
-                                {{--   <button type="button" class="btn btn-primary">Save changes</button> --}}
+                                {{--   <button type="button" class="btn btn-primary">Save changes</button> -
                                 </div>
                               </div>
                             </div>
@@ -201,7 +201,7 @@
                 <div id="no_app" style="display:none;"></div>
     
             </div>    
-
+ --}}
         </div>
         
     </div>   

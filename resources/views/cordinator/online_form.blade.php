@@ -1,6 +1,4 @@
-
-
-    <div class=""><strong><span class="fas fa-user-md"></span> Assessment form</strong></div> <br>
+<div class=""><strong><span class="fas fa-user-md"></span> Assessment form</strong></div> <br>
 
     <div><br>
 

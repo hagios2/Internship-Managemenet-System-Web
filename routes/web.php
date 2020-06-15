@@ -250,7 +250,7 @@ Route::group(['prefix' => 'supervisor'], function () {
 
   Route::post('/approve/{intern}/check-in', 'Supervisor\SupervisorsController@ApproveStudentCheckIn');
 
-/*   Route::post('/deny/{intern}/check-in', 'Supervisor\SupervisorsController@ApproveStudentCheckIn'); */
+  /*   Route::post('/deny/{intern}/check-in', 'Supervisor\SupervisorsController@ApproveStudentCheckIn'); */
 
   Route::get('/get/{intern}/check-in/coords', 'Supervisor\SupervisorsController@getStudentRequestCoords');
 

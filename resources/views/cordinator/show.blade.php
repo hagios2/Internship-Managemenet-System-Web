@@ -1,4 +1,4 @@
-@extends('adminlte::cord_page')
+@extends('cordinator.layout.auth')
 
 @section('title', 'UENR')
 
