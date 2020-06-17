@@ -12,6 +12,7 @@ use App\User;
 use App\Appointment;
 use App\InternshipApplication;
 use App\Company;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
@@ -96,7 +97,10 @@ class CordinatorsController extends Controller
 
     public function viewStudentApplication(User $student)
     {
-        return view('cordinator.show', compact('student'));
+
+       $attendance = $this->viewAttendance($student);
+
+        return view('cordinator.show', compact('student', 'attendance'));
     }
 
     public function getAssessmentFiles(User $student)
@@ -134,6 +138,77 @@ class CordinatorsController extends Controller
         return response()->json(['status' => 'success']);
 
     }
+
+
+    public function viewAttendance(User $student)
+    {
+
+        $intern = $student->intern;
+
+        $attendance = collect();
+
+        foreach($intern as $internship_day)
+        {
+            if($internship_day->off_premises)
+            {
+                if($internship_day->approved_by_supervisor)
+                {
+                    $attendance->push([
+
+                        'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->created_at)->format('Y-m-d'),
+        
+                        'check_in_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_in_timestamp)->format('H:i'))),
+
+                        'check_out_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H:i')))
+
+                       /*              'check_out' => [
+
+                        'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('Y-m-d'),
+        
+                        'time' =>  Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H-i-s')
+                            
+                    ]
+             */
+                ]);
+
+
+                }
+
+            }else{
+                $attendance->push([
+
+                    'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_in_timestamp)->format('Y-m-d'),
+    
+                    'check_in_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_in_timestamp)->format('H:i'))),
+
+                    'check_out_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H:i')))
+
+                   /*              'check_out' => [
+
+                    'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('Y-m-d'),
+    
+                    'time' =>  Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H-i-s')
+                        
+                ]
+         */
+            ]);
+
+
+            }
+        } 
+
+
+        return $attendance;
+
+
+
+    }
+
+
+/*         'date' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('Y-m-d'),
+
+        'time' =>  Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('H-i-s') */
+    
 
 
 

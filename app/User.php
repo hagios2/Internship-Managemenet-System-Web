@@ -121,4 +121,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function AauthAcessToken(){
         return $this->hasMany('\App\OauthAccessToken');
     }
+
+
+    
 }

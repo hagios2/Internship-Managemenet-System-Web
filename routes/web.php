@@ -185,9 +185,11 @@ Route::group(['prefix' => 'cordinator'], function () {
 
   Route::get('/{student}/assessment/folder', 'Cordinator\CordinatorsController@getAssessmentFiles');
 
-  Route::get('/view/{student}/{file}', 'Cordinator\CordinatorsController@viewFile');
-
   Route::post('/assess/{student}', 'Cordinator\CordinatorsController@assessStudent');
+
+  Route::get('/view/{student}/attendance', 'Cordinator\CordinatorsController@viewAttendance');
+
+  Route::get('/view/{student}/{file}', 'Cordinator\CordinatorsController@viewFile'); 
 
  /*  Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
 
