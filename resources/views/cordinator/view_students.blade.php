@@ -1,24 +1,15 @@
 @extends('cordinator.layout.auth') 
-{{-- @extends('adminlte::page') --}}
-
-@section('title', 'UENR')
-
-@section('content_header')   
-
-    <div class="container">
-
-        <ol class="breadcrumb">
-            <li><a href="/cordinator/">Dashboard</a></li>
-            {{-- <li><a href="#">Library</a></li>  --}}
-            <li class="active">View Applications</li>
-        
-        </ol>
-
-    </div>
-  
-@stop
 
 @section('content')
+
+
+    <div>
+        <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/cordinator/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active">Student Applications</li>
+        </ol>
+    </div> <br><br>
+  
 
     <div class="container">
 
@@ -26,7 +17,7 @@
 
         <div class="row">
 
-            <div class="form-group col-md-3 col-lg-3 col-xs-5 col-sm-5">
+            <div class="form-group col-md-5 col-lg-5 col-xs-7 col-sm-7">
 
                 <form id="select_form" action="/cordinator/program/applications" method="get">
             

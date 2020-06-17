@@ -2,7 +2,19 @@
 
 @section('content')
 
+
+    <div>
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/cordinator/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="/cordinator/program/applications?program={{ $student->program->id }}">View Student Applications</a></li>
+        <li class="breadcrumb-item active">View Student</li>
+      </ol>
+    </div><br><br>
+
+
     <div class="container">
+
+      <br>
 
         @include('includes.errors')
 

@@ -55,10 +55,10 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="active"><a href="#" class="scroll">Home</a></li>
                                 {{-- <li><a href="#about-us" class="scroll">About</a></li> --}}
-                                <li><a href="#services" class="scroll">Services</a></li>
+                          {{--       <li><a href="#services" class="scroll">Services</a></li> --}}
 
                                 <li><a href="#portfolio" class="scroll">How it works</a></li>
-                                <li><a href="#contact-us" class="scroll">Contact Us</a></li>      
+                             {{--    <li><a href="#contact-us" class="scroll">Contact Us</a></li>   --}}    
 
                                 @if (auth()->guard('main_cordinator')->check())
 
