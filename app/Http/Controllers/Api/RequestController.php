@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Program;
 use App\Level;
+use App\Region;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -25,6 +26,11 @@ class RequestController extends Controller
     {
 
         return ProgramsResource::collection(Level::all());
+    }
+
+    public function getRegions()
+    {
+        return ProgramsResource::collection(Region::all());
     }
 
     public function register(UserRegistrationApiRequest $request)

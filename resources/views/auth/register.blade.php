@@ -4,8 +4,6 @@
 <div class="container">
     <div class="row justify-content-center">
 
-        @include('includes.errors')
-
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>

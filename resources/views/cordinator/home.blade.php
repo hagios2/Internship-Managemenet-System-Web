@@ -1,15 +1,26 @@
 @extends('cordinator.layout.auth')
 
+@section('extra-css')
+
+    <link href="{{ asset('packages/core/main.css') }}" rel='stylesheet'/>
+    <link href="{{ asset('packages/daygrid/main.css')}}" rel='stylesheet'/>
+    <link href="{{ asset('packages/list/main.css') }}" rel='stylesheet'/>
+    <link href="{{ asset('packages/timegrid/main.css')}}" rel='stylesheet'/>
+    
+@endsection
+
 @section('content')
 
-    <div class="container">
 
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
+    <div>
+        <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </div><!-- /.col -->
+    <br><br>
+
+    <div class="container">
 
         @include('includes.errors')
 
@@ -46,40 +57,25 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-warning">
+              <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h4>44</h4>
   
                   <p>Departmental Students</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/cordinator/view/{{auth()->guard('cordinator')->user()->department->id }}/applications" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
-            {{-- <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-danger">
-                <div class="inner">
-                  <h3>65</h3>
-  
-                  <p>Unique Visitors</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div> --}}
-            <!-- ./col -->
+         
           </div>
 
 
         <br><br>
 
-        <div class="col-md-7 col-lg-7 col-xs-7 col-sm-7" style="margin-left:17%; margin-right:17%;">
+        <div class="col-md-7 col-lg-7 col-xs-7 col-sm-7">
 
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
@@ -103,7 +99,7 @@
         
         </div><br><br>
 
-   {{--      <div class="col-lg-12 col-md-12-col-xs-12 col-sm-12">
+      <div class="col-lg-12 col-md-12-col-xs-12 col-sm-12">
 
             <div class="panel panel-default">
 
@@ -183,7 +179,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" id="close_modal" class="btn btn-default" data-dismiss="modal">Close</button>
-                                {{--   <button type="button" class="btn btn-primary">Save changes</button> -
+                                 <button type="button" class="btn btn-primary">Save changes</button> -
                                 </div>
                               </div>
                             </div>
@@ -208,25 +204,11 @@
                 <div id="no_app" style="display:none;"></div>
     
             </div>    
- --}}
+ 
         </div>
         
     </div>   
     
-@stop
-
-@section('css')
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-
-    <link href="{{ asset('packages/core/main.css') }}" rel='stylesheet'/>
-    <link href="{{ asset('packages/daygrid/main.css')}}" rel='stylesheet'/>
-    <link href="{{ asset('packages/list/main.css') }}" rel='stylesheet'/>
-    <link href="{{ asset('packages/timegrid/main.css')}}" rel='stylesheet'/>
-    
-@stop
-
-@section('js')
-
     {{-- <script type="module" src={{ asset('js/calendar.js') }}></script> --}}
     <script type="text/javascript" src={{ asset('packages/core/main.js')}}></script>
     <script type="text/javascript" src={{ asset('packages/daygrid/main.js') }}></script>
@@ -238,20 +220,49 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
+
+            var date = new Date()
+            var d    = date.getDate(),
+                m    = date.getMonth(),
+                y    = date.getFullYear()
             
           var calendarEl = document.getElementById('calendar');
   
           var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'dayGrid', 'timeGrid', 'list'],
             defaultView: 'dayGridMonth',
+            header    : {
+                left  : 'prev,next today',
+                center: 'title',
+                right : 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
 
             events: [
                 {
                     title: '',
                     start: '',
                     end : '',
+                },
+
+                {
+                    title          : 'Birthday Party',
+                    start          : new Date(y, m, d + 1, 19, 0),
+                    end            : new Date(y, m, d + 1, 22, 30),
+                    allDay         : false,
+                    backgroundColor: '#00a65a', //Success (green)
+                    borderColor    : '#00a65a' //Success (green)
+                },
+            ],
+
+            editable  : true,
+            droppable : true, // this allows things to be dropped onto the calendar !!!
+            drop      : function(info) {
+                // is the "remove after drop" checkbox checked?
+                if (checkbox.checked) {
+                // if so, remove the element from the "Draggable Events" list
+                info.draggedEl.parentNode.removeChild(info.draggedEl);
                 }
-            ]
+            }
           });
   
           calendar.render();
@@ -297,7 +308,6 @@
                                 
                             }); 
 
-                            /* @include('cordinator.chart') */
                        }
                       
                     }); 

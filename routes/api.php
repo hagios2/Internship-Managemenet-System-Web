@@ -23,6 +23,8 @@ Route::get('/programs', 'Api\RequestController@getPrograms');
 
 Route::get('/levels', 'Api\RequestController@getLevels');
 
+Route::get('/regions', 'Api\RequestController@getRegions');
+
 Route::post('/register', 'Api\RequestController@register');
 
 Route::post('user/token', 'Api\RequestController@saveToken');

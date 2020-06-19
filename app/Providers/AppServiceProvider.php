@@ -26,12 +26,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Resource::withoutWrapping();
 
-        view()->composer('auth.register', function($view){
+        view()->composer(['auth.register', 'stu.profile'], function($view){
 
             $view->with('programs', \App\Program::all());
         });
 
-        view()->composer('auth.register', function($view){
+        view()->composer(['auth.register', 'stu.profile'], function($view){
 
             $view->with('levels', \App\Level::all());
         });

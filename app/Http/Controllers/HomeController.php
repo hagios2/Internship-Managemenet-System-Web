@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\InternshipApplication;
+use App\Http\Requests\UpdateStudentRequest;
 
 class HomeController extends Controller
 {
@@ -34,5 +35,13 @@ class HomeController extends Controller
     public function showPreference()
     {
         return view('stu.profile');
+    }
+
+
+    public function updatePreference(UpdateStudentRequest $request)
+    {
+        auth()->user()->update($request->validated());
+
+        return back()->with('success', 'Profile updated');
     }
 }
