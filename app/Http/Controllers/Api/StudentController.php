@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\ToggleApp;
 use App\Company;
 use App\InternshipApplication; 
+use App\Http\ApiInternshipFormRequest;
 
 class StudentController extends Controller
 {
@@ -28,7 +29,7 @@ class StudentController extends Controller
         return response()->json(['status' => 'application down']);
     }
 
-    public function studentApplication(Request $request)
+    public function studentApplication(ApiInternshipFormRequest $request)
     {
 
         if(InternshipApplication::where('student_id', auth()->guard('api')->id())->first())

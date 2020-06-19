@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InternshipFormRequest extends FormRequest
+class ApiInternshipFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,6 @@ class InternshipFormRequest extends FormRequest
      */
     public function rules()
     {
-
         if(request()->has('default_application'))
         {
 
@@ -33,7 +32,7 @@ class InternshipFormRequest extends FormRequest
 
                 'default_application' => 'boolean',
 
-                'resume' => 'nullable|string'
+                'resume' => 'nullable|mimes:pdf'
 
             ];
 
@@ -56,14 +55,15 @@ class InternshipFormRequest extends FormRequest
                 'preferred_company_longitude' => 'required|numeric',
 
             ];
-    
-        }elseif(request()->has('open_letter')){
+        }
+        /* }elseif(request()->has('open_letter')){
             
             return [
 
                 'open_letter' => 'boolean'
             ];
         }
+ */
 
     }
 }
