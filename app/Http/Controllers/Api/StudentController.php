@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\ToggleApp;
 use App\Company;
 use App\InternshipApplication; 
-use App\Http\ApiInternshipFormRequest;
+use App\Http\Requests\ApiInternshipFormRequest;
+use App\Jobs\SendInternshipRegistrationNotification;
 
 class StudentController extends Controller
 {
