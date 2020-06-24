@@ -163,11 +163,6 @@
                     @endif
                                 
                 </div><br><br>
-
-                <div class="chat-div">
-
-                    todo: <h2>Chat with students</h2>
-                </div>
             
             @else
 

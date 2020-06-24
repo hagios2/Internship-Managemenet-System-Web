@@ -138,12 +138,12 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'Profile',
-            'url'  => 'main-cordinator/settings',
+            'url'  => '/main-cordinator/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'Change_password',
-            'url'  => 'main-cordinator/settings',
+            'url'  => '/main-cordinator/change-password',
             'icon' => 'fas fa-fw fa-lock',
         ],
      
@@ -203,7 +203,7 @@ return [
                 ],
                 [
                     'text' => 'Recommended Applications',
-                    'url'  => '/main-cordinator/default/applications',
+                    'url'  => '/main-cordinator/default-applications',
                 ],
                 [
                     'text' => 'Proposed Application',

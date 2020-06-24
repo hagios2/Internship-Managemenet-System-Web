@@ -20,7 +20,7 @@
   }
   
   #frame {
-    width: 95%;
+    width: 75%;
     min-width: 360px;
     max-width: 1000px;
     height: 92vh;

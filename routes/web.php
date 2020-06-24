@@ -102,6 +102,14 @@ Route::group(['prefix' => 'main-cordinator'], function () {
   Route::get('/password/reset', 'MainCordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('main_cordinator_password.reset');
   Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
 
+  Route::get('change-password',  'MainCordinatorAuth\ChangePasswordController@changePasswordForm');
+
+  Route::post('change-password',  'MainCordinatorAuth\ChangePasswordController@changePassword');
+
+  Route::get('/profile',  'MainCordinatorAuth\ChangePasswordController@viewProfile');
+
+  Route::patch('/profile',  'MainCordinatorAuth\ChangePasswordController@updateProfile');
+
   Route::patch('/toggle', 'ToggleAppController@toggle');
 
   Route::get('/student-applications', 'MainCordinator\InternshipProcessingController@index');

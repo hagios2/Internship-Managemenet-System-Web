@@ -65,7 +65,7 @@
                         {{-- messages --}}
 
                         <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"          aria-expanded="false">
+                            <a class="" href="/main-cordinator/messages"  role="button" aria-haspopup="true"          aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i><sup> <span class="badge alert-danger">7</span></sup>
                                 <!-- Counter - Messages -->
                             </a>
