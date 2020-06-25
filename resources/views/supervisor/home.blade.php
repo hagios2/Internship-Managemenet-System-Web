@@ -112,8 +112,19 @@
 
           }).done(function(data){
 
-            if(data != null)
+            if(jQuery.isEmptyObject(data))
             {
+              let dom = `<div class="jumbotron text-center">
+        
+                                  <h3 class="title">No request(s) available</h3>
+
+                                  <p> You may check later</p>
+                              </div>`;
+
+                $('#mapin').append(dom);
+
+
+            }else{
 
               $.each(data, function(i, checkIn){
 
@@ -132,20 +143,6 @@
 
               });
 
-            }else{
-
-              let dom = `<span class="dropdown-item d-flex align-items-center"><div class="dropdown-list-image mr-3">
-                                       
-                          <div class="status-indicator bg-success"></div>
-                          </div>
-                          <div class="font-weight-bold">
-                                       <div class="text-truncate">No request(s) available</div>
-                                       <div class="small text-gray-500"></div>
-
-                                   </div></span>`;
-              
-                
-              $('#mapin').append(dom);
             }
 
           });

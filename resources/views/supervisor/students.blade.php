@@ -11,7 +11,7 @@
             </ol>
           </nav>
 
-        <div class="row">
+        <div class="row d-flex justify-content-center">
 
             <div class="col-md-8 col-lg-8">
 
