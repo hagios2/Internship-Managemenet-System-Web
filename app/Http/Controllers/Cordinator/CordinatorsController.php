@@ -218,7 +218,7 @@ class CordinatorsController extends Controller
 
         return response()->json($program, 200);
     }
-
+*/
     public function scheduleAppointments(Request $request)
     {
         if($request->has('company_id'))
@@ -244,7 +244,7 @@ class CordinatorsController extends Controller
         return response(['counts' => auth()->guard('cordinator')->user()->appointment->count(), 'status' => 'success'],200);
 
     }
-
+/*
 
     public function getProgramsStudent(Program $program)
     {

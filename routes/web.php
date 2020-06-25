@@ -37,6 +37,8 @@ Route::get('/interns', 'Student\StudentController@interns');
 
 Route::post('/appointment/{appointment}', 'Student\StudentController@approveAppointment');
 
+Route::get('scheduled-appointment', 'Student\StudentController@getScheduledAppointment');
+
 Route::get('/view-approved/{application}', 'Student\StudentController@viewApprovedApp')->name('approved.application');
 
 Route::get('/get-student/company-coordinates', 'Student\StudentController@getCompanyCoordinates');
@@ -44,6 +46,10 @@ Route::get('/get-student/company-coordinates', 'Student\StudentController@getCom
 Route::get('/user-preference', 'HomeController@showPreference');
 
 Route::patch('/user-preference', 'HomeController@updatePreference');
+
+Route::get('/change-password', 'HomeController@changePasswordForm');
+
+Route::patch('/change-password', 'HomeController@changePassword');
 
 Route::post('/intern/request-supervisor/approval', 'Student\StudentController@requestSupervisorApproval');
 

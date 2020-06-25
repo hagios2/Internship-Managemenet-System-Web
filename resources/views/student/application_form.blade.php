@@ -182,6 +182,14 @@
 
                                             </div> 
 
+                                            <div class="form-group">
+
+                                                <label for="">Attach resume</label>
+                                                <input class="form-control-file" type="file" name="resume" id="">
+
+                                            </div>
+
+
                                             <div id="other_div" class="form-group"></div>
 
                                             <button class="btn btn-primary" type=submit>Apply</button>

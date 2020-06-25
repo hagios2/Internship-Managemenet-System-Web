@@ -149,7 +149,7 @@ class InternshipProcessingController extends Controller
 
         $token = $application->student->device_token;
 
-        StudentNotification::toSingleDevice($token, 'Sorry! Your application has been denied. You may apply again', null, '/dashboard');
+        StudentNotification::toSingleDevice($token, 'Application Denied', 'Sorry! Your application has been denied. You may apply again', null, '/dashboard');
 
         $user = $application->student;
 
@@ -198,7 +198,7 @@ class InternshipProcessingController extends Controller
 
                 $token = $application->student->device_token;
 
-                StudentNotification::toSingleDevice($token, 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship', null, '/dashboard');
+                StudentNotification::toSingleDevice($token, 'Application Approved', 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship', null, '/dashboard');
                 
             }
             
@@ -233,7 +233,7 @@ class InternshipProcessingController extends Controller
         \Mail::to($application->student)->send(new \App\Mail\SendIntroductoryLetterMail($application));
 
 
-   /*      SendIntroductoryLetter::dispatch($application); */
+       // SendIntroductoryLetter::dispatch($application);
     }
 
 

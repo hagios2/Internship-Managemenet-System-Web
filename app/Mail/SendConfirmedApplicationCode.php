@@ -38,7 +38,7 @@ class SendConfirmedApplicationCode extends Mailable
 
         if($this->ConfirmedToken->company)
         {
-            return $this->markdown('mail.SendConfirmedApplicationCode')
+            $mail = $this->markdown('mail.SendConfirmedApplicationCode')
                 ->from(auth()->guard('main_cordinator')->user()->email)
                 ->attach("{$this->ConfirmedToken->company->approved_application->approved_letter}",[
                 
@@ -46,17 +46,34 @@ class SendConfirmedApplicationCode extends Mailable
                     'mime' => 'application/pdf',
                 ]
             );
+
+            foreach($this->ConfirmedToken->company->application as $application)
+            {
+                if($application->resume->isNotEmpty())
+                {
+                    $mail->attach("{$application->resume}");
+                }
+            }
+
         } else if($this->ConfirmedToken->application){
 
-            return $this->markdown('mail.SendConfirmedApplicationCode')
+                $mail = $this->markdown('mail.SendConfirmedApplicationCode')
                 ->from(auth()->guard('main_cordinator')->user()->email)
                 ->attach("{$this->ConfirmedToken->application->approvedProposedApplicaton->letter}",[
-                
-                    'as' => 'Introductory Letter.pdf',
-                    'mime' => 'application/pdf',
-                ]
-            );
+                    
+                        'as' => 'Introductory Letter.pdf',
+                        'mime' => 'application/pdf',
+                    ]
+                );
+
+                if($this->ConfirmedToken->application->resume->isNotEmpty())
+                {
+                    $mail->attach("{$this->ConfirmedToken->application->resume}");
+                }
+    
         }
        
+
+        return $mail;
     }
 }

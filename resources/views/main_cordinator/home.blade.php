@@ -150,7 +150,7 @@ input:checked + .slider:before {
         </div>
 
     </div><br><br>
-{
+
     </div>
 
   </div>

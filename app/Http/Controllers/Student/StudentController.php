@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Student;
 
 use App\Region;
 use App\Company;
+use App\User;
 use App\Intern;
 use App\Department;
 use App\InternshipApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use App\Http\Requests\InternshipFormRequest;
+use App\Http\Resources\StudentAppointmentResource;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendInternshipRegistrationNotification;
 use FarhanWazir\GoogleMaps\Facades\GMapsFacade as GMaps;
@@ -21,9 +23,7 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-       // $this->middleware('verified');
-
-       $connection = Redis::connection();
+  
     }
 
 
@@ -87,6 +87,8 @@ class StudentController extends Controller
             if($company->application->count() < $company->total_slots)
             {
                 auth()->user()->registerStudent($request->all());
+
+                $this->saveResume(auth()->user());
             
             }else{
     
@@ -96,6 +98,8 @@ class StudentController extends Controller
         } else {
 
             auth()->user()->registerStudent($request->all());
+
+            $this->saveResume(auth()->user());
 
         }
 
@@ -203,7 +207,16 @@ class StudentController extends Controller
             return redirect('/dashboard')->with('info', 'Assess Denied!');
         }
 
-        $appointment = auth()->user()->application->appointment;
+        if(auth()->user()->application->preferred_company)
+        {
+
+            $appointment = auth()->user()->application->appointment;
+
+        }elseif(auth()->user()->application->default_application){
+
+            $appointment = auth()->user()->application->company->appointment;
+
+        }
 
         return view('student.intern', compact('appointment'));
         
@@ -319,6 +332,53 @@ class StudentController extends Controller
 
         return response()->json(['checked_in' => false]);
 
+    }
+
+
+    public function saveResume(User $user)
+    {
+
+        if(request()->hasFile('resume'))
+        {
+
+            $fileName = request()->file('resume')->getClientOriginalName();
+
+            request()->file('resume')->storeAs('public/Resumes/'.$user->application->id, $fileName);
+
+            $user->application->resume = 'storage/Resumes/'.$user->application->id.'/'.$fileName;
+
+            $user->application->save();
+
+        }
+    }
+
+
+    public function getScheduledAppointment()
+    {
+        
+
+        if(auth()->user()->application->preferred_company && auth()->user()->application->appointment)
+        {
+
+            $appointment = auth()->user()->application->appointment;
+
+        }elseif(auth()->user()->application->default_application && auth()->user()->application->company->appointment){
+
+            $appointment = auth()->user()->application->appointment;
+
+        }else{
+
+            return response()->json(['appointment' => 'No appointment received']);
+        }
+
+       // if($appointment->isNotEmpty())
+        //{
+
+            return new StudentAppointmentResource($appointment);
+      //  }
+
+
+      //  return response()->json(['appointment' => 'No appointment received']);
     }
 
 }

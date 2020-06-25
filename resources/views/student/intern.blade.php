@@ -10,6 +10,13 @@
   }
  </style>  
 
+
+<link href="{{ asset('packages/core/main.css') }}" rel='stylesheet'/>
+<link href="{{ asset('packages/daygrid/main.css')}}" rel='stylesheet'/>
+<link href="{{ asset('packages/list/main.css') }}" rel='stylesheet'/>
+<link href="{{ asset('packages/timegrid/main.css')}}" rel='stylesheet'/>
+
+
 @endsection
 
 @section('content')
@@ -28,7 +35,7 @@
             @include('includes.errors')
             
             <div class="row">
-
+{{-- 
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
                   <div class="card-body">
@@ -51,7 +58,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> --}}
 
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -67,7 +74,7 @@
 
                     </div>
                     <div style="margin-left:95%;">
-                      <a href="/interns" data-toggle="modal" data-target="#exampleModalLong1">
+                      <a href="/interns" data-toggle="modal" id='sch-appoint' data-target="#exampleModalLong1">
                         <div style="margin-top:5rem;">
                           <i class="fas fa-arrow-right fa-x" style="color:#f7dc42"></i>
                         </div>
@@ -183,21 +190,47 @@
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Scheduled Meeting with intern</h5>
+                      <h5 class="modal-title" id="exampleModalLongTitle">
+
+                        @if ($appointment)
+
+                          Scheduled Appointment with intern by {{$appointment->cordinator->name}}
+
+                        @else
+
+                          Scheduled Appointment with intern
+
+                        @endif
+
+                      </h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body">                      
 
                         @if ($appointment)
 
-                            {{$appointment->cordinator->name}}
+                            <div class="row">
+
+                              <div class="col-md-2"></div>
+
+                              <div class="col-md-8" id="calendar"></div>
+
+                              <div class="col-md-2"></div>
+
+                            </div>
 
                             <form action="/appointment/{{ $appointment->id}}" method="post">+
                             </form>
 
                         @else
+
+                            <div class="jumbotron text-center">
+                                <h3 class="title">No appointment has been booked with your company</h3>
+
+                                <p>You may check later</p>
+                            </div>
 
                         @endif
                       
@@ -224,6 +257,68 @@
 @endsection
 
 @section('extra-js')
+
+
+    {{-- <script type="module" src={{ asset('js/calendar.js') }}></script> --}}
+    <script type="text/javascript" src={{ asset('packages/core/main.js')}}></script>
+    <script type="text/javascript" src={{ asset('packages/daygrid/main.js') }}></script>
+    <script type="text/javascript" src={{ asset('packages/list/main.js')}}></script>
+    <script type="text/javascript" src={{ asset('packages/timegrid/main.js') }}></script>
+
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+
+          var date = new Date()
+          var d    = date.getDate(),
+              m    = date.getMonth(),
+              y    = date.getFullYear()
+          
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid', 'timeGrid', 'list'],
+          defaultView: 'dayGridMonth',
+          header    : {
+              left  : 'prev,next today',
+              center: 'title',
+              right : 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+
+          events: [
+              {
+                  title: '',
+                  start: '',
+                  end : '',
+              },
+
+              {
+                  title          : 'Appointment',
+                  start          : new Date(y, m, d + 1, 19, 0),
+                /*   end            : new Date(y, m, d + 1, 22, 30), */
+                  allDay         : true,
+                  backgroundColor: '#00a65a', //Success (green)
+                  borderColor    : '#00a65a' //Success (green)
+              },
+          ],
+
+          editable  : true,
+          droppable : true, // this allows things to be dropped onto the calendar !!!
+          drop      : function(info) {
+              // is the "remove after drop" checkbox checked?
+              if (checkbox.checked) {
+              // if so, remove the element from the "Draggable Events" list
+              info.draggedEl.parentNode.removeChild(info.draggedEl);
+              }
+          }
+        });
+
+        calendar.render();
+      });
+
+    </script>
+
 
     <script>
 
@@ -509,6 +604,22 @@
         });
 
       }
+
+/* 
+      function getScheduledAppointment()
+      {
+
+          $.ajax({
+
+            url: '/scheduled-appointment'
+
+          }).done(function(data){
+
+
+            console.log(data);
+          })
+
+      } */
 
 </script>
 

@@ -23,8 +23,9 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Your Profile</h1>
             </div>
-            <form class="user" action="/{{ auth()->id() }}/profile-update" method="POST">
+            <form class="user" action="/user-preference" method="POST">
               @csrf
+              @method('PATCH')
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                   <input type="text" class="form-control form-control-user" name="fname" value="{{ explode(' ',auth()->user()->name, 2)[0] }}" id="exampleFirstName" placeholder="First Name">
@@ -39,25 +40,33 @@
 
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <input type="text" class="form-control form-control-user" name="fname" value="{{ auth()->user()->phone }}" id="exampleFirstName" placeholder="First Name">
+                  <input type="text" required class="form-control form-control-user" name="phone" value="{{ auth()->user()->phone }}" id="exampleFirstName" placeholder="Enter Phone">
                 </div>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control form-control-user" name="sname" id="exampleLastName" placeholder="Last Name" value="{{ auth()->user()->index_no }}">
+                  <input type="text" class="form-control form-control-user" name="index_no" id="exampleLastName" placeholder="Index Number" value="{{ auth()->user()->index_no }}">
                 </div>
               </div>
 
 
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <select name="program" id="">
+                  <select name="program_id" required id="" class="form-control" @error('program_id') is-invalid @enderror>
 
                     <option value="{{ auth()->user()->program_id }}">{{ auth()->user()->program->program }}</option>
 
                     <option value="">Select Program</option>
+
+
+                    @foreach($programs as $program)
+
+                        <option {{ old('program_id') == $program->id ? 'selected' : '' }} value="{{ $program->id }}">{{ $program->program }}</option>
+
+                    @endforeach
+
                   </select>
                 </div>
                 <div class="col-sm-6">
-                  <select name="level" required id="" class="form-control" @error('level') is-invalid @enderror>
+                  <select name="level_id" required id="" class="form-control" @error('level_id') is-invalid @enderror>
     
                     <option value="{{ auth()->user()->level_id }}">{{ auth()->user()->level->level }}</option>
 
@@ -65,7 +74,7 @@
 
                     @foreach($levels as $level)
 
-                        <option {{ old('level') == $level->id ? 'selected' : '' }} value="{{ $level->id }}">{{ $level->level }}</option>
+                        <option {{ old('level_id') == $level->id ? 'selected' : '' }} value="{{ $level->id }}">{{ $level->level }}</option>
 
                     @endforeach
                 

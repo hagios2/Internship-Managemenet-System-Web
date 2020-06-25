@@ -33,7 +33,7 @@ class InternshipFormRequest extends FormRequest
 
                 'default_application' => 'boolean',
 
-                'resume' => 'nullable|string'
+                'resume' => 'nullable|mimes:pdf,docx'
 
             ];
 
@@ -54,6 +54,8 @@ class InternshipFormRequest extends FormRequest
                 'preferred_company_latitude' => 'required|numeric',
 
                 'preferred_company_longitude' => 'required|numeric',
+
+                'resume' => 'nullable|mimes:pdf,docx'
 
             ];
     

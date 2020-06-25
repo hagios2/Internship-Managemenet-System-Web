@@ -38,7 +38,7 @@ class SendIntroductoryLetter implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->application->student)->send(new SendIntroductoryLetterMail($this->application));
+        Mail::to($this->application->student)->queue(new SendIntroductoryLetterMail($this->application));
             
     }
 }
