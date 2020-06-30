@@ -205,13 +205,17 @@ Route::group(['prefix' => 'cordinator'], function () {
 
   Route::get('/view/{student}/{file}', 'Cordinator\CordinatorsController@viewFile'); 
 
- /*  Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
+ Route::get('/student-application/{application}', 'Cordinator\CordinatorsController@studentApplication');
 
   Route::post('/schedule-appointment', 'Cordinator\CordinatorsController@scheduleAppointments');
 
   Route::post('/application/{application}/appointment', 'Cordinator\CordinatorsController@companyAppointment'); 
 
-  Route::get('/other-application/students', 'Cordinator\CordinatorsController@otherApplications'); */
+  Route::get('/other-application/students', 'Cordinator\CordinatorsController@otherApplications'); 
+
+  Route::get('/view-appointments', 'Cordinator\CordinatorsController@viewAppointments'); 
+
+  Route::get('/approved-appointment', 'Cordinator\CordinatorsController@getNotedAppointment');
 
 });
 

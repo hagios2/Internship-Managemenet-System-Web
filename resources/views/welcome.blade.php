@@ -8,6 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+
     <title>{{ config('name', 'UENR INTERNSHIP') }}</title>
 
     <link rel="shortcut icon" href="{{ asset('/storage/images/logo.jpg') }}" />

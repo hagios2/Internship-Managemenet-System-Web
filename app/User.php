@@ -123,5 +123,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    public function approvedAppointment()
+    {
+        return $this->hasOne('App\AppointmentNoted', 'student_id');
+    }
+
+
     
 }

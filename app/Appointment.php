@@ -10,7 +10,7 @@ class Appointment extends Model
 
     public function scheduleNoted()
     {
-        return $this->hasMany('App\Appointment');
+        return $this->hasOne('App\AppointmentNoted');
     }
 
 
@@ -19,10 +19,14 @@ class Appointment extends Model
         return $this->belongsTo('App\Cordinator');
     }
 
+    public function company()
+    {
+        return $this->belongsTo('App\Company');
+    }
 
     public function appointmentNoted()
     {
-        $this->scheduleNoted->create([
+        $this->scheduleNoted()->create([
             
             'student_id' => auth()->id()
         ]);
@@ -31,7 +35,7 @@ class Appointment extends Model
 
     public function application()
     {
-        return $this->belongsTo('App\InternshipApplication', 'appointment_id');
+        return $this->belongsTo('App\InternshipApplication', 'application_id');
     }
     
 }

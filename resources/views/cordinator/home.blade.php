@@ -24,42 +24,44 @@
 
         @include('includes.errors')
 
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>{{ auth()->guard('cordinator')->user()->appointment->count() }}</h3>
+                  <h3 id="count_appointment">{{ auth()->guard('cordinator')->user()->appointment->count() }}</h3>
   
-                  <p>Appointments</p>
+                  <p>All Appointments</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/cordinator/view-appointments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
-       {{--      <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-success">
+              <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <h3 id="approved-appointment"></h3>
   
-                  <p>Bounce Rate</p>
+                  <p>Approved Appointment</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/cordinator/view-appointments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-            </div> --}}
+            </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h4>44</h4>
+                  <h3>{{ auth()->guard('cordinator')->user()->department->program->sum(function($prog){
+                      return $prog->student->count();
+                  })}}</h3>
   
                   <p>Departmental Students</p>
                 </div>
@@ -70,11 +72,11 @@
               </div>
             </div>
          
-          </div>
+        </div>
 
 
         <br><br>
-
+{{-- 
         <div class="col-md-7 col-lg-7 col-xs-7 col-sm-7">
 
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -97,7 +99,7 @@
 
             </div>
         
-        </div><br><br>
+        </div><br><br> --}}
 
       <div class="col-lg-12 col-md-12-col-xs-12 col-sm-12">
 
@@ -179,7 +181,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" id="close_modal" class="btn btn-default" data-dismiss="modal">Close</button>
-                                 <button type="button" class="btn btn-primary">Save changes</button> -
+                               {{--   <button type="button" class="btn btn-primary">Save changes</button>  --}}
                                 </div>
                               </div>
                             </div>
@@ -202,6 +204,31 @@
                 <br>
 
                 <div id="no_app" style="display:none;"></div>
+
+
+                {{-- appointment modal --}}
+
+                <div class="modal fade" id="modal-appointment">
+                    <div class="modal-dialog modal-xl">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Extra Large Modal</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
     
             </div>    
  
@@ -217,6 +244,11 @@
 
     {{-- fullcalendar --}}
 
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+
+    <script src="{{ asset('plugins/toastr/toastr.min.js')}}"></script>
+
+ 
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -236,6 +268,10 @@
                 center: 'title',
                 right : 'dayGridMonth,timeGridWeek,timeGridDay'
             },
+
+
+
+
 
             events: [
                 {
@@ -268,13 +304,22 @@
           calendar.render();
         });
   
-      </script>
+    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script> /* console.log('Hi!'); */
 
         $(document).ready(function(){
-            
+
+            $.ajax({
+
+                url: '/cordinator/approved-appointment',
+                method: 'GET',
+                dataType: 'json',
+
+            }).done(function(data){
+
+                $('#approved-appointment').html(data.noted)
+            });
 
             $('#selectedProgram').change(function(){
                 
@@ -304,7 +349,7 @@
 
                             $.each(data, function(i, student){
 
-                                $('div.accord_div').append('<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapse'+ i +'">'+ student.name + '</a></h4></div><div id="collapse'+ i+'" class="panel-collapse collapse in"><div class="panel-body"><div><span><strong>Company:' + student.company + '</strong></span><span class="pull-right"><strong>Location:' + student.location + '&nbsp;|&nbsp; Region:' + student.region + '</strong></span></div><br> <br><br> <img src="'+ student.avatar+'" style="width:10rem; height:8rem;" alt=""></div></div></div>');
+                                $('div.accord_div').append('');
                                 
                             }); 
 
@@ -371,8 +416,6 @@
 
                     $('div#company_div').hide();
 
-                    $('div#company_div').hide();
-
                     $('div#cal_div').hide();
 
                     $('div#other_app_div').show();
@@ -382,6 +425,8 @@
                     $('div#company_div').hide();
 
                     $('div#other_app_div').hide();
+
+                    $('div#cal_div').hide();
 
                 }
 
@@ -491,14 +536,9 @@
         {
             $('div#cal_div').show();
 
-            $('input#cal_date').change(function(){
+            $('input#cal_date').unbind('change').bind('change',function(){
 
                 var appointment_date = $('input#cal_date').val();
-
-                //retrieve the key for the method param
-
-               /*  var requestKey = Object.keys(requests) */
-            
 
                 if(appointment_date !== '')
                 {
@@ -508,8 +548,6 @@
 
                     }
                     data[name] = id
-/* 
-                    console.log('the key is : ' + requestKey ); */
 
                     $.ajax({
 
@@ -521,11 +559,31 @@
 
                     }).done(function(data){
 
-                        $('#count_appointment').html('&emsp; '+ data.counts +' Appointment(s)');
+                        console.log(data);
+
+                        $(function() {
+
+                            const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                            });
+
+                            if(data.status == 'success')
+                            {
+                                toastr.success('Appointment has been scheduled successfully')
+                            
+                            }else{
+
+                                toastr.info(data.status);
+                            }
+                        });
+
+                        $('#count_appointment').html(data.counts);
 
                         $('input#cal_date').val('');
                     }); 
-
                 }
 
             })

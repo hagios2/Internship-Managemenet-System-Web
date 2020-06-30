@@ -219,13 +219,105 @@ class CordinatorsController extends Controller
         return response()->json($program, 200);
     }
 */
+
+    public function getAppointment()
+    {
+        $appointments = auth()->guard('cordinator')->user()->appointment->map(function($appointment){
+
+            if($appointment->company_appointment)
+            {
+                return ['company' => $appointment->company->application->map(function($application){
+                    
+                    if($application->student->approvedAppointment)
+                    {
+                        return [
+
+                            'name' => $application->student->name,
+                            
+                            'appointment_approved' => true,
+
+                            'company' => $application->company->company_name,
+
+                            'date' => $application->company->appointment->schedule_date
+                        ];
+                    
+                    }else{
+
+                        return [
+                            
+                            'name' => $application->student->name,
+                            
+                            'appointment_approved' => false,
+
+                            'company' => $application->company->company_name,
+
+                            'date' => $application->company->appointment->schedule_date
+                        ];
+
+                    }
+                
+                })];
+
+            }elseif($appointment->other_app_appointment){
+
+                if($appointment->application->student->approvedAppointment)
+                {
+                    return ['application' => [
+
+                        'name' => $appointment->application->student->name,
+                        
+                        'appointment_approved' => true,
+
+                        'company' => $appointment->application->preferred_company_name,
+
+                        'date' => $appointment->schedule_date
+                    ]];
+                
+                }else{
+
+                    return ['application' => [
+                        
+                        'name' => $appointment->application->student->name,
+                        
+                        'appointment_approved' => false,
+
+                        'company' => $appointment->application->preferred_company_name,
+
+                        'date' => $appointment->schedule_date
+                    ]];
+
+                }
+            }
+
+        });
+        
+
+        return $appointments;
+
+    
+    }
+
+
     public function scheduleAppointments(Request $request)
     {
         if($request->has('company_id'))
         {
-            $applicationType = Company::find($request->company_id);
+            $company = Company::find($request->company_id);
 
-            $request['company_appointment'] = true;
+            //return $company->application;
+
+            if($company->application->isNotEmpty())
+            {
+               
+                $applicationType = $company;
+
+                $request['company_appointment'] = true;
+            
+            }else{
+
+                return response(['status' => 'Company has no application(s) yet']);
+
+            }
         
         }else if ($request->has('application_id')){
 
@@ -244,6 +336,24 @@ class CordinatorsController extends Controller
         return response(['counts' => auth()->guard('cordinator')->user()->appointment->count(), 'status' => 'success'],200);
 
     }
+
+    public function viewAppointments()
+    {
+
+        $appointments = $this->getAppointment();
+
+        return view('cordinator.appointments', compact('appointments'));
+    }
+
+    public function getNotedAppointment()
+    {
+        $noted = auth()->guard('cordinator')->user()->appointment->sum(function($appointment_visit){
+
+            return $appointment_visit->scheduleNoted ? 1 : 0;
+        });
+
+        return response()->json(['noted' => $noted]);
+    }
 /*
 
     public function getProgramsStudent(Program $program)
@@ -257,14 +367,14 @@ class CordinatorsController extends Controller
     {
         return response()->json($application);
     }
-
+    */
     public function otherApplications(Request $request)
     {
         $application = InternshipApplication::where([['preferred_company', true], ['preferred_company_city', request()->region_id]])->get();
 
         return OtherApplicantsListForAppointment::collection($application);
     }
- */
+ 
 }
 
 /* 
