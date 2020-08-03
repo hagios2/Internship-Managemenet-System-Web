@@ -144,18 +144,14 @@
                                             @csrf
 
                                             <div class="form-group">
-                                                <input type="hidden" name="preferred_company" value="1">
-                                            </div>
 
-                                            <div class="form-group">
-
-                                                <input class="form-control" name="preferred_company_name" {{ old('preferred_company_name') }} placeholder="Proposed Company">
+                                                <input class="form-control" name="preferred_company_name" value="{{ old('preferred_company_name') }}" placeholder="Proposed Company">
 
                                             </div><br>
 
                                             <div class="form-group">
 
-                                                <input type="email" class="form-control" name="preferred_company_email" {{ old('preferred_company_email') }} placeholder="Company Email">
+                                                <input type="email" class="form-control" name="preferred_company_email" value="{{ old('preferred_company_email') }}" placeholder="Company Email">
 
                                             </div><br>
 
@@ -171,10 +167,9 @@
 
                                                     <option value="">Select City</option>
 
-
                                                     @foreach ($regions as $location)
 
-                                                        <option value="{{ $location->id }}" {{ old('company_location') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
+                                                        <option value="{{ $location->id }}" {{ old('company_location_city') == $location->id ? 'selected' : '' }} >{{ $location->region}} </option>
                                                     
                                                     @endforeach
 
@@ -189,6 +184,9 @@
 
                                             </div>
 
+                                            <div class="form-group">
+                                                <input type="hidden" name="preferred_company" value="1">
+                                            </div>
 
                                             <div id="other_div" class="form-group"></div>
 

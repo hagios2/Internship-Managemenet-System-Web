@@ -4,6 +4,8 @@ namespace App\Http\Controllers\MainCordinatorAuth;
 
 use App\MainCordinator;
 use Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/main-cordinator/dashboard';
+    protected $redirectTo = '/main-cordinator/login';
 
     /**
      * Create a new controller instance.
@@ -88,5 +90,15 @@ class RegisterController extends Controller
     protected function guard()
     {
         return Auth::guard('main_cordinator');
+    }
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return redirect($this->redirectPath())->with('message', 'Your message');
     }
 }

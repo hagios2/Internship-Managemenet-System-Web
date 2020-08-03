@@ -134,7 +134,7 @@ class InternshipProcessingController extends Controller
      */
     public function deny_application(InternshipApplication $application)
     {
-        $application->delete();
+        $application->delete(); 
 
         $application->student->addNotification([
 
@@ -224,7 +224,7 @@ class InternshipProcessingController extends Controller
 
           
      /*    Notification::toMultipleDevice($student, 'Application Approved', null, null, '/dashboard');
- */
+     */
         return back()->withSuccess('Application Approved with Introductory Letter dispatched to student(s) ');
     }
 

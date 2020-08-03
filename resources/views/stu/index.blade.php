@@ -104,10 +104,10 @@ input:checked + .slider:before {
                                   @elseif(auth()->user()->application->company && !auth()->user()->application->company->approved_application)
                                   PENDING
                                   @endif
-                                  @if (auth()->user()->application->approvedProposedApplicaton)
+                                  @if (auth()->user()->application->preferred_company && auth()->user()->application->approvedProposedApplicaton)
                                     APPROVED
 
-                                  @elseif(auth()->user()->application->company->approved_application)
+                                  @elseif(auth()->user()->application->default_company && auth()->user()->application->company->approved_application)
                                     APPROVED
                                   @endif
                                 @else

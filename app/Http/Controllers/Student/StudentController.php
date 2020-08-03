@@ -71,9 +71,9 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(InternshipFormRequest $request)
+    public function store(Request $request)
     {
-#        return $request->all();
+    
 
         if(InternshipApplication::where('student_id', auth()->id())->first())
         {
@@ -86,7 +86,7 @@ class StudentController extends Controller
 
             if($company->application->count() < $company->total_slots)
             {
-                auth()->user()->registerStudent($request->all());
+                auth()->user()->registerStudent($request->except('_token'));
 
                 $this->saveResume(auth()->user());
             
@@ -97,7 +97,7 @@ class StudentController extends Controller
 
         } else {
 
-            auth()->user()->registerStudent($request->all());
+            auth()->user()->registerStudent($request->except('_token'));
 
             $this->saveResume(auth()->user());
 
@@ -140,7 +140,7 @@ class StudentController extends Controller
     public function update(Request $request, InternshipApplication $application)
     {
         abort_if((auth()->user() != $application->student), 403);
-//return $application;
+
 
         if($request->has('company_id'))
         {

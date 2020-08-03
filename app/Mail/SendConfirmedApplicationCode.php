@@ -49,7 +49,7 @@ class SendConfirmedApplicationCode extends Mailable
 
             foreach($this->ConfirmedToken->company->application as $application)
             {
-                if($application->resume->isNotEmpty())
+                if($application->resume)
                 {
                     $mail->attach("{$application->resume}");
                 }
@@ -66,7 +66,7 @@ class SendConfirmedApplicationCode extends Mailable
                     ]
                 );
 
-                if($this->ConfirmedToken->application->resume->isNotEmpty())
+                if($this->ConfirmedToken->application->resume)
                 {
                     $mail->attach("{$this->ConfirmedToken->application->resume}");
                 }

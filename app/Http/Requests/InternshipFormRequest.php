@@ -45,17 +45,17 @@ class InternshipFormRequest extends FormRequest
     
                 'preferred_company_location' => 'required|string',
     
-                'preferred_company_city' => 'required|string',
+                'preferred_company_city' => 'required|integer',
                 
-                'preferred_company' => 'boolean',
-
-                'preferred_company_email', 'required|email|unique:internship_applications,preferred_company_email',
+                'preferred_company' => 'required|boolean',
 
                 'preferred_company_latitude' => 'required|numeric',
 
                 'preferred_company_longitude' => 'required|numeric',
 
-                'resume' => 'nullable|mimes:pdf,docx'
+                'preferred_company_email', 'required|email|unique:internship_applications,preferred_company_email',
+ 
+            /*     'resume' => 'nullable|mimes:pdf,docx' */
 
             ];
     

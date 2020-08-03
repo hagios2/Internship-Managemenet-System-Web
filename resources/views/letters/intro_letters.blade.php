@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Introducory Letter</title>
 </head>
 <body>
 
@@ -47,9 +48,9 @@
 
     <h5 class="title">LETTER OF INTRODUCTION - STUDENT INDUSTRIAL/PRACTICAL ATTACHMENT</h5>
     <p>
-        Following our request for placement of our student for industrial attachment in your In-v,tltunon 
-        your subsequent acceptance of same, we m•ite to introduce to you the under-listed student(s) to 
-        Industrial attachment with Y'our organization from first week of June to August, {{ date('Y') }} 
+        Following our request for placement of our student for industrial attachment in your institution, and 
+        your subsequent acceptance of same, we write to introduce to you the under-listed student(s) to do their
+        industrial attachment with your organization from first week of June to August, {{ date('Y') }} 
     </p>
 
     <div class="container">
@@ -82,14 +83,17 @@
     </div>
 
     <p>
-        We wish indicate that a team of lecturers will visit your institution In the course of their 
+        We wish to indicate that a team of lecturers will visit your institution in the course of their attachment 
         (the actual date will be communicated later) to assess the performance of students as a policy of the 
-        university and obtam feedback which would help to improve upon the Industrial altachment 
-        programme. 
+        University and obtain feedback which would help to improve upon the industrial altachment programme.
+    </p><br>
+    <p>
         We hope the student would be accorded the needed practical training and assistance possible to help 
         achieve the objectives of the programme. 
-        Thank you very much for your support and commitlnent in helping to develop the human resources and 
-        skills required to solve critical energy, natural resources and management challenges of the society
+    </p><br>
+    <p>
+        Thank you very much for your support and commitment in helping to develop the human resources and 
+        skills required to solve critical energy, natural resources and management challenges of the society.
     </p>
     <br>
 
