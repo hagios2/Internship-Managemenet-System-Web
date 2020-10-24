@@ -27,7 +27,7 @@
 
                         @foreach (auth()->guard('cordinator')->user()->department->program as $program)
 
-                            <option {{$program->id == $new_program->id ? 'selected' : ''}} value="{{$program->id}}">{{ $program->program }}</option>
+                            <option {{$program->id == $first_department_prog->id ? 'selected' : ''}} value="{{$program->id}}">{{ $program->program }}</option>
 
                         @endforeach
 

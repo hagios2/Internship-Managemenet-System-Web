@@ -58,9 +58,6 @@ class CordinatorsController extends Controller
 
         foreach($applications as $application)
         {
-            #get a fresh instance of program
-
-          return  $new_program = Program::find($program->id);
 
             #check if application is approved by it type
 
@@ -68,7 +65,7 @@ class CordinatorsController extends Controller
             {
                 #check if this applicant is reads the requested program
 
-                if($application->student->program == $new_program)
+                if($application->student->program == $program)
                 {
                     # add applicant to collection
 
@@ -81,7 +78,7 @@ class CordinatorsController extends Controller
 
                 #check if this applicant is reads the requested program
 
-                if($application->student->program == $new_program)
+                if($application->student->program == $program)
                 {
                     # add applicant to collection
 
@@ -92,7 +89,9 @@ class CordinatorsController extends Controller
 
         }
 
-        return view('cordinator.view_students', compact('program_application', 'new_program'));
+        $first_department_prog = $program;
+
+        return view('cordinator.view_students', compact('program_application', 'first_department_prog'));
     }
 
     public function viewStudentApplication(User $student)
