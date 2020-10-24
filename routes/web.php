@@ -67,7 +67,9 @@ Route::get('/get-messages', 'MessageController@getMessages');
 
 Route::get('/', function () {
 
-    return view('welcome');
+    return redirct()->route('home');
+
+//    return view('welcome');
 });
 
 Route::get('/message', function () {
@@ -100,8 +102,8 @@ Route::group(['prefix' => 'main-cordinator'], function () {
   Route::post('/login', 'MainCordinatorAuth\LoginController@login');
   Route::post('/logout', 'MainCordinatorAuth\LoginController@logout')->name('main_cordinator_logout');
 
-  Route::get('/register', 'MainCordinatorAuth\RegisterController@showRegistrationForm')->name('main_cordinator_register');
-  Route::post('/register', 'MainCordinatorAuth\RegisterController@register');
+//  Route::get('/register', 'MainCordinatorAuth\RegisterController@showRegistrationForm')->name('main_cordinator_register');
+//  Route::post('/register', 'MainCordinatorAuth\RegisterController@register');
 
   Route::post('/password/email', 'MainCordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('main_cordinator_password.request');
   Route::post('/password/reset', 'MainCordinatorAuth\ResetPasswordController@reset')->name('main_cordinator_password.email');

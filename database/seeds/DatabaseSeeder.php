@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ToggleAppSeeder::class);
         $this->call(CompanysTableSeeder::class);
         $this->call(LevelsTableSeeder::class);
+        $this->call(MainCordinatorSeeder::class);
     }
 }

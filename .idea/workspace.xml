@@ -120,11 +120,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5221edf-a681-468c-abca-e964268c48c9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.composer.json.swp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/cordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/cordinator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/main_cordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/main_cordinator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/supervisor.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/supervisor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/vendor/adminlte/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/adminlte/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -277,7 +275,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1603554169720</updated>
-      <workItem from="1603554171036" duration="4333000" />
+      <workItem from="1603554171036" duration="6849000" />
     </task>
     <servers />
   </component>

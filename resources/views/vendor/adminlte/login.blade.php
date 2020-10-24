@@ -63,13 +63,13 @@
                     {{ trans('adminlte::adminlte.i_forgot_my_password') }}
                 </a>
             </p>
-            @if (config('adminlte.register_url', 'register'))
-                <p>
-                    <a href="{{ url(config('adminlte.register_url', '/main-cordinator/register')) }}" class="text-center">
-                        {{ trans('adminlte::adminlte.register_a_new_membership') }}
-                    </a>
-                </p>
-            @endif
+{{--            @if (config('adminlte.register_url', 'register'))--}}
+{{--                <p>--}}
+{{--                    <a href="{{ url(config('adminlte.register_url', '/main-cordinator/register')) }}" class="text-center">--}}
+{{--                        {{ trans('adminlte::adminlte.register_a_new_membership') }}--}}
+{{--                    </a>--}}
+{{--                </p>--}}
+{{--            @endif--}}
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->
