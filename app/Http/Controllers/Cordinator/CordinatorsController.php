@@ -19,7 +19,7 @@ use App\Http\Controllers\Controller;
 
 class CordinatorsController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth:cordinator');
@@ -29,7 +29,7 @@ class CordinatorsController extends Controller
     public function viewApplication(Department $department)
     {
         #show the applications for first program of the department
-        
+
        // return auth()->guard('cordinator')->id();
 
         $first_program = $department->program->first();
@@ -60,10 +60,10 @@ class CordinatorsController extends Controller
         {
             #get a fresh instance of program
 
-            $new_program = Program::find($program->id);
+          return  $new_program = Program::find($program->id);
 
             #check if application is approved by it type
-            
+
             if($application->default_application && $application->company->approved_application)
             {
                 #check if this applicant is reads the requested program
@@ -87,7 +87,7 @@ class CordinatorsController extends Controller
 
                     $program_application->add($application);
                 }
-                
+
             }
 
         }
@@ -128,7 +128,7 @@ class CordinatorsController extends Controller
     public function assessStudent(User $student , Request $request)
     {
        /*  return $request->all(); */
-        
+
         $assessment = $student->assessment;
 
         $request['cordinator_id'] = auth()->guard('cordinator')->id();
@@ -156,7 +156,7 @@ class CordinatorsController extends Controller
                     $attendance->push([
 
                         'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->created_at)->format('Y-m-d'),
-        
+
                         'check_in_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_in_timestamp)->format('H:i'))),
 
                         'check_out_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H:i')))
@@ -164,9 +164,9 @@ class CordinatorsController extends Controller
                        /*              'check_out' => [
 
                         'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('Y-m-d'),
-        
+
                         'time' =>  Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H-i-s')
-                            
+
                     ]
              */
                 ]);
@@ -178,7 +178,7 @@ class CordinatorsController extends Controller
                 $attendance->push([
 
                     'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_in_timestamp)->format('Y-m-d'),
-    
+
                     'check_in_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_in_timestamp)->format('H:i'))),
 
                     'check_out_time' =>  implode(explode(':',Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H:i')))
@@ -186,16 +186,16 @@ class CordinatorsController extends Controller
                    /*              'check_out' => [
 
                     'date' => Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('Y-m-d'),
-    
+
                     'time' =>  Carbon::createFromFormat('Y-m-d H:i:s', $internship_day->check_out_timestamp)->format('H-i-s')
-                        
+
                 ]
          */
             ]);
 
 
             }
-        } 
+        }
 
 
         return $attendance;
@@ -208,13 +208,13 @@ class CordinatorsController extends Controller
 /*         'date' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('Y-m-d'),
 
         'time' =>  Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('H-i-s') */
-    
+
 
 
 
    /*  public function getDepartmentProgram(Department $department)
     {
-        $program = $department->program; 
+        $program = $department->program;
 
         return response()->json($program, 200);
     }
@@ -227,26 +227,26 @@ class CordinatorsController extends Controller
             if($appointment->company_appointment)
             {
                 return ['company' => $appointment->company->application->map(function($application){
-                    
+
                     if($application->student->approvedAppointment)
                     {
                         return [
 
                             'name' => $application->student->name,
-                            
+
                             'appointment_approved' => true,
 
                             'company' => $application->company->company_name,
 
                             'date' => $application->company->appointment->schedule_date
                         ];
-                    
+
                     }else{
 
                         return [
-                            
+
                             'name' => $application->student->name,
-                            
+
                             'appointment_approved' => false,
 
                             'company' => $application->company->company_name,
@@ -255,7 +255,7 @@ class CordinatorsController extends Controller
                         ];
 
                     }
-                
+
                 })];
 
             }elseif($appointment->other_app_appointment){
@@ -265,20 +265,20 @@ class CordinatorsController extends Controller
                     return ['application' => [
 
                         'name' => $appointment->application->student->name,
-                        
+
                         'appointment_approved' => true,
 
                         'company' => $appointment->application->preferred_company_name,
 
                         'date' => $appointment->schedule_date
                     ]];
-                
+
                 }else{
 
                     return ['application' => [
-                        
+
                         'name' => $appointment->application->student->name,
-                        
+
                         'appointment_approved' => false,
 
                         'company' => $appointment->application->preferred_company_name,
@@ -290,11 +290,11 @@ class CordinatorsController extends Controller
             }
 
         });
-        
+
 
         return $appointments;
 
-    
+
     }
 
 
@@ -308,27 +308,27 @@ class CordinatorsController extends Controller
 
             if($company->application->isNotEmpty())
             {
-               
+
                 $applicationType = $company;
 
                 $request['company_appointment'] = true;
-            
+
             }else{
 
                 return response(['status' => 'Company has no application(s) yet']);
 
             }
-        
+
         }else if ($request->has('application_id')){
 
             $applicationType = InternshipApplication::find($request->application_id);
 
             $request['other_app_appointment'] = true;
         }
-    
+
         if($applicationType->appointment)
         {
-            return response(['status' => 'Appointment already booked with company', 'counts' => auth()->guard('cordinator')->user()->appointment->count(),], 200);    
+            return response(['status' => 'Appointment already booked with company', 'counts' => auth()->guard('cordinator')->user()->appointment->count(),], 200);
         }
 
         $applicationType->addAppointment($request->all());
@@ -374,10 +374,10 @@ class CordinatorsController extends Controller
 
         return OtherApplicantsListForAppointment::collection($application);
     }
- 
+
 }
 
-/* 
+/*
 
 view approved application and student by name or by location
 view approve open application

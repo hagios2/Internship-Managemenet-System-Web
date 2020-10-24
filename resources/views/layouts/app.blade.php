@@ -7,7 +7,7 @@
     <meta name="description" content="Internship Coordinating and Monitoring System">
 
     {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
-    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+{{--    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">--}}
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -23,10 +23,10 @@
     <script src="{{ asset('js/firebase.js')}}"></script>
     @yield('extra-js')
 
-   
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
- 
+
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -203,9 +203,9 @@
                 @if ($notification > 0)
 
                     <span class="badge badge-danger badge-counter numberalert">{{ $notification  }}</span>
-                    
+
                 @endif
-                
+
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -334,7 +334,7 @@
 
             @yield('content')
 
-     
+
         <!-- /.container-fluid -->
 
       </div>
@@ -414,7 +414,7 @@
         url: '/get-student/notifications',
         method: 'GET',
        /*  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, */
-        
+
       }).done(function(data){
 
         console.log(data);
@@ -471,7 +471,7 @@
           $('div .noty:last-child').after('<a class="dropdown-item text-center small text-gray-500 noty-but" href="#">Show All Alerts</a>');
         }
 
-       
+
 
       });
 
@@ -581,7 +581,7 @@
           $('.message-input input').val(null);
           $('.contact.active .preview').html('<span>You: </span>' + data.message);
           $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-        
+
         }else if(data.from_student == null && data.from_main_cord == 1){
 
           $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + data.message + '</p></li>').appendTo($('.messages ul'));
@@ -595,7 +595,7 @@
 
     }else{
 
-      
+
     }
 
    /*  <li class="sent">
@@ -610,8 +610,8 @@
     });
 
  </script>
- 
-        
+
+
     @endauth
 
     @guest
@@ -645,7 +645,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/register">{{ __('Register') }}</a>
                                 </li>
-                            @endif            
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -654,8 +654,8 @@
         </div><br>
 
         @yield('content')
- 
-    @endguest   
- 
+
+    @endguest
+
 </body>
 </html>
