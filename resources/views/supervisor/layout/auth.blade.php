@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Internship Coordinating and Monitoring System">
 
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+{{--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">--}}
+{{--    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">--}}
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -26,7 +26,7 @@
     @yield('extra-css')
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
- 
+
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
 </head>
 
 <body id="page-top">
-    
+
     @if (auth()->guard('supervisor')->user())
 
     <!-- Page Wrapper -->
@@ -82,7 +82,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">User Preferences:</h6>
                 <a class="collapse-item" href="/supervisor/profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile</a>
-            
+
             </div>
             </div>
         </li>
@@ -180,7 +180,7 @@
                 </div> --}}
                 </li>
 
-               
+
                 <div class="topbar-divider d-none d-sm-block"></div>
 
                 <!-- Nav Item - User Information -->
@@ -213,7 +213,7 @@
 
                 @yield('content')
 
-        
+
             <!-- /.container-fluid -->
 
         </div>
@@ -270,8 +270,8 @@
 
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script> 
-        
+    <script src="js/sb-admin-2.min.js"></script>
+
     @else
 
     <div id="app">
@@ -303,7 +303,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/supervisor/register">{{ __('Register') }}</a>
                             </li>
-                        @endif            
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -312,7 +312,7 @@
     </div><br>
 
     @yield('content')
-        
+
     @endif
 
     <script src="{{ asset('js/sb-admin-2.min.js')}}"></script>

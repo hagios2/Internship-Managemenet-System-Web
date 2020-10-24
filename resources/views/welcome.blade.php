@@ -8,9 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+{{--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">--}}
 
-    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+{{--    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">--}}
 
     <title>{{ config('name', 'UENR INTERNSHIP') }}</title>
 
@@ -24,7 +24,7 @@
 
     <!-- Styles -->
     @include('links')
-{{-- 
+{{--
     @yield('styles') --}}
 
 </head>
@@ -36,7 +36,7 @@
         <body>
 
         <div id="app">
-          
+
             @yield('content')
 
             <Section id="Home">
@@ -45,43 +45,43 @@
 
 
             <nav class="navbar navbar-fixed-top yellow">
-                
+
                 <div class="container-fluid">
-       
+
                     <div class="navbar-header">
                         <a class="navbar-brand" href="/"><img src="https://i1.wp.com/aschoolz.com/wp-content/uploads/2019/03/UENRlogo.png?resize=320%2C136&ssl=1"  alt="uenr internship"></a>
                     </div>
-            
+
                     <div class="container">
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse navbar-ex1-collapse  ">
-                            
+
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="active"><a href="#" class="scroll">Home</a></li>
                                 {{-- <li><a href="#about-us" class="scroll">About</a></li> --}}
                           {{--       <li><a href="#services" class="scroll">Services</a></li> --}}
 
                                 <li><a href="#portfolio" class="scroll">How it works</a></li>
-                             {{--    <li><a href="#contact-us" class="scroll">Contact Us</a></li>   --}}    
+                             {{--    <li><a href="#contact-us" class="scroll">Contact Us</a></li>   --}}
 
                                 @if (auth()->guard('main_cordinator')->check())
 
                                    <li><a href="/main-cordinator/dashboard"  class="btn button  pull-right" role="button">&larr; Dashboard</a></li>
-                                    
+
                                 @elseif(auth()->guard('cordinator')->check())
-                    
+
                                    <li><a href="/cordinator/dashboard"  class="btn button  pull-right" role="button">&larr; Dashboard</a></li>
-                    
+
                                 @elseif(auth()->guard('supervisor')->check())
-                    
+
                                    <li> <a href="/supervisor/dashboard"  class="btn button  pull-right" role="button">&larr; Dashboard</a></li>
-                    
+
                                 @elseif(auth()->check())
-                    
+
                                     <li><a href="/dashboard"  class="btn button  pull-right" role="button">&larr; Dashboard</a></li>
 
                                 @else
-                                    
+
                                     <ul class="nav navbar-nav">
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Register <span class="caret"></span></a>
@@ -110,8 +110,8 @@
                             </ul>
                         </div><!-- /.navbar-collapse -->
                     </div>
-            
-            
+
+
                 </div>
             </nav>
             <!--nav end-->
@@ -153,7 +153,7 @@
                                     for Students to apply and track their application status.
                                 </p>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
-                
+
                                      data-y="middle"
                                      data-voffset="200"
                                      data-hoffset="['-80','-80','-150','-200']" data-transform_idle="o:1;"
@@ -162,7 +162,7 @@
                                      data-start="3000"><a href="/login" class="btn button first scroll">Start Now</a>
                                 </div>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
-                
+
                                      data-y="middle"
                                      data-voffset="200"
                                      data-hoffset="['100','100','0','0']"
@@ -200,12 +200,12 @@
                                    data-whitespace="normal"
                                    data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1000;e:Power2.easeOut;"
                                    data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
-                                   data-start="2200" data-width="870" data-fontsize="18">No need for log books. 
+                                   data-start="2200" data-width="870" data-fontsize="18">No need for log books.
 
                                    Digital attendance system
                                 </p>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
-                
+
                                      data-y="middle"
                                      data-voffset="200"
                                      data-hoffset="['-80','-80','-150','-200']" data-transform_idle="o:1;"
@@ -214,7 +214,7 @@
                                      data-start="3000"><a href="/login" class="btn button first scroll">Start Now</a>
                                 </div>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
-                
+
                                      data-y="middle"
                                      data-voffset="200"
                                      data-hoffset="['100','100','0','0']"
@@ -255,7 +255,7 @@
                                    data-start="2200" data-width="870" data-fontsize="18">Ensuring better and easy student assessment by lecturers and industrial site supervisors.
                                 </p>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
-                
+
                                      data-y="middle"
                                      data-voffset="200"
                                      data-hoffset="['-80','-80','-150','-200']" data-transform_idle="o:1;"
@@ -264,7 +264,7 @@
                                      data-start="3000"><a href="/" class="btn button first scroll">Start Now</a>
                                 </div>
                                 <div class="tp-caption  News-Title tp-resizeme" data-x="middle"
-                
+
                                      data-y="middle"
                                      data-voffset="200"
                                      data-hoffset="['100','100','0','0']"
@@ -274,17 +274,17 @@
                                      data-start="3000">{{-- @include('includes.pages.partials.buttons.publish-button') --}}
                                 </div>
                             </li>
-                
+
                         </ul>
                     </div>
                 </div><!-- END OF SLIDER WRAPPER -->
                 <!-- END REVOLUTION SLIDER -->
                 </div>
             </Section>
-            
+
 
             <section id="portfolio">
-            
+
                 <!--portfolio3 start -->
                 <div id="portfolio3" class="mid-level-padding">
                     <div class="container">
@@ -317,7 +317,7 @@
                                         <li><i class="fa fa-check" aria-hidden="true"></i>Verify your email </li>
                                         <li><i class="fa fa-check" aria-hidden="true"></i>Apply or edit application before approval</li>
                                         <li><i class="fa fa-check" aria-hidden="true"></i>Submit details</li>
-            
+
                                         {{--<li><i class="fa fa-check" aria-hidden="true"></i>8 Free Forks Every Months</li>--}}
                                     </ul>
                                      {{--  @include('includes.pages.partials.buttons.public-block-btn') --}}
@@ -376,12 +376,12 @@
                                 </div>
                             </div>
                         </div>
-            
+
                     </div>
                 </div>
-            
+
                 <!--portfolio3 end -->
-            
+
             </section>
 
 
@@ -392,10 +392,10 @@
 
         @yield('scripts')
 
-        
+
             <script src="{{asset('js/app.js')}}"></script>
 
-       
+
     @include('scripts')
 
 
