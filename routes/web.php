@@ -67,7 +67,7 @@ Route::get('/get-messages', 'MessageController@getMessages');
 
 Route::get('/', function () {
 
-    return redirct()->route('home');
+    return redirect()->route('home');
 
 //    return view('welcome');
 });
