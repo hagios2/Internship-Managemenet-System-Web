@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\MainCordinator;
+use \Illuminate\Support\Facades\Hash;
 
 class MainCordinatorSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class MainCordinatorSeeder extends Seeder
     {
         MainCordinator::create([
             'name' => 'Emmanuel Oteng Wilson',
-            'password' => 'password',
+            'password' => Hash::make('password'),
             'email' => 'hagioswilson@gmail.com'
         ]);
     }
