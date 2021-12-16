@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\MainCordinator;
+namespace App\Http\Controllers\MainCoordinator;
 
 use App\Company;
 use App\Region;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
 use FarhanWazir\GoogleMaps\Facades\GMapsFacade as GMaps;
-        
+
 
 class CompanyController extends Controller
 {
@@ -54,13 +54,13 @@ class CompanyController extends Controller
         $config['placesAutocompleteOnChange'] = 'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="lat" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="long" value="\'+event.latLng.lng()+\'" > \'';
 
         GMaps::initialize($config);
-    
+
         $marker['position'] = "{$lat}, {$long}";
         $marker['draggable'] = true;
         $marker['ondragend'] =  'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="lat" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="long" value="\'+event.latLng.lng()+\'" > \'';
-       
+
         GMaps::add_marker($marker);
-        $map = GMaps::create_map(); 
+        $map = GMaps::create_map();
         /* echo $map['js'];
         echo $map['html'];   */
 
@@ -80,7 +80,7 @@ class CompanyController extends Controller
         $company =  Company::create($request->all());
 
         return  redirect('/main-cordinator/company')->with('success','Company was created successfully');
-     
+
     }
 
     /**

@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\MainCordinatorAuth;
+namespace App\Http\Controllers\MainCoordinator\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use function auth;
+use function back;
+use function view;
 
 class ChangePasswordController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth:main_cordinator');
@@ -16,7 +19,7 @@ class ChangePasswordController extends Controller
 
 
 
-    
+
     public function changePassword(Request $request)
     {
 
@@ -47,7 +50,7 @@ class ChangePasswordController extends Controller
     {
 
         return view('main_cordinator.change_password');
-        
+
     }
 
 
@@ -55,7 +58,7 @@ class ChangePasswordController extends Controller
     {
 
         return view('main_cordinator.profile');
-        
+
     }
 
 

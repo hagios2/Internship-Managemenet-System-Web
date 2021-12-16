@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -37,18 +37,21 @@ return [
 
     'guards' => [
         'supervisor' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'supervisors',
+            'hash' => false,
         ],
 
-        'cordinator' => [
+        'coordinator' => [
             'driver' => 'session',
-            'provider' => 'cordinators',
+            'provider' => 'coordinators',
+            'hash' => false,
         ],
 
-        'main_cordinator' => [
+        'main_coordinator' => [
             'driver' => 'session',
-            'provider' => 'main_cordinators',
+            'provider' => 'main_coordinators',
+            'hash' => false,
         ],
 
         'web' => [
@@ -59,7 +62,7 @@ return [
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
-           /*  'hash' => false, */
+            'hash' => false,
         ],
     ],
 
@@ -86,12 +89,12 @@ return [
             'model' => App\Supervisor::class,
         ],
 
-        'cordinators' => [
+        'coordinators' => [
             'driver' => 'eloquent',
             'model' => App\Cordinator::class,
         ],
 
-        'main_cordinators' => [
+        'main_coordinators' => [
             'driver' => 'eloquent',
             'model' => App\MainCordinator::class,
         ],
@@ -101,10 +104,6 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -129,15 +128,15 @@ return [
             'expire' => 60,
         ],
 
-        'cordinators' => [
-            'provider' => 'cordinators',
-            'table' => 'cordinator_password_resets',
+        'coordinators' => [
+            'provider' => 'coordinators',
+            'table' => 'coordinator_password_resets',
             'expire' => 60,
         ],
 
-        'main_cordinators' => [
-            'provider' => 'main_cordinators',
-            'table' => 'main_cordinator_password_resets',
+        'main_coordinators' => [
+            'provider' => 'main_coordinators',
+            'table' => 'main_coordinator_password_resets',
             'expire' => 60,
         ],
 

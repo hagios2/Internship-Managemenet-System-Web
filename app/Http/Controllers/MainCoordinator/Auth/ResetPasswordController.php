@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\MainCordinatorAuth;
+namespace App\Http\Controllers\MainCoordinator\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use function view;
 
 class ResetPasswordController extends Controller
 {
@@ -57,7 +57,7 @@ class ResetPasswordController extends Controller
             ['token' => $token, 'email' => $request->email]
         );
     }
-    
+
     /**
      * Get the broker to be used during password reset.
      *

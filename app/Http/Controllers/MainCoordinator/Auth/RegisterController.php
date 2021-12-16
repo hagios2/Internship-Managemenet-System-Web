@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\MainCordinatorAuth;
+namespace App\Http\Controllers\MainCoordinator\Auth;
 
-use App\MainCordinator;
-use Validator;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
+use App\MainCordinator;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
+use function bcrypt;
+use function event;
+use function redirect;
+use function view;
 
 class RegisterController extends Controller
 {

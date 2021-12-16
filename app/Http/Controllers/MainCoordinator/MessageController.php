@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\MainCordinator;
+namespace App\Http\Controllers\MainCoordinator;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -42,7 +42,7 @@ class MessageController extends Controller
 
         elseif($application->preferred_company):
 
-            $attributes['application_id'] = $application->id;            
+            $attributes['application_id'] = $application->id;
 
         endif;
 
@@ -52,10 +52,10 @@ class MessageController extends Controller
         {
             $token = $user->device_token;
 
-            Message::toSingleDevice($token, 'student message', nl2br($request->message), null, '/message'); 
+            Message::toSingleDevice($token, 'student message', nl2br($request->message), null, '/message');
 
             return response()->json(['status' => 'success']);
-        
+
         }else{
 
             return response()->json(['status' => 'failed']);
@@ -88,14 +88,14 @@ class MessageController extends Controller
         foreach($uniquechats as $chats)
         {
             $chatMessages = Message::where('user_id', $chats->user_id)->latest()->take(1)->get();
-            
+
             foreach($chatMessages as $chatMessage)
             {
                 $latestchats->add($chatMessage);
-            } 
+            }
         }
 
         return MainCordUniqueChatResource::collection($latestchats);
     }
-    
+
 }

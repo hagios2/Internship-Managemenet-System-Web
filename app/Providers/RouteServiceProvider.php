@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -41,50 +39,40 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapSupervisorRoutes();
 
-        $this->mapCordinatorRoutes();
+        $this->mapCoordinatorRoutes();
 
-        $this->mapMainCordinatorRoutes();
-
-        //
+        $this->mapMainCoordinatorRoutes();
     }
 
     /**
-     * Define the "main_cordinator" routes for the application.
+     * Define the "main_coordinator" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
-    protected function mapMainCordinatorRoutes()
+    protected function mapMainCoordinatorRoutes()
     {
-        Route::group([
-            'middleware' => ['web', 'main_cordinator', 'auth:main_cordinator'],
-            'prefix' => 'main-cordinator',
-            'as' => 'main-cordinator.',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/main_cordinator.php');
-        });
+        Route::prefix('api/main-coordinator')
+            ->middleware('api')
+            ->namespace("{$this->namespace}/MainCoordinator")
+            ->group(base_path('routes/main_coordinator.php'));
     }
 
 
     /**
-     * Define the "cordinator" routes for the application.
+     * Define the "coordinator" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
-    protected function mapCordinatorRoutes()
+    protected function mapCoordinatorRoutes()
     {
-        Route::group([
-            'middleware' => ['web', 'cordinator', 'auth:cordinator'],
-            'prefix' => 'cordinator',
-            'as' => 'cordinator.',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/cordinator.php');
-        });
+        Route::prefix('api/coordinator')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/coordinator.php'));
     }
 
     /**
@@ -96,14 +84,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapSupervisorRoutes()
     {
-        Route::group([
-            'middleware' => ['web', 'supervisor', 'auth:supervisor'],
-            'prefix' => 'supervisor',
-            'as' => 'supervisor.',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/supervisor.php');
-        });
+        Route::prefix('api/supervisor')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/supervisor.php'));
     }
 
     /**
