@@ -11,7 +11,6 @@ use function view;
 
 class ChangePasswordController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:main_cordinator');
@@ -22,7 +21,6 @@ class ChangePasswordController extends Controller
 
     public function changePassword(Request $request)
     {
-
         $passwords = $request->validate([
 
             'new_password' => 'required|confirmed',
@@ -32,7 +30,6 @@ class ChangePasswordController extends Controller
         ]);
 
         if (Hash::check($passwords['password'], auth()->guard('main_cordinator')->user()->password)) {
-
             auth()->guard('main_cordinator')->user()->update([
 
                 'password' => Hash::make($passwords['new_password'])
@@ -48,17 +45,13 @@ class ChangePasswordController extends Controller
 
     public function changePasswordForm()
     {
-
         return view('main_cordinator.change_password');
-
     }
 
 
     public function viewProfile()
     {
-
         return view('main_cordinator.profile');
-
     }
 
 
@@ -86,5 +79,4 @@ class ChangePasswordController extends Controller
 
         return back()->withSuccess('All changes saved');
     }
-
 }

@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function(){ return redirect('/cordinator/dashboard');});
+Route::get('/', function () {
+    return redirect('/cordinator/dashboard');
+});
 
 Route::get('/login', 'CordinatorAuth\LoginController@showLoginForm')->name('cordinator_login');
 

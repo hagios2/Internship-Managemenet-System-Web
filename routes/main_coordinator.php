@@ -26,13 +26,13 @@ Route::post('/password/reset', 'MainCordinatorAuth\ResetPasswordController@reset
 Route::get('/password/reset', 'MainCordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('main_cordinator_password.reset');
 Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
 
-Route::get('change-password',  'MainCordinatorAuth\ChangePasswordController@changePasswordForm');
+Route::get('change-password', 'MainCordinatorAuth\ChangePasswordController@changePasswordForm');
 
-Route::post('change-password',  'MainCordinatorAuth\ChangePasswordController@changePassword');
+Route::post('change-password', 'MainCordinatorAuth\ChangePasswordController@changePassword');
 
-Route::get('/profile',  'MainCordinatorAuth\ChangePasswordController@viewProfile');
+Route::get('/profile', 'MainCordinatorAuth\ChangePasswordController@viewProfile');
 
-Route::patch('/profile',  'MainCordinatorAuth\ChangePasswordController@updateProfile');
+Route::patch('/profile', 'MainCordinatorAuth\ChangePasswordController@updateProfile');
 
 Route::patch('/toggle', 'ToggleAppController@toggle');
 
@@ -83,5 +83,3 @@ Route::post('/department', 'DepartmentController@store');
 Route::get('/department', 'DepartmentController@index');
 
 /*   Route::post('/department', 'DepartmentController@store'); */
-
-

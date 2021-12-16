@@ -24,17 +24,15 @@ Route::post('auth/logout', 'AuthController@logout');
 Route::post('auth/refresh-token', 'AuthController@refresh');
 
 Route::group(['middleware' => ['verified']], function () {
+    Route::get('/internshipapply', 'Student\StudentController@create');
 
-  Route::get('/internshipapply', 'Student\StudentController@create');
+    Route::post('/internshipapply', 'Student\StudentController@store');
 
-  Route::post('/internshipapply', 'Student\StudentController@store');
+    Route::get('/internshipapply/{application}/edit', 'Student\StudentController@edit');
 
-  Route::get('/internshipapply/{application}/edit', 'Student\StudentController@edit');
+    Route::patch('/internshipapply/{application}', 'Student\StudentController@update');
 
-  Route::patch('/internshipapply/{application}', 'Student\StudentController@update');
-
-  Route::delete('/internshipapply/{application}/delete', 'Student\StudentController@destroy');
-
+    Route::delete('/internshipapply/{application}/delete', 'Student\StudentController@destroy');
 });
 
 Route::patch('/start-internship/{application}', 'Student\StudentController@startInternship');
@@ -74,15 +72,13 @@ Route::post('/send-message', 'MessageController@store');
 Route::get('/get-messages', 'MessageController@getMessages');
 
 Route::get('/', function () {
-
     return redirect()->route('home');
 
 //    return view('welcome');
 });
 
 Route::get('/message', function () {
-
-  return view('student.chats');
+    return view('student.chats');
 });
 
 //Route::post('/map', function(Request $request){
@@ -101,9 +97,6 @@ Route::get('/message', function () {
 
 
 Route::group(['prefix' => 'cordinator'], function () {
-
-
-
 });
 
 Route::get('/department/{department}/programs', 'Cordinator\CordinatorsController@getDepartmentProgram');
@@ -118,8 +111,5 @@ check for status of open letter request to filter the issuing of the letters
  */
 
 Route::fallback(function () {
-
-  return view('stu.404');
-
+    return view('stu.404');
 });
-

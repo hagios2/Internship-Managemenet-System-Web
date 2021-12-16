@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
 use FarhanWazir\GoogleMaps\Facades\GMapsFacade as GMaps;
 
-
 class CompanyController extends Controller
 {
     public function __construct()
@@ -25,7 +24,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-       return view('main_cordinator.companies.company');
+        return view('main_cordinator.companies.company');
     }
 
     /**
@@ -35,7 +34,6 @@ class CompanyController extends Controller
      */
     public function create()
     {
-
         $map = $this->googleMap();
 
         return view('main_cordinator/companies/create_company', compact('map'));
@@ -50,7 +48,7 @@ class CompanyController extends Controller
         $config['scrollwheel'] = true;
         $config['places'] = true;
         $config['placesAutocompleteInputID'] = 'companyTextBox';
-        $config['placesAutocompleteBoundsMap'] = TRUE;
+        $config['placesAutocompleteBoundsMap'] = true;
         $config['placesAutocompleteOnChange'] = 'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="lat" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="long" value="\'+event.latLng.lng()+\'" > \'';
 
         GMaps::initialize($config);
@@ -79,8 +77,7 @@ class CompanyController extends Controller
 
         $company =  Company::create($request->all());
 
-        return  redirect('/main-cordinator/company')->with('success','Company was created successfully');
-
+        return  redirect('/main-cordinator/company')->with('success', 'Company was created successfully');
     }
 
     /**
@@ -104,7 +101,6 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-
         $map = $this->googleMap($company->lat, $company->long);
 
         return view('main_cordinator.companies.edit_company', \compact('company', 'map'));
@@ -119,11 +115,9 @@ class CompanyController extends Controller
      */
     public function update(CompanyFormRequest $request, Company $company)
     {
-
         $company->update($request->all());
 
         return redirect('/main-cordinator/company')->withSuccess('Updated '. $request->company_name . ' successfully');
-
     }
 
     /**
@@ -137,6 +131,5 @@ class CompanyController extends Controller
         $company->delete();
 
         return redirect('/main-cordinator/company')->withSuccess($company->company_name. " has been deleted successfully");
-
     }
 }

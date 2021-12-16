@@ -28,7 +28,7 @@ use App\Http\Resources\RequestOpenLetterResource;
 
 class InternshipProcessingController extends Controller
 {
-    public  $redisConnection;
+    public $redisConnection;
 
     public function __construct()
     {
@@ -51,7 +51,6 @@ class InternshipProcessingController extends Controller
         $application = InternshipApplication::where('preferred_company', true)->get();
 
         return ProposedApplicationResource::collection($application);
-
     }
 
     public function request_open_letter()
@@ -59,7 +58,6 @@ class InternshipProcessingController extends Controller
         $application = InternshipApplication::where('open_letter', true)->get();
 
         return RequestOpenLetterResource::collection($application);
-
     }
 
     public function other_application()
@@ -70,14 +68,11 @@ class InternshipProcessingController extends Controller
 
         $unapproved = \collect();
 
-        foreach($applications as $application)
-        {
+        foreach ($applications as $application) {
             $approved = $application->approvedProposedApplicaton;
 
-            if(!$approved){
-
+            if (!$approved) {
                 $count++;
-
             }
         }
 
@@ -97,9 +92,7 @@ class InternshipProcessingController extends Controller
 
     public function sendIntroductoryLetter(ApprovedApplication $application, Request $request)
     {
-
-        if(!$application->approved)
-        {
+        if (!$application->approved) {
             return back()->with('info', 'Please ensure application to this company has been approved');
         }
 
@@ -155,35 +148,27 @@ class InternshipProcessingController extends Controller
 
         \Mail::to($user->email)->send(new ApplicationDeniedMail($user));
 
-   /*      ApplicationDeniedJob::dispatch($user); */
+        /*      ApplicationDeniedJob::dispatch($user); */
 
         return back()->withSuccess($application->student->name . ' removed from applicants list');
     }
 
     public function approve_application(Company $company)
     {
-
-        if($company->application->count() > 0)
-        {
-
-            if($company->approved_application)
-            {
+        if ($company->application->count() > 0) {
+            if ($company->approved_application) {
                 return back()->with('info', 'Application has already been approved');
             }
 
-           $companyApproved = $company->addApplicationApproval();
-
-        }else{
-
+            $companyApproved = $company->addApplicationApproval();
+        } else {
             return back()->with('error', 'Failed! '.$company->company_name .' has no application(s)');
         }
 
-          $student = \collect();
+        $student = \collect();
 
-            foreach($company->application as $application)
-            {
-
-               $application->student->addNotification([
+        foreach ($company->application as $application) {
+            $application->student->addNotification([
 
                     'main_cordinator_id' => auth()->guard('main_cordinator')->id(),
 
@@ -194,37 +179,34 @@ class InternshipProcessingController extends Controller
                     'status' => 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship'
                 ]);
 
-                $student->add($application->student);
+            $student->add($application->student);
 
-                $token = $application->student->device_token;
+            $token = $application->student->device_token;
 
-                StudentNotification::toSingleDevice($token, 'Application Approved', 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship', null, '/dashboard');
+            StudentNotification::toSingleDevice($token, 'Application Approved', 'Congratulations! Your application has been approved. Click on startbutton to proceed with your internship', null, '/dashboard');
+        }
 
-            }
+        Storage::disk('local')->makeDirectory("public/letters/company application/{$company->id}");
 
-            Storage::disk('local')->makeDirectory("public/letters/company application/{$company->id}");
+        $pdf = PDF::loadView('letters.intro_letters', \compact('application', 'student'));
 
-            $pdf = PDF::loadView('letters.intro_letters', \compact('application', 'student'));
+        $path =  storage_path("app/public/letters/company application/{$company->id}/")."introductory letter.pdf";
 
-            $path =  storage_path("app/public/letters/company application/{$company->id}/")."introductory letter.pdf";
+        $pdf->save($path);
 
-            $pdf->save($path);
+        $approvedApp = ApprovedApplication::find($companyApproved);
 
-            $approvedApp = ApprovedApplication::find($companyApproved);
+        $approvedApp->approved_letter = $path;
 
-            $approvedApp->approved_letter = $path;
+        $approvedApp->save();
 
-            $approvedApp->save();
-
-            foreach($student as $applicant)
-            {
-                $this->dispatchApprovalMail($applicant->application);
-
-            }
+        foreach ($student as $applicant) {
+            $this->dispatchApprovalMail($applicant->application);
+        }
 
 
-     /*    Notification::toMultipleDevice($student, 'Application Approved', null, null, '/dashboard');
-     */
+        /*    Notification::toMultipleDevice($student, 'Application Approved', null, null, '/dashboard');
+        */
         return back()->withSuccess('Application Approved with Introductory Letter dispatched to student(s) ');
     }
 
@@ -233,13 +215,12 @@ class InternshipProcessingController extends Controller
         \Mail::to($application->student)->send(new \App\Mail\SendIntroductoryLetterMail($application));
 
 
-       // SendIntroductoryLetter::dispatch($application);
+        // SendIntroductoryLetter::dispatch($application);
     }
 
 
     public function previewFile(ApprovedApplication $application)
     {
-
         return response()->file($application->approved_letter);
     }
 
@@ -251,11 +232,10 @@ class InternshipProcessingController extends Controller
 
         $application->save();
 
-       return back()->withSuccess('Attachment removed.');
-
+        return back()->withSuccess('Attachment removed.');
     }
 
-        /* you may use this function to approve all Proposed Applicaton */
+    /* you may use this function to approve all Proposed Applicaton */
 
     public function approveAll()
     {
@@ -265,19 +245,15 @@ class InternshipProcessingController extends Controller
 
         $unapproved = \collect();
 
-        foreach($applications as $application)
-        {
+        foreach ($applications as $application) {
             $approved = $application->approvedProposedApplicaton;
 
-            if(!$approved){
-
+            if (!$approved) {
                 $unapproved->add($application);
-
             }
         }
 
-        foreach($unapproved as $unapproved_application)
-        {
+        foreach ($unapproved as $unapproved_application) {
             /* get of the approved application */
             $approvedApplication =  $unapproved_application->addProposalApproval();
 
@@ -303,12 +279,10 @@ class InternshipProcessingController extends Controller
             StudentNotification::toSingleDevice($token, 'Application Approval Reverted', 'Sorry! Application\'s approval reverted', null, '/dashboard');
 
             $count++;
-
         }
 
 
         return back()->withSuccess("{$count} Application(s) approved");
-
     }
 
     public function generateletterforotherApplication(InternshipApplication $application, $id)
@@ -317,7 +291,7 @@ class InternshipProcessingController extends Controller
 
         $pdf = PDF::loadView('letters.other_intro_letters', \compact('application'));
 
-       /*  return $pdf->stream(); */
+        /*  return $pdf->stream(); */
 
         $path =  storage_path("app/public/letters/proposed application/{$application->id}/")."introductory letter.pdf";
 
@@ -329,28 +303,26 @@ class InternshipProcessingController extends Controller
 
         $approvedApp->save();
 
-       \Mail::to($application->student)->send(new SendIntroductoryLetterMail($application, $path));
+        \Mail::to($application->student)->send(new SendIntroductoryLetterMail($application, $path));
 
-       /*  SendIntroductoryLetter::dispatch($application); */
+        /*  SendIntroductoryLetter::dispatch($application); */
     }
 
     /* you may use this function to approve individual Proposed Applicaton */
 
     public function approveProposedApplication(InternshipApplication $application)
     {
-
-        if($application->approvedProposedApplicaton)
-        {
+        if ($application->approvedProposedApplicaton) {
             return back()->with('info', 'Application has already been approved');
         }
 
         $approvedApplicationId = $application->addProposalApproval();
 
-         //send students intro letter
-         $this->generateletterforotherApplication($application, $approvedApplicationId);
+        //send students intro letter
+        $this->generateletterforotherApplication($application, $approvedApplicationId);
 
-         //copy company with letter using different mail template
-         $this->copyOtherCompany($application);
+        //copy company with letter using different mail template
+        $this->copyOtherCompany($application);
 
         $application->student->addNotification([
 
@@ -372,8 +344,7 @@ class InternshipProcessingController extends Controller
 
     public function revertProposedApplication(InternshipApplication $application)
     {
-        if(!$application){
-
+        if (!$application) {
             return back()->with('error', 'Requested Application not found!');
         }
 
@@ -381,8 +352,7 @@ class InternshipProcessingController extends Controller
 
         $application->confirmedAppCode->delete();
 
-        if($application->started_at != null)
-        {
+        if ($application->started_at != null) {
             $application->started_at = null;
 
             $application->save();
@@ -392,7 +362,7 @@ class InternshipProcessingController extends Controller
 
         \Mail::to($user->email)->send(new ApplicationRevertedMail($user));
 
-      /*   ApplicationRevertedJob::dispatch($user); */
+        /*   ApplicationRevertedJob::dispatch($user); */
 
         $application->student->addNotification([
 
@@ -419,19 +389,15 @@ class InternshipProcessingController extends Controller
 
         $unapproved = \collect();
 
-        foreach($applications as $application)
-        {
+        foreach ($applications as $application) {
             $approved = $application->approvedProposedApplicaton;
 
-            if(!$approved){
-
+            if (!$approved) {
                 $unapproved->add($application);
-
             }
         }
 
         return ProposedApplicationResource::collection($unapproved);
-
     }
 
     public function copycompany(Company $company)
@@ -443,26 +409,19 @@ class InternshipProcessingController extends Controller
         \Mail::to($company->email)->send(new SendConfirmedApplicationCode($confirmedtoken, $code));
 
         return back()->withSuccess('Letter sent to Company');
-
     }
 
 
     public function copyOtherCompany(InternshipApplication $application)
     {
-
-        if($application->preferred_company){
-
+        if ($application->preferred_company) {
             $code = str_random(5);
 
-           $confirmedtoken = $application->addConfirmApplicationCode($code);
+            $confirmedtoken = $application->addConfirmApplicationCode($code);
 
             \Mail::to($application->preferred_company_email)->send(new SendConfirmedApplicationCode($confirmedtoken, $code));
-
         } else {
-
             return back();
         }
-
     }
-
 }

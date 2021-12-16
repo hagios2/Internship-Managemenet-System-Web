@@ -36,11 +36,9 @@ class MessageController extends Controller
 
         $application = $user->application;
 
-        if($application->default_application):
+        if ($application->default_application):
 
-            $attributes['company_id'] = $application->company->id;
-
-        elseif($application->preferred_company):
+            $attributes['company_id'] = $application->company->id; elseif ($application->preferred_company):
 
             $attributes['application_id'] = $application->id;
 
@@ -48,29 +46,23 @@ class MessageController extends Controller
 
         $created_message = auth()->guard('main_cordinator')->user()->addMessage($attributes);
 
-        if($created_message)
-        {
+        if ($created_message) {
             $token = $user->device_token;
 
             Message::toSingleDevice($token, 'student message', nl2br($request->message), null, '/message');
 
             return response()->json(['status' => 'success']);
-
-        }else{
-
+        } else {
             return response()->json(['status' => 'failed']);
         }
-
     }
 
 
     public function getMessages()
     {
-        if(auth()->user()->message):
+        if (auth()->user()->message):
 
-        return StudentMessageResource::collection(Message::studentsAllMessages());
-
-        else:
+        return StudentMessageResource::collection(Message::studentsAllMessages()); else:
 
             return response('no message');
 
@@ -85,17 +77,14 @@ class MessageController extends Controller
 
         $latestchats = \collect();
 
-        foreach($uniquechats as $chats)
-        {
+        foreach ($uniquechats as $chats) {
             $chatMessages = Message::where('user_id', $chats->user_id)->latest()->take(1)->get();
 
-            foreach($chatMessages as $chatMessage)
-            {
+            foreach ($chatMessages as $chatMessage) {
                 $latestchats->add($chatMessage);
             }
         }
 
         return MainCordUniqueChatResource::collection($latestchats);
     }
-
 }

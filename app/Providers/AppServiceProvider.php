@@ -15,7 +15,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -27,31 +26,26 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
 
-        view()->composer(['auth.register', 'stu.profile'], function($view){
-
+        view()->composer(['auth.register', 'stu.profile'], function ($view) {
             $view->with('programs', \App\Program::all());
         });
 
-        view()->composer(['auth.register', 'stu.profile'], function($view){
-
+        view()->composer(['auth.register', 'stu.profile'], function ($view) {
             $view->with('levels', \App\Level::all());
         });
 
 
-        view()->composer('vendor.adminlte.cordinator_register', function($view){
-
+        view()->composer('vendor.adminlte.cordinator_register', function ($view) {
             $view->with('departments', \App\Department::all());
         });
 
 
-        view()->composer('layouts.app', function($view){
-
+        view()->composer('layouts.app', function ($view) {
             $view->with('notification', \App\StudentNotification::numberAlert());
         });
 
 
-        view()->composer('main_cordinator.home', function($view){
-
+        view()->composer('main_cordinator.home', function ($view) {
             $view->with(['default_app_count'=> \App\InternshipApplication::where('default_application', 1)->get(),
                         'default_approved_count'=> \App\Company::numberOfCompanyApplication(),
                         'proposed_app_count'=> \App\InternshipApplication::where('preferred_company', 1)->get()->count(),

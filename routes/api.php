@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', function () {
-
     return auth()->guard('api')->user();
 });
 
@@ -34,4 +33,4 @@ Route::get('/companies', 'Api\StudentController@sendCompany');
 
 Route::post('/student-application', 'Api\StudentController@StudentApplication');
 
-Route::post('/logout','Api\StudentController@logoutApi');
+Route::post('/logout', 'Api\StudentController@logoutApi');
