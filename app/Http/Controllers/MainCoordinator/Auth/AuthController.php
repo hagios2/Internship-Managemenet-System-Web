@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct(AuthService $authService)
     {
-        $this->middleware('auth:main_coordinator', ['except' => ['login']]);
+        $this->middleware('main_coordinator', ['except' => ['login']]);
 
         $this->authService = $authService;
     }

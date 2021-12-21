@@ -3,23 +3,17 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Route::group(['prefix' => 'auth'], function(){
+Route::prefix('auth')->group(function(){
 
-    Route::post('auth/login', 'AuthController@login');
+    Route::post('login', 'Auth\AuthController@login');
 
-    Route::post('auth/logout', 'AuthController@logout');
+    Route::post('logout', 'Auth\AuthController@logout');
 
-    Route::post('auth/refresh-token', 'AuthController@refresh');
-//});
+    Route::post('refresh-token', 'Auth\AuthController@refresh');
+});
 
 
 
-Route::get('/login', 'Auth\AuthController@showLoginForm')->name('login');
-Route::post('/login', 'Auth\AuthController@login');
-Route::post('/logout', 'Auth\AuthController@logout')->name('main_cordinator_logout');
-
-//  Route::get('/register', 'MainCordinatorAuth\RegisterController@showRegistrationForm')->name('main_cordinator_register');
-//  Route::post('/register', 'MainCordinatorAuth\RegisterController@register');
 
 Route::post('/password/email', 'MainCordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('main_cordinator_password.request');
 Route::post('/password/reset', 'MainCordinatorAuth\ResetPasswordController@reset')->name('main_cordinator_password.email');

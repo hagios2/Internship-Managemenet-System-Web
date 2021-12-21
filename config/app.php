@@ -179,6 +179,7 @@ return [
 //        FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 //        Chumper\Zipper\ZipperServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],
 

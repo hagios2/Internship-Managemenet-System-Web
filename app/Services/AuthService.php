@@ -15,10 +15,8 @@ class AuthService
     {
         $credentials = request(['email', 'password']);
 
-//        $credentials['isActive'] = true;
-
         if ($guard) {
-            if (! $token = auth()->guard($guard)->attempt($credentials)) {
+            if (! $token = auth($guard)->attempt($credentials)) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
         } else {

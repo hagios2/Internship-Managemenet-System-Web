@@ -33,13 +33,13 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
-
-        $this->mapSupervisorRoutes();
-
-        $this->mapCoordinatorRoutes();
+//        $this->mapApiRoutes();
+//
+//        $this->mapWebRoutes();
+//
+//        $this->mapSupervisorRoutes();
+//
+//        $this->mapCoordinatorRoutes();
 
         $this->mapMainCoordinatorRoutes();
     }
@@ -67,13 +67,13 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapCoordinatorRoutes()
-    {
-        Route::prefix('api/coordinator')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/coordinator.php'));
-    }
+//    protected function mapCoordinatorRoutes()
+//    {
+//        Route::prefix('api/coordinator')
+//            ->middleware('api')
+//            ->namespace($this->namespace)
+//            ->group(base_path('routes/coordinator.php'));
+//    }
 
     /**
      * Define the "supervisor" routes for the application.
@@ -82,13 +82,13 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapSupervisorRoutes()
-    {
-        Route::prefix('api/supervisor')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/supervisor.php'));
-    }
+//    protected function mapSupervisorRoutes()
+//    {
+//        Route::prefix('api/supervisor')
+//            ->middleware('api')
+//            ->namespace($this->namespace)
+//            ->group(base_path('routes/supervisor.php'));
+//    }
 
     /**
      * Define the "web" routes for the application.
@@ -97,12 +97,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
-    {
-        Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
-    }
+//    protected function mapWebRoutes()
+//    {
+//        Route::middleware('web')
+//             ->namespace($this->namespace)
+//             ->group(base_path('routes/web.php'));
+//    }
 
     /**
      * Define the "api" routes for the application.
