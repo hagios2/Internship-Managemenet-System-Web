@@ -22,7 +22,6 @@ class AuthService
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
         } else {
-
             if (! $token = auth()->attempt($credentials)) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }

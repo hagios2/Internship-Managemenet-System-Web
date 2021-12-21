@@ -2,12 +2,10 @@
 
 namespace App;
 
-
 use App\Notifications\MainCordinatorResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-
 
 class MainCordinator extends Authenticatable implements JWTSubject
 {
@@ -62,5 +60,4 @@ class MainCordinator extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
 }
