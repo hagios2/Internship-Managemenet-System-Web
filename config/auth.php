@@ -43,13 +43,13 @@ return [
         ],
 
         'coordinator' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'coordinators',
             'hash' => false,
         ],
 
         'main_coordinator' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'main_coordinators',
             'hash' => false,
         ],
@@ -60,7 +60,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
         ],

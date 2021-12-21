@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/login', 'MainCordinatorAuth\LoginController@showLoginForm')->name('login');
-Route::post('/login', 'MainCordinatorAuth\LoginController@login');
-Route::post('/logout', 'MainCordinatorAuth\LoginController@logout')->name('main_cordinator_logout');
+Route::get('/login', 'Auth\AuthController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\AuthController@login');
+Route::post('/logout', 'Auth\AuthController@logout')->name('main_cordinator_logout');
 
 //  Route::get('/register', 'MainCordinatorAuth\RegisterController@showRegistrationForm')->name('main_cordinator_register');
 //  Route::post('/register', 'MainCordinatorAuth\RegisterController@register');

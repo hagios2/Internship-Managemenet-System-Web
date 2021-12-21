@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('api/main-coordinator')
             ->middleware('api')
-            ->namespace("{$this->namespace}/MainCoordinator")
+            ->namespace("{$this->namespace}\MainCoordinator")
             ->group(base_path('routes/main_coordinator.php'));
     }
 

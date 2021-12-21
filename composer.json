@@ -12,14 +12,14 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-openssl": "*",
+        "barryvdh/laravel-dompdf": "^0.8.5",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.5",
-        "tymon/jwt-auth": "^1.0",
-        "barryvdh/laravel-dompdf": "^0.8.5",
-        "pusher/pusher-php-server": "^2.2"
+        "pusher/pusher-php-server": "^2.2",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

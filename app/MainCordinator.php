@@ -2,16 +2,17 @@
 
 namespace App;
 
-/* use SMartins\PassportMultiauth\HasMultiAuthApiTokens; */
+
 use App\Notifications\MainCordinatorResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
-class MainCordinator extends Authenticatable
+class MainCordinator extends Authenticatable implements JWTSubject
 {
-    use Notifiable/* , HasMultiAuthApiTokens */;
-    
+    use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,13 +42,25 @@ class MainCordinator extends Authenticatable
         $this->notify(new MainCordinatorResetPassword($token));
     }
 
-    public function message()
+    public function message(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany('App\Message');
     }
 
-    public function addMessage($message)
+    public function addMessage($message): \Illuminate\Database\Eloquent\Model
     {
         return $this->message()->create($message);
     }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
+
 }
