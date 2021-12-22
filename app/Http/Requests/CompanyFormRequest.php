@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CompanyFormRequest extends FormRequest
 {
@@ -25,7 +26,9 @@ class CompanyFormRequest extends FormRequest
     {
         return [
             
-            'company_name'  => 'required|string',
+            'company_name'  => ['required', 'string', Rule::unique('companies')->ignore($this->id)],
+
+            'email'  => ['required', 'string', Rule::unique('companies')->ignore($this->id)],
 
             'location' => 'required|string',
 
