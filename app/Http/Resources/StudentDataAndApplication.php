@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Resources;
-use App\InternshipApplication;
-use App\User;
+use App\Models\User;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 //use App\
-
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentDataAndApplication extends JsonResource
 {

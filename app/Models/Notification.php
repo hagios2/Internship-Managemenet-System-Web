@@ -1,36 +1,31 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use FCM;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
-use FCM;
 
-
-class StudentNotification extends Model
+class Notification extends Model
 {
+    use SoftDeletes;
+    
     protected $guarded = ['id'];
 
-    protected $dates = ['read_at'];
-
-
-    public function student()
-    {
-        return $this->belongsTo('App\User');
-    }
+    protected $dates = ['deleted_at'];
     
     public function scopeToSingleDevice($query, $token=null, $title=null, $body=null, $icon, $click_action)
     {
-
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge($this->where([['read_at', null], ['user_id', auth()->id()]])->count())
+                            ->setBadge($this->where('read_at', null)->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -71,7 +66,7 @@ class StudentNotification extends Model
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge($this->where([['read_at', null], ['user_id', auth()->id()]])->count())
+                            ->setBadge($this->where('read_at', null)->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -108,12 +103,12 @@ class StudentNotification extends Model
 
     public function scopeRead()
     {
-        return $this->where([['read_at', null], ['user_id', auth()->id()]])->paginate(5);
+        return $this->where('read_at', null)->get();
     }
 
     public  function scopeNumberAlert()
     {
-        return $this->where([['read_at', null], ['user_id', auth()->id()]])->count();  
+        return $this->where('read_at', null)->count();  
     } 
-    
 }
+    

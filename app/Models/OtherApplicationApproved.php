@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,7 @@ class OtherApplicationApproved extends Model
 
     public function otherApplication()
     {
-        return $this->belongsTo('App\InternshipApplication', 'application_id');
+        return $this->belongsTo('App\Models\InternshipApplication', 'application_id');
     }
 
 }

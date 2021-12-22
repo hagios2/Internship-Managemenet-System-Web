@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Program;
-use App\Level;
-use App\Region;
-use App\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\Http\Resources\levelsResource;
-use App\Http\Resources\ProgramsResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegistrationApiRequest;
+use App\Http\Resources\ProgramsResource;
+use App\Models\Level;
+use App\Models\Program;
+use App\Models\Region;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RequestController extends Controller
 {

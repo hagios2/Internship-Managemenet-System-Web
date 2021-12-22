@@ -2,11 +2,10 @@
 
 namespace App\Mail;
 
+use App\Models\ConfirmedApplicationCode;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use App\ConfirmedApplicationCode;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendConfirmedApplicationCode extends Mailable
 {

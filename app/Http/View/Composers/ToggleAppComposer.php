@@ -2,9 +2,9 @@
 
 namespace App\Http\View\Composers;
 
-use Illuminate\View\View;
+use App\Models\ToggleApp;
 use App\Repositories\UserRepository;
-use App\ToggleApp;
+use Illuminate\View\View;
 
 class ToggleAppComposer
 {

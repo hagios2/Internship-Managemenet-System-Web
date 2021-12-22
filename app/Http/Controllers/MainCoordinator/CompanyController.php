@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers\MainCoordinator;
 
-use App\Company;
-use App\Region;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
-use FarhanWazir\GoogleMaps\Facades\GMapsFacade as GMaps;
+use App\Models\Company;
 
 class CompanyController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:main_cordinator');
+        $this->middleware('auth:main_corodinator');
     }
 
 
@@ -39,31 +36,7 @@ class CompanyController extends Controller
         return view('main_cordinator/companies/create_company', compact('map'));
     }
 
-    public function googleMap($lat='5.603716800000001', $long='-0.18696439999996528')
-    {
-        $config = array();
-        $config['center'] = 'auto';
-        $config['zoom'] = 'auto';
-        $config['map_height'] = '500px';
-        $config['scrollwheel'] = true;
-        $config['places'] = true;
-        $config['placesAutocompleteInputID'] = 'companyTextBox';
-        $config['placesAutocompleteBoundsMap'] = true;
-        $config['placesAutocompleteOnChange'] = 'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="lat" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="long" value="\'+event.latLng.lng()+\'" > \'';
 
-        GMaps::initialize($config);
-
-        $marker['position'] = "{$lat}, {$long}";
-        $marker['draggable'] = true;
-        $marker['ondragend'] =  'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="lat" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="long" value="\'+event.latLng.lng()+\'" > \'';
-
-        GMaps::add_marker($marker);
-        $map = GMaps::create_map();
-        /* echo $map['js'];
-        echo $map['html'];   */
-
-        return $map;
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -83,7 +56,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
     public function show(Company $company)
@@ -96,7 +69,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
@@ -110,7 +83,7 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
     public function update(CompanyFormRequest $request, Company $company)
@@ -123,7 +96,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
     public function destroy(Company $company)

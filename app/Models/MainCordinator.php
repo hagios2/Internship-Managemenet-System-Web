@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Notifications\MainCordinatorResetPassword;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class MainCordinator extends Authenticatable implements JWTSubject
@@ -42,7 +42,7 @@ class MainCordinator extends Authenticatable implements JWTSubject
 
     public function message(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Message');
+        return $this->hasMany('App\Models\Message');
     }
 
     public function addMessage($message): \Illuminate\Database\Eloquent\Model

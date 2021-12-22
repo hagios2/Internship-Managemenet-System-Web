@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
+
     Route::post('login', 'Auth\AuthController@login');
 
     Route::post('logout', 'Auth\AuthController@logout');
@@ -61,6 +62,8 @@ Route::get('/get-student/{user}/messages', 'MainCoordinator\MessageController@ge
 
 Route::get('/get-unique/messages', 'MainCoordinator\MessageController@getUniqueChat');
 
+#------------------------------------------------- DEPARTMENT ROUTES ----------------------------------------
+
 Route::post('/department', 'DepartmentController@store');
 
 Route::get('/department', 'DepartmentController@index');
@@ -68,3 +71,17 @@ Route::get('/department', 'DepartmentController@index');
 Route::post('/department/{department}/update', 'DepartmentController@update');
 
 Route::delete('/department/{department}/delete', 'DepartmentController@destroy');
+
+#------------------------------------------------- END DEPARTMENT ROUTE --------------------------------------
+
+#------------------------------------------------- COMPANY ROUTES ------------------------------------------
+
+Route::post('/companies', 'CompanyController@store');
+
+Route::get('/company', 'CompanyController@index');
+
+Route::post('/company/{company}/update', 'CompanyController@update');
+
+Route::delete('/company/{company}/update', 'CompanyController@destroy');
+
+#------------------------------------------------- END COMPANY ROUTE --------------------------------------

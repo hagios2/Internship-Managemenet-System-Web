@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Notifications\SupervisorResetPassword;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Supervisor extends Authenticatable
 {
@@ -42,12 +42,12 @@ class Supervisor extends Authenticatable
 
     public function internsApplication()
     {
-        return $this->hasOne('App\ConfirmedApplicationCode');
+        return $this->hasOne('App\Models\ConfirmedApplicationCode');
     }
 
     public function assessment()
     {
-        return $this->hasMany('App\Assessment');
+        return $this->hasMany('App\Models\Assessment');
     }
 
     public function addStudentAssessment($studentAssessmenst)

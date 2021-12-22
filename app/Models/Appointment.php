@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use function auth;
 
 class Appointment extends Model
 {
@@ -10,18 +11,18 @@ class Appointment extends Model
 
     public function scheduleNoted()
     {
-        return $this->hasOne('App\AppointmentNoted');
+        return $this->hasOne('App\Models\AppointmentNoted');
     }
 
 
     public function cordinator()
     {
-        return $this->belongsTo('App\Cordinator');
+        return $this->belongsTo('App\Models\Cordinator');
     }
 
     public function company()
     {
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo('App\Models\Company');
     }
 
     public function appointmentNoted()
@@ -35,7 +36,7 @@ class Appointment extends Model
 
     public function application()
     {
-        return $this->belongsTo('App\InternshipApplication', 'application_id');
+        return $this->belongsTo('App\Models\InternshipApplication', 'application_id');
     }
     
 }

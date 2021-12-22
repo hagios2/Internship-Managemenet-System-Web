@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Intern;
+use App\Models\Intern;
 use Illuminate\Http\Request;
 
 class InternController extends Controller
@@ -41,7 +41,7 @@ class InternController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Intern  $intern
+     * @param  \App\Models\Intern  $intern
      * @return \Illuminate\Http\Response
      */
     public function show(Intern $intern)
@@ -52,7 +52,7 @@ class InternController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Intern  $intern
+     * @param  \App\Models\Intern  $intern
      * @return \Illuminate\Http\Response
      */
     public function edit(Intern $intern)
@@ -64,7 +64,7 @@ class InternController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Intern  $intern
+     * @param  \App\Models\Intern  $intern
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Intern $intern)
@@ -75,7 +75,7 @@ class InternController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Intern  $intern
+     * @param  \App\Models\Intern  $intern
      * @return \Illuminate\Http\Response
      */
     public function destroy(Intern $intern)

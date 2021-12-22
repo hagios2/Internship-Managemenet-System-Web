@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,12 +11,12 @@ class ConfirmedApplicationCode extends Model
 
     public function company()
     {
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo('App\Models\Company');
     }
 
 
     public function application()
     {
-        return $this->belongsTo('App\InternshipApplication', 'application_id');
+        return $this->belongsTo('App\Models\InternshipApplication', 'application_id');
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\ToggleApp;
-use App\Company;
-use App\InternshipApplication; 
 use App\Http\Requests\ApiInternshipFormRequest;
 use App\Jobs\SendInternshipRegistrationNotification;
+use App\Models\Company;
+use App\Models\InternshipApplication;
+use App\Models\ToggleApp;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {

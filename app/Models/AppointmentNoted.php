@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class AppointmentNoted extends Model
 
     public function application()
     {
-        return $this->belongsTo('App\Appointment');
+        return $this->belongsTo('App\Models\Appointment');
     }
 
 }

@@ -2,13 +2,10 @@
 
 namespace App\Mail;
 
-use App\InternshipApplication;
-use App\ApprovedApplication;
-use App\OtherApplicationApproved;
+use App\Models\InternshipApplication;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendIntroductoryLetterMail extends Mailable 
 {

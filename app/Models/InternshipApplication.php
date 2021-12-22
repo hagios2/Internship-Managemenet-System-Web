@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,23 +12,23 @@ class InternshipApplication extends Model
 
     public function student()
     {
-        return $this->belongsTo('App\User', 'student_id');
+        return $this->belongsTo('App\Models\User', 'student_id');
     }
 
     public function city()
     {
-        return $this->belongsTo('App\Region', 'preferred_company_city');
+        return $this->belongsTo('App\Models\Region', 'preferred_company_city');
     }
 
     public function company()
     {
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo('App\Models\Company');
         
     }
 
     public function approvedProposedApplicaton()
     {
-        return $this->hasOne('App\OtherApplicationApproved', 'application_id');
+        return $this->hasOne('App\Models\OtherApplicationApproved', 'application_id');
     }
 
     public function addProposalApproval()
@@ -38,7 +38,7 @@ class InternshipApplication extends Model
 
     public function appointment()
     {
-        return $this->hasOne('App\Appointment', 'application_id');
+        return $this->hasOne('App\Models\Appointment', 'application_id');
     }
 
     public function addAppointment($appointment_data)
@@ -48,7 +48,7 @@ class InternshipApplication extends Model
 
     public function confirmedAppCode()
     {
-        return $this->hasOne('App\ConfirmedApplicationCode', 'application_id');
+        return $this->hasOne('App\Models\ConfirmedApplicationCode', 'application_id');
     }
 
     public function addConfirmApplicationCode($code)

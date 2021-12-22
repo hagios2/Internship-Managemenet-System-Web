@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\Region;
-use App\Company;
-use App\User;
-use App\Intern;
-use App\Department;
-use App\InternshipApplication;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use App\Http\Requests\InternshipFormRequest;
-use App\Http\Resources\StudentAppointmentResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StudentAppointmentResource;
 use App\Jobs\SendInternshipRegistrationNotification;
+use App\Models\Company;
+use App\Models\Intern;
+use App\Models\InternshipApplication;
+use App\Models\User;
 use FarhanWazir\GoogleMaps\Facades\GMapsFacade as GMaps;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {

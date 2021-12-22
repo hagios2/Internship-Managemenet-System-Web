@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\MainCordinator;
 use Illuminate\Database\Seeder;
-use App\MainCordinator;
-use \Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 
 class MainCordinatorSeeder extends Seeder
 {

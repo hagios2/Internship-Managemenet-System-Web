@@ -2,9 +2,9 @@
 
 namespace App\Http\View\Composers;
 
-use Illuminate\View\View;
+use App\Models\Department;
 use App\Repositories\UserRepository;
-use App\Department;
+use Illuminate\View\View;
 
 class DepartmentComposer
 {

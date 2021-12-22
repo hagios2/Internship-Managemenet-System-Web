@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\InternshipApplication;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\InternshipApplication;
 
 class RequestOpenLetterResource extends JsonResource
 {

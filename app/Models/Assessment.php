@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,18 +11,18 @@ class Assessment extends Model
 
     public function student()
     {
-        return $this->belongsTo('App\User', 'student_id');
+        return $this->belongsTo('App\Models\User', 'student_id');
     }
 
     public function supervisor()
     {
-        return $this->belongsTo('App\Supervisor');
+        return $this->belongsTo('App\Models\Supervisor');
     }
 
 
     public function cordinator()
     {
-        return $this->belongsTo('App\Cordinator');
+        return $this->belongsTo('App\Models\Cordinator');
     }
 
 

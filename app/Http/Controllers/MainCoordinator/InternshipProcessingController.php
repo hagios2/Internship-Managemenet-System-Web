@@ -2,29 +2,23 @@
 
 namespace App\Http\Controllers\MainCoordinator;
 
-use App\User;
-use App\Company;
-use App\Notification;
-use App\StudentNotification;
-use App\InternshipApplication;
-use App\OtherApplicationApproved;
-use App\Jobs\SendIntroductoryLetter;
-use Illuminate\Support\Facades\Hash;
-use App\Jobs\ApplicationDeniedJob;
-use App\Jobs\ApplicationRevertedJob;
-use App\Mail\ApplicationRevertedMail;
-use App\Mail\ApplicationDeniedMail;
-use App\Mail\SendIntroductoryLetterMail;
-use App\Mail\SendConfirmedApplicationCode;
-use App\ApprovedApplication;
-use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProposedApplicationResource;
 use App\Http\Resources\RequestOpenLetterResource;
+use App\Mail\ApplicationDeniedMail;
+use App\Mail\ApplicationRevertedMail;
+use App\Mail\SendConfirmedApplicationCode;
+use App\Mail\SendIntroductoryLetterMail;
+use App\Models\ApprovedApplication;
+use App\Models\Company;
+use App\Models\InternshipApplication;
+use App\Models\Notification;
+use App\Models\OtherApplicationApproved;
+use App\Models\StudentNotification;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
 
 class InternshipProcessingController extends Controller
 {

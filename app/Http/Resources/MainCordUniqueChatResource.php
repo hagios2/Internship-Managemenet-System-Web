@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\User;
-use App\Message;
 
 class MainCordUniqueChatResource extends JsonResource
 {

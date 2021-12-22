@@ -81,22 +81,22 @@ return [
     'providers' => [
         'supervisors' => [
             'driver' => 'eloquent',
-            'model' => App\Supervisor::class,
+            'model' => \App\Models\Supervisor::class,
         ],
 
         'coordinators' => [
             'driver' => 'eloquent',
-            'model' => App\Cordinator::class,
+            'model' => \App\Models\Cordinator::class,
         ],
 
         'main_coordinators' => [
             'driver' => 'eloquent',
-            'model' => App\MainCordinator::class,
+            'model' => \App\Models\MainCordinator::class,
         ],
 
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => \App\Models\User::class,
         ],
 
     ],

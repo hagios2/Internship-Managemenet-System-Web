@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\User;
-
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CheckInResource extends JsonResource

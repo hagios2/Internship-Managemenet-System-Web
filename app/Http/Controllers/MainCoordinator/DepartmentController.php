@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\MainCoordinator;
 
-use App\Department;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DepartmentResource;
+use App\Models\Department;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;

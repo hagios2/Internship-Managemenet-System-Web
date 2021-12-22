@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\MainCordinator;
-use App\StudentNotification;
 use App\Http\Resources\StudentMessageResource;
-use App\Message;
+use App\Models\MainCordinator;
+use App\Models\Message;
+use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {

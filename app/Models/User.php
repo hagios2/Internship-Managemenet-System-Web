@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -40,13 +40,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function studentNotification()
     {
-        return $this->hasOne('App\StudentNotification');
+        return $this->hasOne('App\Models\StudentNotification');
     }
 
 
     public function assessment()
     {
-        return $this->hasOne('App\Assessment', 'student_id');
+        return $this->hasOne('App\Models\Assessment', 'student_id');
     }
 
 
@@ -64,12 +64,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function level()
     {
-        return $this->belongsTo('App\Level');
+        return $this->belongsTo('App\Models\Level');
     }
    
     public function program()
     {
-        return $this->belongsTo('App\Program');
+        return $this->belongsTo('App\Models\Program');
     }
 
     public function approveSchedule()
@@ -79,7 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function application()
     {
-        return $this->hasOne('App\InternshipApplication', 'student_id');
+        return $this->hasOne('App\Models\InternshipApplication', 'student_id');
     }
 
     public function intern()
@@ -109,7 +109,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function message()
     {
-        return $this->hasMany('App\Message');
+        return $this->hasMany('App\Models\Message');
     }
 
 
@@ -119,13 +119,13 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function AauthAcessToken(){
-        return $this->hasMany('\App\OauthAccessToken');
+        return $this->hasMany('\App\Models\OauthAccessToken');
     }
 
 
     public function approvedAppointment()
     {
-        return $this->hasOne('App\AppointmentNoted', 'student_id');
+        return $this->hasOne('App\Models\AppointmentNoted', 'student_id');
     }
 
 

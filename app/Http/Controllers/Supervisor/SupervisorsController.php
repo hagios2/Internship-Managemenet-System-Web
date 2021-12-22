@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Supervisor;
 
-use App\User;
-use App\Intern;
-use App\Assessment;
-use App\Supervisor;
-use App\Http\Requests\AssessmentFormRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\ConfirmedApplicationCode;
-use App\InternshipApplication;
-use App\Http\Resources\CheckInResource ;
+use App\Http\Requests\AssessmentFormRequest;
+use App\Http\Resources\CheckInResource;
+use App\Models\Assessment;
+use App\Models\ConfirmedApplicationCode;
+use App\Models\Intern;
+use App\Models\InternshipApplication;
+use App\Models\Supervisor;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class SupervisorsController extends Controller
 {

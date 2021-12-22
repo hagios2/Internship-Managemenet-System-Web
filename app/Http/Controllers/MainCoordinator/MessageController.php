@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\MainCoordinator;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\StudentMessageResource;
 use App\Http\Resources\MainCordUniqueChatResource;
-use App\User;
-use App\Message;
+use App\Http\Resources\StudentMessageResource;
+use App\Models\Message;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {

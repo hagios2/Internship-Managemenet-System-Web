@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Notifications\CordinatorResetPassword;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Cordinator extends Authenticatable
 {
@@ -41,13 +41,13 @@ class Cordinator extends Authenticatable
 
     public function appointment()
     {
-        return $this->hasMany('App\Appointment');
+        return $this->hasMany('App\Models\Appointment');
     }
 
 
     public function department()
     {
-        return $this->belongsTo('App\Department');
+        return $this->belongsTo('App\Models\Department');
     }
     
 }

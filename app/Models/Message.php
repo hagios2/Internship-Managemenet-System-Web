@@ -1,31 +1,77 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
+use FCM;
+use Illuminate\Database\Eloquent\Model;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
-use FCM;
-use Illuminate\Database\Eloquent\Model;
+use function auth;
 
-class Notification extends Model
+
+class Message extends Model
 {
-    use SoftDeletes;
-    
+    //
     protected $guarded = ['id'];
 
-    protected $dates = ['deleted_at'];
-    
+    protected $dates = ['student_read_at', 'main_cordinator_read_at'];
+
+    public function company()
+    {
+        return $this->belongsTo('App\Models\Company');
+    }
+
+    public function application()
+    {
+        return $this->belongsTo('App\Models\InternshipApplication');
+    }
+
+    public function student()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function main_cordinator()
+    {
+        return $this->belongsTo('App\Models\MainCordinator');
+    }
+
+    public function scopeGetStudentMessage($query)
+    {
+        return $this->where([['user_id', auth()->id(), ['from_main_cordinator', true], ['read_at', null]]])->get();
+    }
+
+
+    public function scopeCountStudentMessage($query)
+    {
+        return $this->where([['user_id', auth()->id(), ['from_main_cordinator', true], ['read_at', null]]])->count();
+    }
+
+    public function scopeStudentsAllMessages($query)
+    {
+        return $this->where('user_id', auth()->id())->get();/* orderBy('message, desc') */ //* paginate(5); */
+    }
+
     public function scopeToSingleDevice($query, $token=null, $title=null, $body=null, $icon, $click_action)
     {
+        if($title == 'student message')
+        {
+            $badge = $this->scopeMainCordinatorNumberAlert();
+        
+        }else if($title == 'main_cordinator message'){
+
+            $badge = $this->scopeNumberAlert();
+        }
+        
+
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge($this->where('read_at', null)->count())
+                            ->setBadge($this->where([['student_read_at', null], ['user_id', auth()->id()]])->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -66,7 +112,7 @@ class Notification extends Model
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge($this->where('read_at', null)->count())
+                            ->setBadge($this->where([['read_at', null], ['user_id', auth()->id()]])->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -103,12 +149,18 @@ class Notification extends Model
 
     public function scopeRead()
     {
-        return $this->where('read_at', null)->get();
+        return $this->where([['read_at', null], ['user_id', auth()->id()]])->paginate(5);
     }
 
     public  function scopeNumberAlert()
     {
-        return $this->where('read_at', null)->count();  
+        return $this->where([['student_read_at', null], ['user_id', auth()->id()]])->count();  
     } 
-}
+
+
+    public  function scopeMainCordinatorNumberAlert()
+    {
+        return $this->where([['main_cordinator_read_at', null], ['from_student', true]])->count();  
+    } 
     
+}

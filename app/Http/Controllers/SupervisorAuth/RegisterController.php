@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\SupervisorAuth;
 
-use App\Supervisor;
-use App\Company;
-use App\InternshipApplication;
-use Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\InternshipApplication;
+use App\Models\Supervisor;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class RegisterController extends Controller
 {

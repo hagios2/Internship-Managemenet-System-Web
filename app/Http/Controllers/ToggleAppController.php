@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\ToggleApp;
-use App\MainCordinator;
+use App\Models\MainCordinator;
+use App\Models\ToggleApp;
 use Illuminate\Http\Request;
 
 class ToggleAppController extends Controller
