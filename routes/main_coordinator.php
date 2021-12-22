@@ -12,14 +12,6 @@ Route::prefix('auth')->group(function(){
     Route::post('refresh-token', 'Auth\AuthController@refresh');
 });
 
-
-
-
-Route::post('/password/email', 'MainCordinatorAuth\ForgotPasswordController@sendResetLinkEmail')->name('main_cordinator_password.request');
-Route::post('/password/reset', 'MainCordinatorAuth\ResetPasswordController@reset')->name('main_cordinator_password.email');
-Route::get('/password/reset', 'MainCordinatorAuth\ForgotPasswordController@showLinkRequestForm')->name('main_cordinator_password.reset');
-Route::get('/password/reset/{token}', 'MainCordinatorAuth\ResetPasswordController@showResetForm');
-
 Route::get('change-password', 'MainCordinatorAuth\ChangePasswordController@changePasswordForm');
 
 Route::post('change-password', 'MainCordinatorAuth\ChangePasswordController@changePassword');
@@ -70,10 +62,10 @@ Route::get('/get-student/{user}/messages', 'MainCoordinator\MessageController@ge
 
 Route::get('/get-unique/messages', 'MainCoordinator\MessageController@getUniqueChat');
 
-// Route::get('/department/create', 'DepartmentController@create');
-
 Route::post('/department', 'DepartmentController@store');
 
 Route::get('/department', 'DepartmentController@index');
 
-/*   Route::post('/department', 'DepartmentController@store'); */
+Route::post('/department/{department}/update', 'DepartmentController@update');
+
+Route::delete('/department/{department}/delete', 'DepartmentController@destroy');
