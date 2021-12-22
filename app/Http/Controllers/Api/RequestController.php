@@ -13,16 +13,13 @@ use Illuminate\Support\Facades\Hash;
 
 class RequestController extends Controller
 {
-    
     public function getPrograms()
     {
-
         return ProgramsResource::collection(Program::all());
     }
 
     public function getLevels()
     {
-
         return ProgramsResource::collection(Level::all());
     }
 
@@ -33,7 +30,7 @@ class RequestController extends Controller
 
     public function register(UserRegistrationApiRequest $request)
     {
-       $user = User::create([
+        $user = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'index_no' => $request['index_no'],
@@ -44,23 +41,22 @@ class RequestController extends Controller
         ]);
 
         return response()->json(['status' => 'success']);
-
     }
 
-  /*   public function postToken(Request $request)
-    {
-        if($request->has('api_token'))
-        {
-            $user = User::where('email', $request->email)->get();
+    /*   public function postToken(Request $request)
+      {
+          if($request->has('api_token'))
+          {
+              $user = User::where('email', $request->email)->get();
 
-            $user->update([
-                
-                'api_token' => $request->api_token
-            ]);
+              $user->update([
 
-            return response()->json(['status' => 'Token saved']);
-        }
+                  'api_token' => $request->api_token
+              ]);
 
-        return response()->json(['status' => 'No token received']);
-    } */
+              return response()->json(['status' => 'Token saved']);
+          }
+
+          return response()->json(['status' => 'No token received']);
+      } */
 }

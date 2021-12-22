@@ -60,7 +60,5 @@ class ProgramsTableSeeder extends Seeder
 
             'program' => 'Information Technology',
         ]);
-
-
     }
 }

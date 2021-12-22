@@ -3,58 +3,40 @@
 namespace App\Http\Controllers\MainCoordinator;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
+use App\Services\MainCoordinator\DepartmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Validation\Rule;
 
 class DepartmentController extends Controller
 {
-    public function __construct()
+    private DepartmentService $departmentService;
+
+    public function __construct(DepartmentService $departmentService)
     {
         $this->middleware('auth:main_coordinator');
+
+        $this->departmentService = $departmentService;
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(): AnonymousResourceCollection
     {
-        return DepartmentResource::collection(Department::query()->latest()->get());
+        return $this->departmentService->index();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): JsonResponse
     {
-        $department = Department::create($request->validate(['department' => 'required|string|unique:departments']));
-
-        return response()->json(['message' => 'success', 'department' => new DepartmentResource($department) ]);
+        return $this->departmentService->store($request);
     }
 
-    /**
-     * Update the specified resource in storagee
-     */
     public function update(Request $request, Department $department): JsonResponse
     {
-        $validatedData = $request->validate(['department' => ['required', 'string', Rule::unique('departments')->ignore($department->id)]]);
-
-        $department->update($validatedData);
-
-        return response()->json(['message' => 'success', 'department' => new DepartmentResource($department) ]);
+        return $this->departmentService->update($request, $department);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return JsonResponse
-     */
     public function destroy(Department $department): JsonResponse
     {
-        $department->delete();
-
-        return response()->json(['message' => 'success']);
+        return $this->departmentService->destroy($department);
     }
 }

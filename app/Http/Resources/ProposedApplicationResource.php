@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
+
 use App\Models\InternshipApplication;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,9 +16,9 @@ class ProposedApplicationResource extends JsonResource
     public function toArray($request)
     {
         $applications = InternshipApplication::findorFail($this->id);
-        
+
         return [
-        
+
             'id' => $applications->id,
 
             'student_name' => $applications->student->name,

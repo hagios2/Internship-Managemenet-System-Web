@@ -23,7 +23,6 @@ class InternshipApplication extends Model
     public function company()
     {
         return $this->belongsTo('App\Models\Company');
-        
     }
 
     public function approvedProposedApplicaton()
@@ -33,7 +32,7 @@ class InternshipApplication extends Model
 
     public function addProposalApproval()
     {
-       return $this->approvedProposedApplicaton()->create(['approved' => true,])->id;
+        return $this->approvedProposedApplicaton()->create(['approved' => true,])->id;
     }
 
     public function appointment()
@@ -53,7 +52,6 @@ class InternshipApplication extends Model
 
     public function addConfirmApplicationCode($code)
     {
-       return $this->confirmedAppCode()->create(['code' => $code]);
+        return $this->confirmedAppCode()->create(['code' => $code]);
     }
-
 }

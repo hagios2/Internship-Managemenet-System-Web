@@ -19,7 +19,6 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-  
     }
 
 
@@ -32,17 +31,17 @@ class StudentController extends Controller
         $config['scrollwheel'] = true;
         $config['places'] = true;
         $config['placesAutocompleteInputID'] = 'companyTextBox';
-        $config['placesAutocompleteBoundsMap'] = TRUE;
+        $config['placesAutocompleteBoundsMap'] = true;
         $config['placesAutocompleteOnChange'] = 'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="preferred_company_latitude" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="preferred_company_longitude" value="\'+event.latLng.lng()+\'" > \'';
 
         GMaps::initialize($config);
-    
+
         $marker['position'] = "{$lat}, {$long}";
         $marker['draggable'] = true;
         $marker['ondragend'] =  'document.getElementById("other_div").innerHTML = \'<input type="hidden" name="preferred_company_latitude" value="\'+event.latLng.lat()+\'"> <input type="hidden" name="preferred_company_longitude" value="\'+event.latLng.lng()+\'" > \'';
-       
+
         GMaps::add_marker($marker);
-        $map = GMaps::create_map(); 
+        $map = GMaps::create_map();
         /* echo $map['js'];
         echo $map['html'];   */
 
@@ -69,41 +68,29 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-    
-
-        if(InternshipApplication::where('student_id', auth()->id())->first())
-        {
+        if (InternshipApplication::where('student_id', auth()->id())->first()) {
             return back()->with('error', 'You have already applied! Consider editing your application instead.');
         }
 
-        if($request->has('default_application'))
-        {
+        if ($request->has('default_application')) {
             $company = Company::findOrFail($request->company_id);
 
-            if($company->application->count() < $company->total_slots)
-            {
+            if ($company->application->count() < $company->total_slots) {
                 auth()->user()->registerStudent($request->except('_token'));
 
                 $this->saveResume(auth()->user());
-            
-            }else{
-    
+            } else {
                 return back()->with('info', 'Denied! maximum application to ' .$company->company_name .' reached.');
             }
-
         } else {
-
             auth()->user()->registerStudent($request->except('_token'));
 
             $this->saveResume(auth()->user());
-
         }
 
         SendInternshipRegistrationNotification::dispatch(auth()->user());
-         
-        return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
-      
 
+        return redirect('/dashboard')->with('success', 'Application received! You can modify your application before the deadline.');
     }
 
     /**
@@ -116,11 +103,10 @@ class StudentController extends Controller
     {
         abort_if((auth()->user() != $application->student), 403);
 
-        if($application->preferred_company)
-        {
+        if ($application->preferred_company) {
             $map = $this->googleMap($application->preferred_company_latitude, $application->preferred_company_longitude);
 
-            return view('student.edit_application',\compact('application', 'map'));
+            return view('student.edit_application', \compact('application', 'map'));
         }
 
         return view('student.edit_application', compact('application'));
@@ -138,22 +124,16 @@ class StudentController extends Controller
         abort_if((auth()->user() != $application->student), 403);
 
 
-        if($request->has('company_id'))
-        {
-            if($application->company->approved_application)
-            {
+        if ($request->has('company_id')) {
+            if ($application->company->approved_application) {
                 return back()->with('error', 'Access Denied! Application already approved');
             }
-
-        }else if ($request->has('preferred_company')) {
-
-            if($application->approvedProposedApplicaton)
-            {
+        } elseif ($request->has('preferred_company')) {
+            if ($application->approvedProposedApplicaton) {
                 return back()->with('error', 'Access Denied! Application already approved');
             }
-
         }
-      
+
         $application->update($request->all());
 
         return redirect('/dashboard')->withSuccess('Updated successfully');
@@ -162,18 +142,14 @@ class StudentController extends Controller
 
     public function startInternship(InternshipApplication $application)
     {
-        if($application->company)
-        {
-            if(!$application->company->approved_application)
-            {
+        if ($application->company) {
+            if (!$application->company->approved_application) {
                 return back()->with('error', 'Access Denied! Application Approval Pending');
             }
-
-        }else if(!$application->approvedProposedApplicaton){
-
+        } elseif (!$application->approvedProposedApplicaton) {
             return back()->with('error', 'Access Denied! Application Approval Pending');
         }
-        
+
         $application->update(['started_at' => now()]);
 
         return redirect('/interns');
@@ -182,45 +158,33 @@ class StudentController extends Controller
 
     public function approveAppointment(Appointment $appointment)
     {
-
         $appointment->appointmentNoted();
 
         return back()->withSuccess('You approved appointment');
-
     }
 
     public function interns()
     {
-
         $application = auth()->user()->application;
 
-        if($application->default_application && !$application->company->approved_application)
-        {
+        if ($application->default_application && !$application->company->approved_application) {
             return redirect('/dashboard')->with('info', 'Assess Denied!');
-        
-        }else if($application->preferred_company && !$application->approvedProposedApplicaton)
-        {
+        } elseif ($application->preferred_company && !$application->approvedProposedApplicaton) {
             return redirect('/dashboard')->with('info', 'Assess Denied!');
         }
 
-        if(auth()->user()->application->preferred_company)
-        {
-
+        if (auth()->user()->application->preferred_company) {
             $appointment = auth()->user()->application->appointment;
-
-        }elseif(auth()->user()->application->default_application){
-
+        } elseif (auth()->user()->application->default_application) {
             $appointment = auth()->user()->application->company->appointment;
-
         }
 
         return view('student.intern', compact('appointment'));
-        
     }
 
 
-    public function getCompanyCoordinates(){
-
+    public function getCompanyCoordinates()
+    {
         $application = auth()->user()->application;
 
         $coords = [
@@ -234,7 +198,6 @@ class StudentController extends Controller
 
 
         return $coords;
-
     }
 
     public function destroy(InternshipApplication $application)
@@ -248,42 +211,33 @@ class StudentController extends Controller
     {
         $alreadyCheckedAttendance = json_decode($this->checkAttendance()->getContent(), true);
 
-        if($alreadyCheckedAttendance['checked_in'])
-        {
+        if ($alreadyCheckedAttendance['checked_in']) {
             return response()->json(['status' => 'denied']);
         }
-       
+
         $user = auth()->user();
 
         $user->addInternsAttendance($request->all());
 
         return response()->json(['status' => 'success']);
-
     }
 
     public function checkOut()
     {
         $latestDate =  Intern::where('user_id', auth()->id())->latest()->first();
 
-        if($latestDate)
-        {
+        if ($latestDate) {
+            $latest = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $latestDate->check_in_timestamp)->format('Y-m-d');
 
-           $latest = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $latestDate->check_in_timestamp)->format('Y-m-d');
-
-           if($latest === date('Y-m-d') && $latestDate->check_out_timestamp == null)
-           {
-
-            $latestDate->update([
+            if ($latest === date('Y-m-d') && $latestDate->check_out_timestamp == null) {
+                $latestDate->update([
                 'check_out_timestamp' => now()
             ]);
 
-            return redirect('/dashboard')->with('success', 'You checked out for today');
-
-           }else if($latestDate->check_out_timestamp !== null){
-
-            return back()->with('error', 'Denied! You\'ve check out for the day');
-
-           }
+                return redirect('/dashboard')->with('success', 'You checked out for today');
+            } elseif ($latestDate->check_out_timestamp !== null) {
+                return back()->with('error', 'Denied! You\'ve check out for the day');
+            }
         }
 
         return back()->with('error', 'You haven\'t checked in');
@@ -292,51 +246,41 @@ class StudentController extends Controller
 
     public function requestSupervisorApproval(Request $request)
     {
-
         $alreadyCheckedAttendance = json_decode($this->checkAttendance()->getContent(), true);
 
-        if($alreadyCheckedAttendance['checked_in'])
-        {
+        if ($alreadyCheckedAttendance['checked_in']) {
             return response()->json(['status' => 'denied']);
         }
-       
-       
+
+
         $user = auth()->user();
 
         $user->addRequestSupervisorApproval($request->all());
 
         return response()->json(['status' => 'success']);
-
     }
 
     public function checkAttendance()
     {
         $latestDate =  Intern::where('user_id', auth()->id())->latest()->first();
 
-        if($latestDate)
-        {
+        if ($latestDate) {
+            $latest = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $latestDate->check_in_timestamp)->format('Y-m-d');
 
-           $latest = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $latestDate->check_in_timestamp)->format('Y-m-d');
-
-           if($latest === date('Y-m-d'))
-           {
-              return response()->json(['checked_in' => true]);
-            }else{
+            if ($latest === date('Y-m-d')) {
+                return response()->json(['checked_in' => true]);
+            } else {
                 return response()->json(['checked_in' => false]);
             }
         }
 
         return response()->json(['checked_in' => false]);
-
     }
 
 
     public function saveResume(User $user)
     {
-
-        if(request()->hasFile('resume'))
-        {
-
+        if (request()->hasFile('resume')) {
             $fileName = request()->file('resume')->getClientOriginalName();
 
             request()->file('resume')->storeAs('public/Resumes/'.$user->application->id, $fileName);
@@ -344,37 +288,27 @@ class StudentController extends Controller
             $user->application->resume = 'storage/Resumes/'.$user->application->id.'/'.$fileName;
 
             $user->application->save();
-
         }
     }
 
 
     public function getScheduledAppointment()
     {
-        
-
-        if(auth()->user()->application->preferred_company && auth()->user()->application->appointment)
-        {
-
+        if (auth()->user()->application->preferred_company && auth()->user()->application->appointment) {
             $appointment = auth()->user()->application->appointment;
-
-        }elseif(auth()->user()->application->default_application && auth()->user()->application->company->appointment){
-
+        } elseif (auth()->user()->application->default_application && auth()->user()->application->company->appointment) {
             $appointment = auth()->user()->application->appointment;
-
-        }else{
-
+        } else {
             return response()->json(['appointment' => 'No appointment received']);
         }
 
-       // if($appointment->isNotEmpty())
+        // if($appointment->isNotEmpty())
         //{
 
-            return new StudentAppointmentResource($appointment);
-      //  }
+        return new StudentAppointmentResource($appointment);
+        //  }
 
 
       //  return response()->json(['appointment' => 'No appointment received']);
     }
-
 }

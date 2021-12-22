@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static create(array $validate)
+ */
 class Company extends Model
 {
     protected $guarded = ['id'];
 
     public function region()
     {
-        
         return $this->belongsTo('App\Models\Region', 'city');
-        
     }
 
     public function application()
@@ -37,13 +38,13 @@ class Company extends Model
 
     public function addConfirmApplicationCode($code)
     {
-       return $this->confirmedAppCode()->create(['code' => $code]);
+        return $this->confirmedAppCode()->create(['code' => $code]);
     }
 
 
     public function addApplicationApproval()
     {
-       return $this->approved_application()->create(['approved' => true])->id;
+        return $this->approved_application()->create(['approved' => true])->id;
     }
 
 
@@ -58,19 +59,12 @@ class Company extends Model
 
         static $number_company_application = 0;
 
-        foreach($companies as $company)
-        {
-            if($company->application && $company->approved_application)
-            {
+        foreach ($companies as $company) {
+            if ($company->application && $company->approved_application) {
                 $number_company_application += $company->application->count();
             }
-            
         }
 
         return $number_company_application;
-        
     }
-
-    
-
 }

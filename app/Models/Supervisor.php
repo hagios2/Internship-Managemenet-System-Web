@@ -54,5 +54,4 @@ class Supervisor extends Authenticatable
     {
         $this->assessment()->create($studentAssessmenst);
     }
-
 }

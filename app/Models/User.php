@@ -6,7 +6,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
@@ -52,13 +51,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function addNotification($notification)
     {
-       $this->studentNotification()->create($notification);
-    } 
+        $this->studentNotification()->create($notification);
+    }
 
 
     public function registerStudent($attributes)
     {
-        
         $this->application()->create($attributes);
     }
 
@@ -66,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo('App\Models\Level');
     }
-   
+
     public function program()
     {
         return $this->belongsTo('App\Models\Program');
@@ -74,7 +72,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function approveSchedule()
     {
-        
     }
 
     public function application()
@@ -97,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail
         ]);
     }
 
-    public function  addInternsAttendance($coords)
+    public function addInternsAttendance($coords)
     {
         $this->intern()->create([
             'on_premises' => true,
@@ -115,10 +112,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function addMessage($message)
     {
-      return $this->message()->create($message);
+        return $this->message()->create($message);
     }
 
-    public function AauthAcessToken(){
+    public function AauthAcessToken()
+    {
         return $this->hasMany('\App\Models\OauthAccessToken');
     }
 
@@ -127,7 +125,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne('App\Models\AppointmentNoted', 'student_id');
     }
-
-
-    
 }

@@ -19,7 +19,7 @@ class CheckInResource extends JsonResource
 
         $application = $user->application;
 
-        if($application->default_application):
+        if ($application->default_application):
 
             return [
 
@@ -39,9 +39,7 @@ class CheckInResource extends JsonResource
 
                 'avatar' => $user->avatar,
 
-            ];
-
-        else:
+            ]; else:
 
             return [
 

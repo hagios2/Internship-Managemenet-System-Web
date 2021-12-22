@@ -26,6 +26,5 @@ class StudentMessageResource extends JsonResource
             'read_at' => $this->read_at
 
         ];
-
     }
 }

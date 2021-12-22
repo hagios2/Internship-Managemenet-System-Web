@@ -49,5 +49,4 @@ class Cordinator extends Authenticatable
     {
         return $this->belongsTo('App\Models\Department');
     }
-    
 }

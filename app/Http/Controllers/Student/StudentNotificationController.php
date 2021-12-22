@@ -16,8 +16,6 @@ class StudentNotificationController extends Controller
 
     public function getNotifications()
     {
-
         return StudentNotificationResource::collection(StudentNotification::read());
-
     }
 }

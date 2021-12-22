@@ -28,6 +28,5 @@ class MainCordUniqueChatResource extends JsonResource
             'student_read_at' => $this->student_read_at
 
         ];
-
     }
 }

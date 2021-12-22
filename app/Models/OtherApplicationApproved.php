@@ -12,5 +12,4 @@ class OtherApplicationApproved extends Model
     {
         return $this->belongsTo('App\Models\InternshipApplication', 'application_id');
     }
-
 }

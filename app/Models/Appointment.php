@@ -28,7 +28,7 @@ class Appointment extends Model
     public function appointmentNoted()
     {
         $this->scheduleNoted()->create([
-            
+
             'student_id' => auth()->id()
         ]);
     }
@@ -38,5 +38,4 @@ class Appointment extends Model
     {
         return $this->belongsTo('App\Models\InternshipApplication', 'application_id');
     }
-    
 }

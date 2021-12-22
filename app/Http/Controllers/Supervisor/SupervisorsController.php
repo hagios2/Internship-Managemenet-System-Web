@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
 
 class SupervisorsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:supervisor')->except(['checkCode']);
@@ -24,13 +23,11 @@ class SupervisorsController extends Controller
 
     public function assessStudent(AssessmentFormRequest $request, User $student)
     {
-
-        if($student->assessment)
-        {
+        if ($student->assessment) {
             return back()->with('info', 'student has already been assessed');
         }
-        
-        
+
+
         $request['student_id'] = $student->id;
 
         //return $request->all();
@@ -42,28 +39,23 @@ class SupervisorsController extends Controller
 
 
     public function editAssessment(Assessment $assessment, Request $request)
-   {
+    {
 
         /* return $request->all(); */
 
         $assessment->update($request->all());
 
         return redirect('/supervisor/dashboard')->withSuccess('Updated Assessment successfully');
-   }
+    }
 
 
     public function viewInterns()
     {
-        
-       $confirmedAppcode = auth()->guard('supervisor')->user()->internsApplication; 
+        $confirmedAppcode = auth()->guard('supervisor')->user()->internsApplication;
 
-       if($confirmedAppcode->company)
-       {
-
+        if ($confirmedAppcode->company) {
             $studentApplication = InternshipApplication::where('company_id', $confirmedAppcode->company->id)->paginate(4);
-
-       } else {
-
+        } else {
             $studentApplication = $confirmedAppcode->application;
         }
 
@@ -73,16 +65,12 @@ class SupervisorsController extends Controller
 
     public function show(User $student)
     {
-        if($student->application->company)
-        {
-            abort_if((auth()->guard('supervisor')->id() !== $student->application->company->confirmedAppCode->supervisor_id  ), 403);
-        
-        }else{
-
-            abort_if((auth()->guard('supervisor')->id() !== $student->application->confirmedAppCode->supervisor_id  ), 403);
-
+        if ($student->application->company) {
+            abort_if((auth()->guard('supervisor')->id() !== $student->application->company->confirmedAppCode->supervisor_id), 403);
+        } else {
+            abort_if((auth()->guard('supervisor')->id() !== $student->application->confirmedAppCode->supervisor_id), 403);
         }
-       
+
         $application = $student->application;
 
         return view('supervisor.view_student', compact('application'));
@@ -90,50 +78,38 @@ class SupervisorsController extends Controller
 
     public function showAccessmentForm()
     {
-
         return view('supervisor.accessmentform');
     }
 
     public function checkCode(Request $request)
     {
-        
         $confirmedToken = ConfirmedApplicationCode::where('code', $request->code)->take(1)->get();
 
-        if($confirmedToken->isEmpty())
-        {
+        if ($confirmedToken->isEmpty()) {
             return response()->json(['code' => 'Not found'], 200);
-        
-        } else{ 
-
-           foreach($confirmedToken as $confirmedApplication)
-           {
-
-            if($confirmedApplication->company)
-            {
-                return response()->json(['code' => 'success', 'company_id' => $confirmedApplication->company->id, 'application_id' => null], 200);
-            
-            } else if($confirmedApplication->application) {
-
-                return response()->json(['code' => 'success', 'application_id' => $confirmedApplication->application->id, 'company_id' => null], 200);
-            } 
-           }
-
+        } else {
+            foreach ($confirmedToken as $confirmedApplication) {
+                if ($confirmedApplication->company) {
+                    return response()->json(['code' => 'success', 'company_id' => $confirmedApplication->company->id, 'application_id' => null], 200);
+                } elseif ($confirmedApplication->application) {
+                    return response()->json(['code' => 'success', 'application_id' => $confirmedApplication->application->id, 'company_id' => null], 200);
+                }
+            }
         }
-
     }
 
 
     public function downloadAssessmentForms()
     {
-        $zipper = new \Chumper\Zipper\Zipper;
-     
+        $zipper = new \Chumper\Zipper\Zipper();
+
         $files = glob(storage_path('app/public/assessment forms/*'));
 
         $zip_path = storage_path('app/public/assessment.zip');
-        
+
         $zipper->make($zip_path)->add($files)->close();
 
-        return response()->download('storage/assessment.zip');    
+        return response()->download('storage/assessment.zip');
 
         return back();
     }
@@ -141,51 +117,46 @@ class SupervisorsController extends Controller
 
     public function uploadAssessmentForms(User $student, Request $request)
     {
-
-        if($student->assessment):
+        if ($student->assessment):
 
             return back()->with('info', 'You have already assessed '.$student->name);
 
         endif;
 
-        if($request->hasFile('assessmentFile')):
+        if ($request->hasFile('assessmentFile')):
 
             $files = $request->file('assessmentFile');
 
-            foreach($files as $file):
+        foreach ($files as $file):
 
                 $fileName = $file->getClientOriginalName();
 
-                $file->storeAs('public/Filled Assessment Forms/'.$student->id, $fileName);
+        $file->storeAs('public/Filled Assessment Forms/'.$student->id, $fileName);
 
-            endforeach;
+        endforeach;
 
-            auth()->guard('supervisor')->user()->addStudentAssessment([
+        auth()->guard('supervisor')->user()->addStudentAssessment([
 
                 'student_id' => $student->id,
 
                 'filled_assessment_form' => '/storage/Filled Assessment Form/'.$student->id,
             ]);
 
-            return back()->with('success', 'The files have been uploaded successfully');
+        return back()->with('success', 'The files have been uploaded successfully');
 
         endif;
 
 
         return back()->with('info', 'Please attach assessment forms before submitting');
-        
     }
 
     public function ApproveStudentCheckIn(Intern $intern, Request $request)
     {
-
         $application = $intern->student->application;
 
-        if($application->default_application):
+        if ($application->default_application):
 
-            abort_if((auth()->guard('supervisor')->id() !== $application->company->confirmedAppCode->supervisor_id), 403);
-
-        else:
+            abort_if((auth()->guard('supervisor')->id() !== $application->company->confirmedAppCode->supervisor_id), 403); else:
 
             abort_if((auth()->guard('supervisor')->id() !== $application->confirmedAppCode->supervisor_id), 403);
 
@@ -201,7 +172,6 @@ class SupervisorsController extends Controller
         $approved = ($request->approve == 1) ? 'Check in approved' : 'Check in denied';
 
         return redirect('/supervisor/dashboard')->withSuccess($approved);
-
     }
 
     /* This will return a specific coordinte  */
@@ -215,28 +185,24 @@ class SupervisorsController extends Controller
     {
         $application = $intern->student->application;
 
-        if($application->default_application):
+        if ($application->default_application):
 
-            abort_if((auth()->guard('supervisor')->id() !== $application->company->confirmedAppCode->supervisor_id), 403);
-
-        else:
+            abort_if((auth()->guard('supervisor')->id() !== $application->company->confirmedAppCode->supervisor_id), 403); else:
 
             abort_if((auth()->guard('supervisor')->id() !== $application->confirmedAppCode->supervisor_id), 403);
 
         endif;
 
-       return view('supervisor.approve_student', compact('intern'))->with('info', 'Click on the marker to view check in details');
+        return view('supervisor.approve_student', compact('intern'))->with('info', 'Click on the marker to view check in details');
 
-       /* return new CheckInResource($studentRequest); */
-
+        /* return new CheckInResource($studentRequest); */
     }
 
     public function getApprovalRequests()
-    { 
+    {
         $confirmedAppcode = auth()->guard('supervisor')->user()->internsApplication;
 
-        if($confirmedAppcode->company)
-        {
+        if ($confirmedAppcode->company) {
             $applications = $confirmedAppcode->company->application;
 
             $studentRequest = \collect();
@@ -245,7 +211,7 @@ class SupervisorsController extends Controller
 
                 $internsCheckIns = $application->student->intern;
 
-                if ($internsCheckIns->count() !== 0):
+            if ($internsCheckIns->count() !== 0):
 
                     foreach ($internsCheckIns as $checkIn):
 
@@ -253,22 +219,19 @@ class SupervisorsController extends Controller
 
                             $studentRequest->add($checkIn);
 
-                        endif;
-                
-                    endforeach;
+            endif;
 
-                endif;
-            
+            endforeach;
+
+            endif;
+
             endforeach;
 
             return CheckInResource::collection($studentRequest);
- 
-        }else{
+        } else {
+            $internsCheckIns = $confirmedAppcode->application->student->intern;
 
-           $internsCheckIns = $confirmedAppcode->application->student->intern;
-
-            if($internsCheckIns)
-            {
+            if ($internsCheckIns) {
                 $studentRequest = \collect();
 
                 if ($internsCheckIns->count() !== 0):
@@ -276,25 +239,20 @@ class SupervisorsController extends Controller
                     foreach ($internsCheckIns as $checkIn):
 
                         if ($checkIn->supervisor_id == null && $checkIn->approved_by_supervisor == null):
-                            
+
                             $studentRequest->add($checkIn);
-
-                        endif;
-                
-                    endforeach;
-
-                    return CheckInResource::collection($studentRequest);
 
                 endif;
 
-            }else{
+                endforeach;
+
+                return CheckInResource::collection($studentRequest);
+
+                endif;
+            } else {
                 return response()->json(['data' => 'empty']);
-
             }
-
- 
         }
-
     }
 
     public function showProfileForm()
@@ -314,7 +272,5 @@ class SupervisorsController extends Controller
         ]);
 
         return back()->withSuccess('Saved details successfully');
-
     }
-
 }

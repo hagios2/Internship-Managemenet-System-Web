@@ -7,9 +7,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendIntroductoryLetterMail extends Mailable 
+class SendIntroductoryLetterMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public $application;
 
@@ -33,9 +34,7 @@ class SendIntroductoryLetterMail extends Mailable
      */
     public function build()
     {
-
-        if($this->application->default_application)
-        {
+        if ($this->application->default_application) {
             $approvedApp = $this->application->company->approved_application;
 
             return $this->markdown('mail.SendIntroductoryLetter')
@@ -44,12 +43,11 @@ class SendIntroductoryLetterMail extends Mailable
                     'as' => 'Introductory Letter.pdf',
                     'mime' => 'application/pdf',
             ]);
-
-        } else if($this->application->preferred_company){
+        } elseif ($this->application->preferred_company) {
 
          //   $approvedApp = $this->application->approvedProposedApplicaton;
-/* 
-            $approvedApp = OtherApplicationApproved::where('application_id', $this->application->id)->get(); */ //returns null object 
+            /*
+                        $approvedApp = OtherApplicationApproved::where('application_id', $this->application->id)->get(); */ //returns null object
 
             return $this->markdown('mail.SendIntroductoryLetter')
             ->from(auth()->guard('main_cordinator')->user()->email)
@@ -60,4 +58,3 @@ class SendIntroductoryLetterMail extends Mailable
         }
     }
 }
-

@@ -9,7 +9,6 @@ use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use function auth;
 
-
 class Message extends Model
 {
     //
@@ -55,15 +54,12 @@ class Message extends Model
 
     public function scopeToSingleDevice($query, $token=null, $title=null, $body=null, $icon, $click_action)
     {
-        if($title == 'student message')
-        {
+        if ($title == 'student message') {
             $badge = $this->scopeMainCordinatorNumberAlert();
-        
-        }else if($title == 'main_cordinator message'){
-
+        } elseif ($title == 'main_cordinator message') {
             $badge = $this->scopeNumberAlert();
         }
-        
+
 
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
@@ -76,8 +72,8 @@ class Message extends Model
                             ->setClickAction($click_action);
 
         $dataBuilder = new PayloadDataBuilder();
-       // $dataBuilder->addData(['a_data' => 'my_data']);
- 
+        // $dataBuilder->addData(['a_data' => 'my_data']);
+
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
@@ -87,22 +83,22 @@ class Message extends Model
         $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
 
         $downstreamResponse->numberSuccess();
-        $downstreamResponse->numberFailure(); 
-        
-        $downstreamResponse->numberModification(); 
+        $downstreamResponse->numberFailure();
+
+        $downstreamResponse->numberModification();
 
         // return Array - you must remove all this tokens in your database
-        $downstreamResponse->tokensToDelete(); 
+        $downstreamResponse->tokensToDelete();
 
         // return Array (key : oldToken, value : new token - you must change the token in your database)
         $downstreamResponse->tokensToModify();
 
         // return Array - you should try to resend the message to the tokens in the array
-        $downstreamResponse->tokensToRetry(); 
+        $downstreamResponse->tokensToRetry();
 
         // return Array (key:token, value:error) - in production you should remove from your database the tokens
-        $downstreamResponse->tokensWithError(); 
-    } 
+        $downstreamResponse->tokensWithError();
+    }
 
     public function scopeToMultipleDevice($query, $model, $title=null, $body=null, $icon, $click_action)
     {
@@ -117,12 +113,12 @@ class Message extends Model
                             ->setClickAction($click_action);
 
         $dataBuilder = new PayloadDataBuilder();
-        
-        //$dataBuilder->addData(['a_data' => 'my_data']); 
+
+        //$dataBuilder->addData(['a_data' => 'my_data']);
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
-        $data = $dataBuilder->build(); 
+        $data = $dataBuilder->build();
 
         // You must change it to get your tokens
         $tokens = $model->pluck('device_token')->toArray();
@@ -131,20 +127,19 @@ class Message extends Model
 
         $downstreamResponse->numberSuccess();
         $downstreamResponse->numberFailure();
-        $downstreamResponse->numberModification(); 
+        $downstreamResponse->numberModification();
 
         // return Array - you must remove all this tokens in your database
-        $downstreamResponse->tokensToDelete(); 
+        $downstreamResponse->tokensToDelete();
 
         // return Array (key : oldToken, value : new token - you must change the token in your database)
-        $downstreamResponse->tokensToModify(); 
+        $downstreamResponse->tokensToModify();
 
         // return Array - you should try to resend the message to the tokens in the array
-        $downstreamResponse->tokensToRetry(); 
+        $downstreamResponse->tokensToRetry();
 
         // return Array (key:token, value:error) - in production you should remove from your database the tokens present in this array
         $downstreamResponse->tokensWithError();
-
     }
 
     public function scopeRead()
@@ -152,15 +147,14 @@ class Message extends Model
         return $this->where([['read_at', null], ['user_id', auth()->id()]])->paginate(5);
     }
 
-    public  function scopeNumberAlert()
+    public function scopeNumberAlert()
     {
-        return $this->where([['student_read_at', null], ['user_id', auth()->id()]])->count();  
-    } 
+        return $this->where([['student_read_at', null], ['user_id', auth()->id()]])->count();
+    }
 
 
-    public  function scopeMainCordinatorNumberAlert()
+    public function scopeMainCordinatorNumberAlert()
     {
-        return $this->where([['main_cordinator_read_at', null], ['from_student', true]])->count();  
-    } 
-    
+        return $this->where([['main_cordinator_read_at', null], ['from_student', true]])->count();
+    }
 }

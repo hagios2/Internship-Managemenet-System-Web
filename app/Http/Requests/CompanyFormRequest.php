@@ -11,7 +11,7 @@ class CompanyFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -32,6 +32,8 @@ class CompanyFormRequest extends FormRequest
             'city' => 'required|integer',
 
             'total_slots'    => 'required|integer',
+
+//            'lat'
         ];
     }
 }

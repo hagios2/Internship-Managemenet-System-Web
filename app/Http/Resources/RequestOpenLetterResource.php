@@ -17,7 +17,7 @@ class RequestOpenLetterResource extends JsonResource
     {
         $applications = InternshipApplication::findorFail($this->id);
 
-        
+
         return [
 
             'student_name' => $applications->student->name,
@@ -26,7 +26,7 @@ class RequestOpenLetterResource extends JsonResource
 
             'program' =>  $applications->student->program->program,
 
-            'phone' => $this->phone 
+            'phone' => $this->phone
 
         ];
     }
