@@ -27,7 +27,7 @@ class AddColoumnsToDapartmentTable extends Migration
     public function down()
     {
         Schema::table('departments', function (Blueprint $table) {
-            //
+            $table->dropColumn(['number_of_staff', 'number_of_student']);
         });
     }
 }

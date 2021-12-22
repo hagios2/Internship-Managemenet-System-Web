@@ -21,7 +21,7 @@ class CompanyFormRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             
@@ -33,7 +33,9 @@ class CompanyFormRequest extends FormRequest
 
             'total_slots'    => 'required|integer',
 
-//            'lat'
+            'lat' => 'required|numeric',
+
+            'long' => 'required|numeric'
         ];
     }
 }
