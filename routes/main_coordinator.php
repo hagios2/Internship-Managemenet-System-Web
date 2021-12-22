@@ -75,9 +75,9 @@ Route::delete('/department/{department}/delete', 'DepartmentController@destroy')
 
 #------------------------------------------------- COMPANY ROUTES ------------------------------------------
 
-Route::post('/companies', 'CompanyController@store');
+Route::post('/company', 'CompanyController@store');
 
-Route::get('/company', 'CompanyController@index');
+Route::get('/companies', 'CompanyController@index');
 
 Route::post('/company/{company}/update', 'CompanyController@update');
 

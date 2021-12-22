@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @method static create(array $validate)
@@ -11,32 +14,32 @@ class Company extends Model
 {
     protected $guarded = ['id'];
 
-    public function region()
+    public function region(): BelongsTo
     {
         return $this->belongsTo('App\Models\Region', 'city');
     }
 
-    public function application()
+    public function application(): HasMany
     {
         return $this->hasMany('App\Models\InternshipApplication');
     }
 
-    public function approved_application()
+    public function approved_application(): HasOne
     {
         return $this->hasOne('App\Models\ApprovedApplication');
     }
 
-    public function appointment()
+    public function appointment(): HasOne
     {
         return $this->hasOne('App\Models\Appointment');
     }
 
-    public function confirmedAppCode()
+    public function confirmedAppCode(): HasOne
     {
         return $this->hasOne('App\Models\ConfirmedApplicationCode');
     }
 
-    public function addConfirmApplicationCode($code)
+    public function addConfirmApplicationCode($code): Model
     {
         return $this->confirmedAppCode()->create(['code' => $code]);
     }
@@ -53,7 +56,7 @@ class Company extends Model
         $this->appointment()->create($appointment_data);
     }
 
-    public static function numberOfCompanyApplication()
+    public static function numberOfCompanyApplication(): int
     {
         $companies = static::all();
 
