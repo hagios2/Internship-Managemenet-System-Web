@@ -84,3 +84,9 @@ Route::post('/company/{company}/update', 'CompanyController@update');
 Route::delete('/company/{company}/update', 'CompanyController@destroy');
 
 #------------------------------------------------- END COMPANY ROUTE --------------------------------------
+
+#------------------------------------------------- REGION ROUTES ------------------------------------------
+
+Route::get('/cities', 'RegionsController@fetchRegions');
+
+#------------------------------------------------- END REGION ROUTE --------------------------------------

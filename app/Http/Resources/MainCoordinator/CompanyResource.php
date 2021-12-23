@@ -19,7 +19,7 @@ class CompanyResource extends JsonResource
             'id' => $this->id,
             'company_name' => $this->company_name,
             'email' => $this->email,
-            'city' => $this->city,
+            'city' => $this->region,
             'total_slots' => $this->total_slots,
             'location' => $this->location,
             'created_at' => Carbon::parse($this->created_at)->format('D, d F Y')
