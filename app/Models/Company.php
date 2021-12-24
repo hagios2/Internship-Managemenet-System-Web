@@ -12,6 +12,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Company extends Model
 {
+    public const DEFAULT_COMPANY = 'default';
+
+    public const STUDENT_COMPANY = 'student_company';
+
     protected $guarded = ['id'];
 
     public function region(): BelongsTo

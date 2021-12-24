@@ -26,8 +26,9 @@ class CompanysTableSeeder extends Seeder
 
             'lat' => '5.603716800000001',
 
-            'long' => '-0.18696439999996528'
+            'long' => '-0.18696439999996528',
 
+            'company_type' => Company::DEFAULT_COMPANY
         ]);
 
 
@@ -45,7 +46,9 @@ class CompanysTableSeeder extends Seeder
 
             'lat' => '5.603716800000001',
 
-            'long' => '-0.18696439999996528'
+            'long' => '-0.18696439999996528',
+
+            'company_type' => Company::DEFAULT_COMPANY
 
         ]);
 
@@ -65,7 +68,9 @@ class CompanysTableSeeder extends Seeder
 
             'lat' => '5.603716800000001',
 
-            'long' => '-0.18696439999996528'
+            'long' => '-0.18696439999996528',
+
+            'company_type' => Company::DEFAULT_COMPANY
 
         ]);
 
@@ -84,8 +89,9 @@ class CompanysTableSeeder extends Seeder
 
             'lat' => '5.603716800000001',
 
-            'long' => '-0.18696439999996528'
+            'long' => '-0.18696439999996528',
 
+            'company_type' => Company::DEFAULT_COMPANY
         ]);
     }
 }
