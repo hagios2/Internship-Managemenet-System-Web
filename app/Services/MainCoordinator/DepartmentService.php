@@ -31,7 +31,8 @@ class DepartmentService
      */
     public function update(Request $request, Department $department): JsonResponse
     {
-        $validatedData = $request->validate(['department' => ['required', 'string', Rule::unique('departments')->ignore($request->route()->parameter('company')->id)]]);
+        $validatedData = $request->validate(['department' =>
+            ['required', 'string', Rule::unique('departments')->ignore($request->route()->parameter('company')->id)]]);
 
         $department->update($validatedData);
 
