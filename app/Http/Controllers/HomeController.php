@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\InternshipApplication;
 use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
@@ -25,10 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-       
         return view('stu.index');
 
-       /* return view('student.home'); */
+        /* return view('student.home'); */
     }
 
 
@@ -40,8 +38,7 @@ class HomeController extends Controller
 
     public function updatePreference(Request $request)
     {
-
-       $attribute = $request->validate([
+        $attribute = $request->validate([
 
             'fname' => 'required|string',
 
@@ -58,7 +55,7 @@ class HomeController extends Controller
             'program_id' => 'required|integer'
 
         ]);
-    
+
         auth()->user()->update([
 
             'name' => $attribute['fname'] . ' ' . $attribute['sname'],
@@ -80,7 +77,6 @@ class HomeController extends Controller
 
     public function changePassword(Request $request)
     {
-
         $passwords = $request->validate([
 
             'new_password' => 'required|confirmed',
@@ -90,7 +86,6 @@ class HomeController extends Controller
         ]);
 
         if (Hash::check($passwords['password'], auth()->user()->password)) {
-
             auth()->user()->update([
 
                 'password' => Hash::make($passwords['new_password'])
@@ -106,10 +101,6 @@ class HomeController extends Controller
 
     public function changePasswordForm()
     {
-
         return view('student.change_password');
-        
     }
-
-
 }

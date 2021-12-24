@@ -1,8 +1,7 @@
 <?php
 
+use App\Models\Region;
 use Illuminate\Database\Seeder;
-use App\Region;
-
 
 class RegionsTableSeeder extends Seeder
 {
@@ -22,7 +21,7 @@ class RegionsTableSeeder extends Seeder
 
             'region' => 'Greater Accra'
         ]);
-    
+
 
         Region::create([
 

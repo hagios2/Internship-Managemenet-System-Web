@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
     ];
 
     /**
@@ -51,12 +52,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'supervisor' => \App\Http\Middleware\RedirectIfNotSupervisor::class,
-        'supervisor.guest' => \App\Http\Middleware\RedirectIfSupervisor::class,
-        'cordinator' => \App\Http\Middleware\RedirectIfNotCordinator::class,
-        'cordinator.guest' => \App\Http\Middleware\RedirectIfCordinator::class,
-        'main_cordinator' => \App\Http\Middleware\RedirectIfNotMainCordinator::class,
-        'main_cordinator.guest' => \App\Http\Middleware\RedirectIfMainCordinator::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -66,8 +61,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'oauth.providers' => \SMartins\PassportMultiauth\Http\Middleware\AddCustomProvider::class,
-        'multiauth' => \SMartins\PassportMultiauth\Http\Middleware\MultiAuthenticate::class,
     ];
 
     /**

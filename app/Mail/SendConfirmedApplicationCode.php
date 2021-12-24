@@ -2,15 +2,15 @@
 
 namespace App\Mail;
 
+use App\Models\ConfirmedApplicationCode;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use App\ConfirmedApplicationCode;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendConfirmedApplicationCode extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public $ConfirmedToken;
 
@@ -35,44 +35,40 @@ class SendConfirmedApplicationCode extends Mailable
      */
     public function build()
     {
-
-        if($this->ConfirmedToken->company)
-        {
+        if ($this->ConfirmedToken->company) {
             $mail = $this->markdown('mail.SendConfirmedApplicationCode')
                 ->from(auth()->guard('main_cordinator')->user()->email)
-                ->attach("{$this->ConfirmedToken->company->approved_application->approved_letter}",[
-                
+                ->attach(
+                    "{$this->ConfirmedToken->company->approved_application->approved_letter}",
+                    [
+
                     'as' => 'Introductory Letter.pdf',
                     'mime' => 'application/pdf',
                 ]
-            );
+                );
 
-            foreach($this->ConfirmedToken->company->application as $application)
-            {
-                if($application->resume)
-                {
+            foreach ($this->ConfirmedToken->company->application as $application) {
+                if ($application->resume) {
                     $mail->attach("{$application->resume}");
                 }
             }
-
-        } else if($this->ConfirmedToken->application){
-
-                $mail = $this->markdown('mail.SendConfirmedApplicationCode')
+        } elseif ($this->ConfirmedToken->application) {
+            $mail = $this->markdown('mail.SendConfirmedApplicationCode')
                 ->from(auth()->guard('main_cordinator')->user()->email)
-                ->attach("{$this->ConfirmedToken->application->approvedProposedApplicaton->letter}",[
-                    
+                ->attach(
+                    "{$this->ConfirmedToken->application->approvedProposedApplicaton->letter}",
+                    [
+
                         'as' => 'Introductory Letter.pdf',
                         'mime' => 'application/pdf',
                     ]
                 );
 
-                if($this->ConfirmedToken->application->resume)
-                {
-                    $mail->attach("{$this->ConfirmedToken->application->resume}");
-                }
-    
+            if ($this->ConfirmedToken->application->resume) {
+                $mail->attach("{$this->ConfirmedToken->application->resume}");
+            }
         }
-       
+
 
         return $mail;
     }

@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -37,29 +37,27 @@ return [
 
     'guards' => [
         'supervisor' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'supervisors',
+            'hash' => false,
         ],
 
-        'cordinator' => [
-            'driver' => 'session',
-            'provider' => 'cordinators',
+        'coordinator' => [
+            'driver' => 'jwt',
+            'provider' => 'coordinators',
+            'hash' => false,
         ],
 
-        'main_cordinator' => [
-            'driver' => 'session',
-            'provider' => 'main_cordinators',
-        ],
-
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+        'main_coordinator' => [
+            'driver' => 'jwt',
+            'provider' => 'main_coordinators',
+            'hash' => false,
         ],
 
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'jwt',
             'provider' => 'users',
-           /*  'hash' => false, */
+            'hash' => false,
         ],
     ],
 
@@ -83,28 +81,24 @@ return [
     'providers' => [
         'supervisors' => [
             'driver' => 'eloquent',
-            'model' => App\Supervisor::class,
+            'model' => \App\Models\Supervisor::class,
         ],
 
-        'cordinators' => [
+        'coordinators' => [
             'driver' => 'eloquent',
-            'model' => App\Cordinator::class,
+            'model' => \App\Models\Cordinator::class,
         ],
 
-        'main_cordinators' => [
+        'main_coordinators' => [
             'driver' => 'eloquent',
-            'model' => App\MainCordinator::class,
+            'model' => \App\Models\MainCordinator::class,
         ],
 
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => \App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -129,15 +123,15 @@ return [
             'expire' => 60,
         ],
 
-        'cordinators' => [
-            'provider' => 'cordinators',
-            'table' => 'cordinator_password_resets',
+        'coordinators' => [
+            'provider' => 'coordinators',
+            'table' => 'coordinator_password_resets',
             'expire' => 60,
         ],
 
-        'main_cordinators' => [
-            'provider' => 'main_cordinators',
-            'table' => 'main_cordinator_password_resets',
+        'main_coordinators' => [
+            'provider' => 'main_coordinators',
+            'table' => 'main_coordinator_password_resets',
             'expire' => 60,
         ],
 

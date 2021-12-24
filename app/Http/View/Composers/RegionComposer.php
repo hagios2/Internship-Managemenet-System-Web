@@ -2,9 +2,9 @@
 
 namespace App\Http\View\Composers;
 
-use Illuminate\View\View;
+use App\Models\Region;
 use App\Repositories\UserRepository;
-use App\Region;
+use Illuminate\View\View;
 
 class RegionComposer
 {

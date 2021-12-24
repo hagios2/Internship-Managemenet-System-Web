@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\MainCordinator;
+use App\Models\MainCordinator;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentMessageResource extends JsonResource
@@ -26,6 +26,5 @@ class StudentMessageResource extends JsonResource
             'read_at' => $this->read_at
 
         ];
-
     }
 }

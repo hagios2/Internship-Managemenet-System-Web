@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\ToggleApp;
-use App\MainCordinator;
+use App\Models\MainCordinator;
+use App\Models\ToggleApp;
 use Illuminate\Http\Request;
 
 class ToggleAppController extends Controller
 {
-     
     public function index()
     {
         $this->middleware('auth:main_cordinator');
@@ -32,5 +31,4 @@ class ToggleAppController extends Controller
 
         return back()->with('info', 'Toggled ' .$switch);
     }
-
 }

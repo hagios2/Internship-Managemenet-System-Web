@@ -2,11 +2,10 @@
 
 namespace App\Mail;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ApplicationDeniedMail extends Mailable
 {
@@ -30,6 +29,6 @@ class ApplicationDeniedMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.ApplicationDenied')->from(auth()->guard('main_cordinator')->user()->email);
+        return $this->markdown('mail.ApplicationDenied')->from(auth()->guard('main_coordinator')->user()->email);
     }
 }

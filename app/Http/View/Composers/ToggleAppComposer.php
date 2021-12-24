@@ -2,9 +2,9 @@
 
 namespace App\Http\View\Composers;
 
-use Illuminate\View\View;
+use App\Models\ToggleApp;
 use App\Repositories\UserRepository;
-use App\ToggleApp;
+use Illuminate\View\View;
 
 class ToggleAppComposer
 {
@@ -13,20 +13,20 @@ class ToggleAppComposer
      *
      * @var UserRepository
      */
-  /*   protected $toggleApp;
+    /*   protected $toggleApp;
 
-    /**
-     * Create a new profile composer.
-     *
-     * @param  UserRepository  $users
-     * @return void
-     */
-   /*  public function __construct(ToggleApp $toggleApp)
-    {
-        // Dependencies automatically resolved by service container...
-        $this->$toggleApp = $toggleApp;
-    } */
- 
+      /**
+       * Create a new profile composer.
+       *
+       * @param  UserRepository  $users
+       * @return void
+       */
+    /*  public function __construct(ToggleApp $toggleApp)
+     {
+         // Dependencies automatically resolved by service container...
+         $this->$toggleApp = $toggleApp;
+     } */
+
     /**
      * Bind data to the view.
      *
@@ -35,6 +35,6 @@ class ToggleAppComposer
      */
     public function compose(View $view)
     {
-        $view->with('toggleapp', ToggleApp::find(1)); 
+        $view->with('toggleapp', ToggleApp::find(1));
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\MainCordinator;
-use App\StudentNotification;
 use App\Http\Resources\StudentMessageResource;
-use App\Message;
+use App\Models\MainCordinator;
+use App\Models\Message;
+use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
@@ -29,46 +28,37 @@ class MessageController extends Controller
 
         $application = auth()->user()->application;
 
-        if($application->default_application):
+        if ($application->default_application):
 
-            $attributes['company_id'] = $application->company->id;
-
-        else:
-            $attributes['application_id'] = $application->id;            
+            $attributes['company_id'] = $application->company->id; else:
+            $attributes['application_id'] = $application->id;
 
         endif;
 
         $created_message = auth()->user()->addMessage($attributes);
 
-        if($created_message)
-        {   
+        if ($created_message) {
             $main_cordinator = MainCordinator::find(1);
 
             $token = $main_cordinator->device_token;
 
-            Message::toSingleDevice($token, 'student message', nl2br($request->message), null, '/message'); 
+            Message::toSingleDevice($token, 'student message', nl2br($request->message), null, '/message');
 
             return response()->json(['status' => 'success']);
-        
-        }else{
-
+        } else {
             return response()->json(['status' => 'failed']);
         }
-
     }
 
 
     public function getMessages()
     {
-        if(auth()->user()->message):
+        if (auth()->user()->message):
 
-        return StudentMessageResource::collection(Message::studentsAllMessages());
-
-        else:
+        return StudentMessageResource::collection(Message::studentsAllMessages()); else:
 
             return response('no message');
 
         endif;
     }
-    
 }

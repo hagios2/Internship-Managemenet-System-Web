@@ -175,10 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
-        LaravelFCM\FCMServiceProvider::class,
-        FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
+//        LaravelFCM\FCMServiceProvider::class,
+//        FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Chumper\Zipper\ZipperServiceProvider::class,
+//        Chumper\Zipper\ZipperServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],
 
@@ -231,7 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'FCM'      => LaravelFCM\Facades\FCM::class,
-        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,   
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
         'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Zipper' => Chumper\Zipper\Zipper::class,

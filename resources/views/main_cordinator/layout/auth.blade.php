@@ -39,7 +39,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/main-cordinator') }}">
-                    {{ config('app.name', 'Laravel Multi Auth Guard') }}: MainCordinator
+                    {{ config('app.name', 'Laravel Multi Auth Guard') }}: MainCoordinator
                 </a>
             </div>
 

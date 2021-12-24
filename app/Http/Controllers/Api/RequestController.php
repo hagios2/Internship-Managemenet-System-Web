@@ -2,29 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Program;
-use App\Level;
-use App\Region;
-use App\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\Http\Resources\levelsResource;
-use App\Http\Resources\ProgramsResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegistrationApiRequest;
+use App\Http\Resources\ProgramsResource;
+use App\Models\Level;
+use App\Models\Program;
+use App\Models\Region;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RequestController extends Controller
 {
-    
     public function getPrograms()
     {
-
         return ProgramsResource::collection(Program::all());
     }
 
     public function getLevels()
     {
-
         return ProgramsResource::collection(Level::all());
     }
 
@@ -35,7 +30,7 @@ class RequestController extends Controller
 
     public function register(UserRegistrationApiRequest $request)
     {
-       $user = User::create([
+        $user = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'index_no' => $request['index_no'],
@@ -46,23 +41,22 @@ class RequestController extends Controller
         ]);
 
         return response()->json(['status' => 'success']);
-
     }
 
-  /*   public function postToken(Request $request)
-    {
-        if($request->has('api_token'))
-        {
-            $user = User::where('email', $request->email)->get();
+    /*   public function postToken(Request $request)
+      {
+          if($request->has('api_token'))
+          {
+              $user = User::where('email', $request->email)->get();
 
-            $user->update([
-                
-                'api_token' => $request->api_token
-            ]);
+              $user->update([
 
-            return response()->json(['status' => 'Token saved']);
-        }
+                  'api_token' => $request->api_token
+              ]);
 
-        return response()->json(['status' => 'No token received']);
-    } */
+              return response()->json(['status' => 'Token saved']);
+          }
+
+          return response()->json(['status' => 'No token received']);
+      } */
 }

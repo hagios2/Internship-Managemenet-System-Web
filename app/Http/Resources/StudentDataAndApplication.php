@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Resources;
-use App\InternshipApplication;
-use App\User;
+
+use App\Models\User;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 //use App\
-
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentDataAndApplication extends JsonResource
 {
@@ -25,30 +24,23 @@ class StudentDataAndApplication extends JsonResource
         $application = $student->application;
 
         //$attendance = $student->attendance
-        if($application)
-        {
-
-            if($application->default_application)
-            {
+        if ($application) {
+            if ($application->default_application) {
                 $company = $application->company->company_name;
 
                 $location = $application->company->location;
 
                 $region = $application->company->region->region;
-            
-            }else if($application->preferred_company)
-            {
-
+            } elseif ($application->preferred_company) {
                 $company = $application->preferred_company_name;
 
                 $location = $application->preferred_company_location;
 
                 $region = $application->city->region;
-
             }
         }
 
-       return [
+        return [
 
         'id' => $this->id,
 
@@ -67,6 +59,5 @@ class StudentDataAndApplication extends JsonResource
         'region' => $region ?? null
 
        ];
-        
     }
 }

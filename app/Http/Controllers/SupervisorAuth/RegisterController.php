@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\SupervisorAuth;
 
-use App\Supervisor;
-use App\Company;
-use App\InternshipApplication;
-use Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\InternshipApplication;
+use App\Models\Supervisor;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -73,18 +73,14 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        if(request()->has('company_id'))
-        {
+        if (request()->has('company_id')) {
             $company = Company::find(request()->company_id);
 
             $company->confirmedAppCode->update(['supervisor_id' => $supervisor->id]);
-
-        } else if (request()->has('application_id')) {
-
+        } elseif (request()->has('application_id')) {
             $application = InternshipApplication::find(request()->application_id);
 
             $application->confirmedAppCode->update(['supervisor_id' => $supervisor->id]);
-
         }
 
         return $supervisor;

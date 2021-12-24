@@ -2,9 +2,9 @@
 
 namespace App\Http\View\Composers;
 
-use Illuminate\View\View;
+use App\Models\Company;
 use App\Repositories\UserRepository;
-use App\Company;
+use Illuminate\View\View;
 
 class CompanyComposer
 {

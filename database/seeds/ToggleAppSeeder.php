@@ -1,7 +1,6 @@
 <?php
 
-use App\ToggleApp;
-
+use App\Models\ToggleApp;
 use Illuminate\Database\Seeder;
 
 class ToggleAppSeeder extends Seeder

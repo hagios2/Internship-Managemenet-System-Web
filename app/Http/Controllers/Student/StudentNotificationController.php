@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Student;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\StudentNotification;
 use App\Http\Resources\StudentNotificationResource;
+use App\Models\StudentNotification;
 
 class StudentNotificationController extends Controller
 {
@@ -17,8 +16,6 @@ class StudentNotificationController extends Controller
 
     public function getNotifications()
     {
-
         return StudentNotificationResource::collection(StudentNotification::read());
-
     }
 }

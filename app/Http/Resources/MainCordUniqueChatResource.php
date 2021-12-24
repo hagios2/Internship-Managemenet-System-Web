@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\User;
-use App\Message;
 
 class MainCordUniqueChatResource extends JsonResource
 {
@@ -29,6 +28,5 @@ class MainCordUniqueChatResource extends JsonResource
             'student_read_at' => $this->student_read_at
 
         ];
-
     }
 }

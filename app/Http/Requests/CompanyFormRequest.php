@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class CompanyFormRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class CompanyFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,17 +23,24 @@ class CompanyFormRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
+        Log::info(json_encode($this->route()));
         return [
             
-            'company_name'  => 'required|string',
+            'company_name'  => ['required', 'string', Rule::unique('companies')->ignore($this->id)],
+
+            'email'  => ['required', 'string', Rule::unique('companies')->ignore($this->id)],
 
             'location' => 'required|string',
 
             'city' => 'required|integer',
 
             'total_slots'    => 'required|integer',
+
+            'lat' => 'required|numeric',
+
+            'long' => 'required|numeric'
         ];
     }
 }

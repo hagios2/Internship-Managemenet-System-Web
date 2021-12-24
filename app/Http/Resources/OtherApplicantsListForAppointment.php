@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Resources;
-use App\InternshipApplication;
 
+use App\Models\InternshipApplication;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OtherApplicantsListForAppointment extends JsonResource

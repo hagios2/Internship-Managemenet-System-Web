@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Program;
 use Illuminate\Database\Seeder;
-use App\Program;
 
 class ProgramsTableSeeder extends Seeder
 {
@@ -60,7 +60,5 @@ class ProgramsTableSeeder extends Seeder
 
             'program' => 'Information Technology',
         ]);
-
-
     }
 }
