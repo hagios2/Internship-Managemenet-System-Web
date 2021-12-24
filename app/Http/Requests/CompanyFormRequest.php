@@ -25,12 +25,16 @@ class CompanyFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        Log::info(json_encode($this->route()));
+        if ($this->method() === 'POST') {
+            $unique_rules = Rule::unique('companies');
+        } else {
+            $unique_rules = Rule::unique('companies')->ignore($this->route()->parameter('company')->id);
+        }
         return [
             
-            'company_name'  => ['required', 'string', Rule::unique('companies')->ignore($this->id)],
+            'company_name'  => ['required', 'string', $unique_rules],
 
-            'email'  => ['required', 'string', Rule::unique('companies')->ignore($this->id)],
+            'email'  => ['required', 'string', $unique_rules],
 
             'location' => 'required|string',
 
