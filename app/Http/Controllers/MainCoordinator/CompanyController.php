@@ -4,6 +4,8 @@ namespace App\Http\Controllers\MainCoordinator;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
+use App\Http\Resources\MainCoordinator\CompanyResource;
+use App\Http\Resources\MainCoordinator\SingleCompanyResource;
 use App\Models\Company;
 use App\Services\MainCoordinator\CompanyService;
 use Illuminate\Http\JsonResponse;
@@ -23,6 +25,11 @@ class CompanyController extends Controller
     public function index(): AnonymousResourceCollection
     {
         return $this->companyService->index();
+    }
+
+    public function fetchCompany(Company $company): SingleCompanyResource
+    {
+        return $this->companyService->fetchCompany($company);
     }
 
     public function store(CompanyFormRequest $request): JsonResponse

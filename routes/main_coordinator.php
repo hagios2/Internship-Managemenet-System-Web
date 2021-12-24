@@ -79,9 +79,11 @@ Route::post('/company', 'CompanyController@store');
 
 Route::get('/companies', 'CompanyController@index');
 
-Route::post('/company/{company}/update', 'CompanyController@update');
+Route::get('/get/{company}/company', 'CompanyController@fetchCompany');
 
-Route::delete('/company/{company}/update', 'CompanyController@destroy');
+Route::put('/company/{company}/update', 'CompanyController@update');
+
+Route::delete('/company/{company}/delete', 'CompanyController@destroy');
 
 #------------------------------------------------- END COMPANY ROUTE --------------------------------------
 

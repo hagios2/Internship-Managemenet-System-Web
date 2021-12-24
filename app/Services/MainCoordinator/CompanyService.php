@@ -4,6 +4,7 @@ namespace App\Services\MainCoordinator;
 
 use App\Http\Requests\CompanyFormRequest;
 use App\Http\Resources\MainCoordinator\CompanyResource;
+use App\Http\Resources\MainCoordinator\SingleCompanyResource;
 use App\Models\Company;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -15,9 +16,11 @@ class CompanyService
         return CompanyResource::collection(Company::query()->latest()->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function fetchCompany(Company $company): SingleCompanyResource
+    {
+        return new SingleCompanyResource($company);
+    }
+
     public function store(CompanyFormRequest $request): JsonResponse
     {
         $company = Company::create($request->validated());
