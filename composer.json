@@ -19,6 +19,7 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.5",
         "pusher/pusher-php-server": "^2.2",
+        "sentry/sentry-laravel": "^2.10",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
