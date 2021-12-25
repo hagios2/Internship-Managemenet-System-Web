@@ -5,10 +5,11 @@ namespace App\Services\MainCoordinator;
 use App\Http\Requests\CoordinatorFormRequest;
 use App\Http\Resources\CoordinatorResource;
 use App\Http\Resources\MainCoordinator\SingleCoordinatorResource;
-use App\Mail\CoordinatorRegistratioinMail;
+use App\Mail\CoordinatorRegistrationMail;
 use App\Models\Cordinator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -28,23 +29,33 @@ class CoordinatorService
 
     public function store(CoordinatorFormRequest $request): JsonResponse
     {
-        $attributes = $request->validated();
+        DB::beginTransaction();
 
-        $password = Str::random(8);
+        try {
+            $attributes = $request->validated();
 
-        $attributes['password'] = Hash::make($password);
+            $password = Str::random(8);
 
-        $attributes['staff_id'] = $request->filled('staff_id') ? $attributes['staff_id'] : 'STF'.rand(10000, 999999);
+            $attributes['password'] = Hash::make($password);
 
-        Log::info(json_encode($attributes));
+            $attributes['staff_id'] = $request->filled('staff_id') ? $attributes['staff_id'] : 'STF'.rand(10000, 999999);
 
-        $attributes['must_change_password'] = true;
+            Log::info(json_encode($attributes));
 
-        $coordinator = Cordinator::create($attributes);
+            $attributes['must_change_password'] = true;
 
-        Mail::to($coordinator)->queue(new CoordinatorRegistratioinMail($coordinator, $password));
+            $coordinator = Cordinator::create($attributes);
 
-        return response()->json(['message' => 'success', 'coordinator' => new CoordinatorResource($coordinator) ], 201);
+            Mail::to($coordinator)->queue(new CoordinatorRegistrationMail($coordinator, $password));
+
+            DB::commit();
+
+            return response()->json(['message' => 'success', 'coordinator' => new CoordinatorResource($coordinator) ], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json(['message' => 'Something went wrong']);
+        }
     }
 
     public function update(CoordinatorFormRequest $request, Cordinator $coordinator): JsonResponse

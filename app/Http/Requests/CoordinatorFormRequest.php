@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class CoordinatorFormRequest extends FormRequest
@@ -27,7 +28,7 @@ class CoordinatorFormRequest extends FormRequest
         if ($this->method() === 'POST') {
             $unique_rules = Rule::unique('cordinators');
         } else {
-            $unique_rules = Rule::unique('cordinators')->ignore($this->route()->parameter('cordinators')->id);
+            $unique_rules = Rule::unique('cordinators')->ignore($this->route()->parameter('coordinator')->id);
         }
         return [
 

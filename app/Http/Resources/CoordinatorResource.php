@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CoordinatorResource extends JsonResource
@@ -14,6 +15,15 @@ class CoordinatorResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'staff_id' => $this->staff_id,
+            'isActive' => $this->isActive,
+            'department' => $this->department,
+            'company' => $this->company,
+            'created_at' => Carbon::parse($this->created_at)->format('D, d F Y')
+        ];
     }
 }

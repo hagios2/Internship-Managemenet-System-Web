@@ -8,21 +8,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CoordinatorRegistratioinMail extends Mailable
+class CoordinatorRegistrationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    private Cordinator $coordinator;
-    private string $password;
+    public Cordinator $cordinator;
+
+    public string $password;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Cordinator $coordinator, string $password)
+    public function __construct(Cordinator $cordinator, string $password)
     {
-        $this->coordinator = $coordinator;
+        $this->cordinator = $cordinator;
 
         $this->password = $password;
     }
@@ -32,9 +33,9 @@ class CoordinatorRegistratioinMail extends Mailable
      *
      * @return $this
      */
-    public function build(): CoordinatorRegistratioinMail
+    public function build(): CoordinatorRegistrationMail
     {
-        return $this->view('mail.CoordinatorRegistrationMail')
+        return $this->markdown('mail.CoordinatorRegistrationMail')
             ->subject('Staff Registration Mail');
     }
 }

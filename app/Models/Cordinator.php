@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Notifications\CordinatorResetPassword;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -40,14 +42,19 @@ class Cordinator extends Authenticatable
         $this->notify(new CordinatorResetPassword($token));
     }
 
-    public function appointment()
+    public function appointment(): HasMany
     {
-        return $this->hasMany('App\Models\Appointment');
+        return $this->hasMany(Appointment::class);
     }
 
 
-    public function department()
+    public function department(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Department');
+        return $this->belongsTo(Department::class);
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 }

@@ -40,13 +40,13 @@
             <tr>
                 <td style="padding:0px 30px;">
                     <p style="font-size: 14px; color: #25383C; font-weight: 400;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-                        <span style="font-weight: 700;font-size: 18px;text-align: left !important;">Congratulations {{ $coordinator->name }}!</span><br/><br/> You have been added as a Staff on the UENR internship Platform. <br>
+                        <span style="font-weight: 700;font-size: 18px;text-align: left !important;">Congratulations {{ $cordinator->name }}!</span><br/><br/> You have been added as a Staff on the UENR internship Platform. <br>
                         Kindly find the credentials below to login
                         You are one click away from completing your registration. To proceed, please click the button below.
                     </p>
 
                     <p style="font-size: 14px; color: #25383C; font-weight: 400;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-                        <span style="font-weight: 700;font-size: 18px;text-align: left !important;">Email: <b>{{ $coordinator->email }}</b> </span><br/><br>
+                        <span style="font-weight: 700;font-size: 18px;text-align: left !important;">Email: <b>{{ $cordinator->email }}</b> </span><br/><br>
                         <span style="font-weight: 700;font-size: 18px;text-align: left !important;">Password: <b>{{ $password }}</b> </span><br/><br/>
                     </p>
                 </td>
