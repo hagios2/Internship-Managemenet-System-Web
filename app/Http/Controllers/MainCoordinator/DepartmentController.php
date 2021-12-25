@@ -39,4 +39,9 @@ class DepartmentController extends Controller
     {
         return $this->departmentService->destroy($department);
     }
+
+    public function fetchDepartments(): JsonResponse
+    {
+        return $this->departmentService->fetchDepartments();
+    }
 }

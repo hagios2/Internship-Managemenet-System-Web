@@ -6,6 +6,9 @@ use App\Notifications\CordinatorResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static create(array $validated)
+ */
 class Cordinator extends Authenticatable
 {
     use Notifiable;
@@ -15,9 +18,7 @@ class Cordinator extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'device_token', 'department_id'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for arrays.

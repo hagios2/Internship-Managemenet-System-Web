@@ -91,4 +91,22 @@ Route::delete('/company/{company}/delete', 'CompanyController@destroy');
 
 Route::get('/cities', 'RegionsController@fetchRegions');
 
+Route::get('/fetch-departments', 'DepartmentController@fetchDepartments');
+
+Route::get('/fetch-companies', 'CompanyController@fetchCompanies');
+
 #------------------------------------------------- END REGION ROUTE --------------------------------------
+
+#------------------------------------------------- COORDINATOR ROUTES ------------------------------------------
+
+Route::post('/staff', 'CoordinatorController@store');
+
+Route::get('/staff', 'CoordinatorController@index');
+
+Route::get('/get/{coordinator}/staff', 'CoordinatorController@fetchCompany');
+
+Route::put('/staff/{coordinator}/update', 'CoordinatorController@update');
+
+Route::delete('/staff/{coordinator}/delete', 'CoordinatorController@destroy');
+
+#------------------------------------------------- END COORDINATOR ROUTE --------------------------------------

@@ -13,7 +13,7 @@ class AddCompanyTypeToCompany extends Migration
      */
     public function up()
     {
-        Schema::table('company', function (Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table) {
             $table->string('company_type')->index();
         });
     }
@@ -25,7 +25,7 @@ class AddCompanyTypeToCompany extends Migration
      */
     public function down()
     {
-        Schema::table('company', function (Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table) {
             $table->dropColumn('company_type');
         });
     }

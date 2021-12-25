@@ -4,7 +4,6 @@ namespace App\Http\Controllers\MainCoordinator;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
-use App\Http\Resources\MainCoordinator\CompanyResource;
 use App\Http\Resources\MainCoordinator\SingleCompanyResource;
 use App\Models\Company;
 use App\Services\MainCoordinator\CompanyService;
@@ -45,5 +44,10 @@ class CompanyController extends Controller
     public function destroy(Company $company): JsonResponse
     {
         return $this->companyService->destroy($company);
+    }
+
+    public function fetchCompanies(): JsonResponse
+    {
+        return $this->companyService->fetchCompanies();
     }
 }

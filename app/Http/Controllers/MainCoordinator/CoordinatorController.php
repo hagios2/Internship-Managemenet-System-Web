@@ -3,47 +3,46 @@
 namespace App\Http\Controllers\MainCoordinator;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CompanyFormRequest;
-use App\Http\Resources\MainCoordinator\SingleCompanyResource;
-use App\Models\Company;
-use App\Services\MainCoordinator\CompanyService;
+use App\Http\Requests\CoordinatorFormRequest;
+use App\Http\Resources\MainCoordinator\SingleCoordinatorResource;
+use App\Models\Cordinator;
+use App\Services\MainCoordinator\CoordinatorService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CoordinatorController extends Controller
 {
-    private CompanyService $companyService;
+    private CoordinatorService $coordinatorService;
 
-    public function __construct(CompanyService $companyService)
+    public function __construct(CoordinatorService $coordinatorService)
     {
         $this->middleware('auth:main_coordinator');
 
-        $this->companyService = $companyService;
+        $this->coordinatorService = $coordinatorService;
     }
 
     public function index(): AnonymousResourceCollection
     {
-        return $this->companyService->index();
+        return $this->coordinatorService->index();
     }
 
-    public function fetchCompany(Company $company): SingleCompanyResource
+    public function fetchCompany(Cordinator $coordinator): SingleCoordinatorResource
     {
-        return $this->companyService->fetchCompany($company);
+        return $this->coordinatorService->fetchCoordinator($coordinator);
     }
 
-    public function store(CompanyFormRequest $request): JsonResponse
+    public function store(CoordinatorFormRequest $request): JsonResponse
     {
-        return $this->companyService->store($request);
+        return $this->coordinatorService->store($request);
     }
 
-    public function update(CompanyFormRequest $request, Company $company): JsonResponse
+    public function update(CoordinatorFormRequest $request, Cordinator $coordinator): JsonResponse
     {
-        return $this->companyService->update($request, $company);
+        return $this->coordinatorService->update($request, $coordinator);
     }
 
-    public function destroy(Company $company): JsonResponse
+    public function destroy(Cordinator $coordinator): JsonResponse
     {
-        return $this->companyService->destroy($company);
+        return $this->coordinatorService->destroy($coordinator);
     }
 }

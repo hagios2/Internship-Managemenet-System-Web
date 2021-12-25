@@ -15,6 +15,9 @@ class AddStaffIdToCoordinators extends Migration
     {
         Schema::table('cordinators', function (Blueprint $table) {
             $table->string('staff_id')->unique()->index();
+            $table->boolean('is_active')->default(true);
+            $table->boolean('must_change_password')->default(false);
+            $table->integer('company_id')->index();
         });
     }
 

@@ -49,4 +49,9 @@ class CompanyService
 
         return response()->json(['message' => 'success']);
     }
+
+    public function fetchCompanies(): JsonResponse
+    {
+        return response()->json(['companies' => Company::all(['id', 'company_name'])]);
+    }
 }
